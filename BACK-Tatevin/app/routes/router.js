@@ -1,15 +1,14 @@
 var express = require("express");
 var router = express.Router();
 var User = require("./../models/user");
+var path    = require("path");
 
 const userController = require("./../controllers/userController");
 
 //HOME
 router.route("/").all(function(req, res) {
-  res.json({
-    message: "TravelBook API ",
-    methode: req.method
-  });
+  res.sendFile(path.join(__dirname+'/../../dist/index.html'));
+  // prod => res.sendFile(path.join(__dirname+'/../../dist/index.html'));
 });
 
 

@@ -5,7 +5,8 @@ let express = require("express");
 let mongoose = require("mongoose");
 let morgan = require('morgan');
 let bodyParser = require("body-parser");
-
+var path    = require("path");
+var router = express.Router();
 //Host-variables
 let hostname = "localhost";
 let port = 3001;
@@ -43,6 +44,7 @@ app.use(function (req, res, next) {
 
 //Include routes (ex /home, /users...)
 let routes = require("./app/routes/router");
+
 app.use("/", routes);
 
 // Starting the server
