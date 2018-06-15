@@ -2,16 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3d773c16-8ecd-4390-a4a8-596354c48e56" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/BACK-Tatevin/app/controllers/wineStoryController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BACK-Tatevin/app/controllers/userController.js" beforeDir="false" afterPath="$PROJECT_DIR$/BACK-Tatevin/app/controllers/userController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BACK-Tatevin/app/routes/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/BACK-Tatevin/app/routes/router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACK-Tatevin/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/BACK-Tatevin/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BACK-Tatevin/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/BACK-Tatevin/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FRONT-Tatevin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/FRONT-Tatevin/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FRONT-Tatevin/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/FRONT-Tatevin/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FRONT-Tatevin/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/FRONT-Tatevin/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FRONT-Tatevin/src/components/Hello.vue" beforeDir="false" afterPath="$PROJECT_DIR$/FRONT-Tatevin/src/components/Hello.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FRONT-Tatevin/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/FRONT-Tatevin/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FRONT-Tatevin/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/FRONT-Tatevin/src/router/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FRONT-Tatevin/static/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/FRONT-Tatevin/static/manifest.json" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -24,98 +18,42 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/src/main.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="11" column="81" lean-forward="true" selection-start-line="11" selection-start-column="81" selection-end-line="11" selection-end-column="81" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dev-server.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/build/dev-server.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1156">
-              <caret line="68" column="29" selection-start-line="68" selection-start-column="29" selection-end-line="68" selection-end-column="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="service-worker-dev.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/build/service-worker-dev.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" selection-start-line="7" selection-end-line="16" selection-end-column="3" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sw.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/static/sw.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" column="50" selection-start-line="21" selection-start-column="50" selection-end-line="21" selection-end-column="50" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/BACK-Tatevin/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="router.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BACK-Tatevin/app/routes/router.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="10" column="73" selection-start-line="10" selection-start-column="73" selection-end-line="10" selection-end-column="73" />
+            <state relative-caret-position="68">
+              <caret line="37" selection-start-line="37" selection-end-line="37" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/index.html">
+      <file leaf-file-name="wineStoryController.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/BACK-Tatevin/app/controllers/wineStoryController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="29" column="10" selection-start-line="29" selection-start-column="10" selection-end-line="29" selection-end-column="10" />
+            <state relative-caret-position="51">
+              <caret line="3" column="11" selection-start-line="3" selection-start-column="11" selection-end-line="3" selection-end-column="11" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="route.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/src/assets/sw-toolbox/lib/route.js">
-          <provider selected="true" editor-type-id="text-editor" />
+      <file leaf-file-name="userController.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/BACK-Tatevin/app/controllers/userController.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="95" column="6" lean-forward="true" selection-end-line="106" selection-end-column="1" />
+            </state>
+          </provider>
         </entry>
       </file>
-      <file leaf-file-name="manifest.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/static/manifest.json">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/BACK-Tatevin/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="17" selection-start-line="17" selection-end-line="17" />
+            <state relative-caret-position="272">
+              <caret line="45" column="13" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="13" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -166,9 +104,11 @@
         <option value="$PROJECT_DIR$/tatevin/tatevin/static/manifest.json" />
         <option value="$PROJECT_DIR$/FRONT-Tatevin/static/sw.js" />
         <option value="$PROJECT_DIR$/BACK-Tatevin/index.html" />
-        <option value="$PROJECT_DIR$/BACK-Tatevin/app/routes/router.js" />
         <option value="$PROJECT_DIR$/FRONT-Tatevin/src/main.js" />
         <option value="$PROJECT_DIR$/BACK-Tatevin/index.js" />
+        <option value="$PROJECT_DIR$/BACK-Tatevin/app/controllers/userController.js" />
+        <option value="$PROJECT_DIR$/BACK-Tatevin/app/routes/router.js" />
+        <option value="$PROJECT_DIR$/BACK-Tatevin/app/controllers/wineStoryController.js" />
       </list>
     </option>
   </component>
@@ -599,288 +539,6 @@
       <path value="$PROJECT_DIR$/BACK-Tatevin/node_modules/xdg-basedir/package.json" />
       <path value="$PROJECT_DIR$/BACK-Tatevin/node_modules/yallist/package.json" />
       <path value="$PROJECT_DIR$/BACK-Tatevin/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/@babel/code-frame/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/@babel/generator/node_modules/jsesc/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/@babel/generator/node_modules/source-map/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/@babel/generator/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/@babel/helper-function-name/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/@babel/helper-get-function-arity/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/@babel/helper-split-export-declaration/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/@babel/highlight/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/@babel/template/node_modules/babylon/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/@babel/template/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/@babel/traverse/node_modules/babylon/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/@babel/traverse/node_modules/debug/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/@babel/traverse/node_modules/globals/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/@babel/traverse/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/@babel/types/node_modules/to-fast-properties/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/@babel/types/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/@sinonjs/formatio/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/abbrev/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/accepts/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/acorn-dynamic-import/node_modules/acorn/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/acorn-dynamic-import/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/acorn-jsx/node_modules/acorn/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/acorn-jsx/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/acorn/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/after/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/agent-base/node_modules/semver/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/agent-base/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/ajv-keywords/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/ajv/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/align-text/node_modules/kind-of/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/align-text/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/alphanum-sort/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/amdefine/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/ansi-align/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/ansi-escapes/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/ansi-html/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/ansi-regex/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/ansi-styles/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/anymatch/node_modules/arr-diff/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/anymatch/node_modules/array-unique/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/anymatch/node_modules/braces/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/anymatch/node_modules/expand-brackets/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/anymatch/node_modules/extglob/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/anymatch/node_modules/is-extglob/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/anymatch/node_modules/is-glob/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/anymatch/node_modules/kind-of/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/anymatch/node_modules/micromatch/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/anymatch/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/aproba/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/argparse/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/arr-diff/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/arr-flatten/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/arr-union/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/array-find-index/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/array-flatten/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/array-slice/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/array-union/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/array-uniq/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/array-unique/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/arraybuffer.slice/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/arrify/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/asn1.js/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/asn1/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/assert-plus/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/assert/node_modules/inherits/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/assert/node_modules/util/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/assert/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/assertion-error/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/assign-symbols/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/ast-types/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/async-each/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/async-limiter/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/async/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/asynckit/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/atob/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/autoprefixer/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/aws-sign2/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/aws4/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-code-frame/node_modules/ansi-styles/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-code-frame/node_modules/chalk/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-code-frame/node_modules/supports-color/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-code-frame/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-core/node_modules/source-map/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-core/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-eslint/node_modules/babylon/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-eslint/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-generator/node_modules/source-map/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-generator/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-helper-bindify-decorators/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-helper-builder-binary-assignment-operator-visitor/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-helper-call-delegate/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-helper-define-map/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-helper-explode-assignable-expression/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-helper-explode-class/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-helper-function-name/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-helper-get-function-arity/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-helper-hoist-variables/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-helper-optimise-call-expression/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-helper-regex/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-helper-remap-async-to-generator/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-helper-replace-supers/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-helpers/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-loader/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-messages/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-check-es2015-constants/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-istanbul/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-syntax-async-functions/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-syntax-async-generators/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-syntax-class-properties/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-syntax-decorators/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-syntax-dynamic-import/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-syntax-exponentiation-operator/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-syntax-object-rest-spread/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-syntax-trailing-function-commas/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-transform-async-generator-functions/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-transform-async-to-generator/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-transform-class-properties/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-transform-decorators/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-transform-es2015-arrow-functions/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-transform-es2015-block-scoped-functions/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-transform-es2015-block-scoping/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-transform-es2015-classes/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-transform-es2015-computed-properties/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-transform-es2015-destructuring/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-transform-es2015-duplicate-keys/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-transform-es2015-for-of/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-transform-es2015-function-name/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-transform-es2015-literals/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-transform-es2015-modules-amd/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-transform-es2015-modules-commonjs/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-transform-es2015-modules-systemjs/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-transform-es2015-modules-umd/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-transform-es2015-object-super/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-transform-es2015-parameters/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-transform-es2015-shorthand-properties/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-transform-es2015-spread/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-transform-es2015-sticky-regex/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-transform-es2015-template-literals/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-transform-es2015-typeof-symbol/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-transform-es2015-unicode-regex/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-transform-exponentiation-operator/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-transform-object-rest-spread/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-transform-regenerator/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-transform-runtime/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-plugin-transform-strict-mode/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-preset-env/node_modules/browserslist/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-preset-env/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-preset-stage-2/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-preset-stage-3/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-register/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-runtime/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-template/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-traverse/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babel-types/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/babylon/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/backo2/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/balanced-match/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/base/node_modules/define-property/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/base/node_modules/is-accessor-descriptor/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/base/node_modules/is-data-descriptor/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/base/node_modules/is-descriptor/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/base/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/base64-arraybuffer/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/base64-js/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/base64id/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/bcrypt-pbkdf/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/better-assert/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/bfj-node4/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/big.js/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/binary-extensions/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/blob/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/bluebird/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/bn.js/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/body-parser/node_modules/iconv-lite/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/body-parser/node_modules/qs/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/body-parser/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/boolbase/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/boxen/node_modules/camelcase/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/boxen/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/brace-expansion/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/braces/node_modules/extend-shallow/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/braces/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/brorand/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/browser-stdout/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/browserify-aes/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/browserify-cipher/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/browserify-des/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/browserify-rsa/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/browserify-sign/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/browserify-zlib/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/browserslist/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/buffer-from/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/buffer-xor/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/buffer/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/builtin-modules/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/builtin-status-codes/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/bytes/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/cacache/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/cache-base/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/caller-path/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/callsite/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/callsites/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/camel-case/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/camelcase-keys/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/camelcase/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/caniuse-api/node_modules/browserslist/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/caniuse-api/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/caniuse-db/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/caniuse-lite/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/capture-stack-trace/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/caseless/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/center-align/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/chai-nightwatch/node_modules/assertion-error/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/chai-nightwatch/node_modules/deep-eql/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/chai-nightwatch/node_modules/type-detect/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/chai-nightwatch/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/chai/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/chalk/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/chardet/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/check-error/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/check-types/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/chokidar/node_modules/is-extglob/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/chokidar/node_modules/is-glob/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/chokidar/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/chownr/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/chromedriver/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/ci-info/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/cipher-base/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/circular-json/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/clap/node_modules/ansi-styles/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/clap/node_modules/chalk/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/clap/node_modules/supports-color/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/clap/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/class-utils/node_modules/define-property/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/class-utils/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/clean-css/node_modules/source-map/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/clean-css/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/cli-boxes/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/cli-cursor/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/cli-spinners/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/cli-width/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/cliui/node_modules/wordwrap/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/cliui/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/clone/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/co/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/coa/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/coalescy/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/code-point-at/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/collection-visit/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/color-convert/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/color-name/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/color-string/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/color/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/colormin/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/colors/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/combine-lists/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/combined-stream/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/commander/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/commondir/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/component-bind/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/component-emitter/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/component-inherit/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/concat-map/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/concat-stream/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/configstore/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/connect-history-api-fallback/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/connect/node_modules/finalhandler/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/connect/node_modules/statuses/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/connect/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/console-browserify/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/consolidate/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/constants-browserify/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/contains-path/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/content-disposition/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/content-type/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/convert-source-map/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/cookie-signature/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/cookie/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/copy-concurrently/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/copy-descriptor/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/copy-webpack-plugin/node_modules/globby/package.json" />
-      <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/copy-webpack-plugin/package.json" />
       <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/core-js/package.json" />
       <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/core-util-is/package.json" />
       <path value="$PROJECT_DIR$/FRONT-Tatevin/node_modules/cosmiconfig/node_modules/minimist/package.json" />
@@ -2092,6 +1750,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -2115,50 +1774,24 @@
               <item name="UPMC-TateVin" type="462c0819:PsiDirectoryNode" />
               <item name="BACK-Tatevin" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
+              <item name="controllers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="UPMC-TateVin" type="b2602c69:ProjectViewProjectNode" />
               <item name="UPMC-TateVin" type="462c0819:PsiDirectoryNode" />
               <item name="BACK-Tatevin" type="462c0819:PsiDirectoryNode" />
-              <item name="dist" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="routes" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="UPMC-TateVin" type="b2602c69:ProjectViewProjectNode" />
               <item name="UPMC-TateVin" type="462c0819:PsiDirectoryNode" />
               <item name="FRONT-Tatevin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="UPMC-TateVin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="UPMC-TateVin" type="462c0819:PsiDirectoryNode" />
-              <item name="FRONT-Tatevin" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="UPMC-TateVin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="UPMC-TateVin" type="462c0819:PsiDirectoryNode" />
-              <item name="FRONT-Tatevin" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="UPMC-TateVin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="UPMC-TateVin" type="462c0819:PsiDirectoryNode" />
-              <item name="FRONT-Tatevin" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="UPMC-TateVin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="UPMC-TateVin" type="462c0819:PsiDirectoryNode" />
-              <item name="FRONT-Tatevin" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2208,29 +1841,39 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16271000" />
+    <option name="totallyTimeSpent" value="17759000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.24963397" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.24963397" />
       <window_info anchor="bottom" id="TODO" order="10" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Find" order="5" sideWeight="0.4978038" weight="0.3290938" />
-      <window_info anchor="bottom" id="Run" order="6" sideWeight="0.4692533" weight="0.5437202" />
       <window_info anchor="bottom" id="Version Control" order="3" />
+      <window_info anchor="bottom" id="Run" order="6" sideWeight="0.4692533" weight="0.5437202" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="1" sideWeight="0.5021962" side_tool="true" visible="true" weight="0.3290938" />
-      <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="1" sideWeight="0.5021962" side_tool="true" visible="true" weight="0.3290938" />
       <window_info id="Favorites" order="0" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.24963397" />
+      <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="TODO" order="10" />
+      <window_info anchor="bottom" id="Version Control" order="3" />
+      <window_info anchor="bottom" id="Run" order="6" sideWeight="0.4692533" weight="0.5437202" />
+      <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="4" />
+      <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="5" sideWeight="0.4978038" weight="0.3290938" />
+      <window_info anchor="bottom" id="Terminal" order="1" sideWeight="0.5021962" side_tool="true" visible="true" weight="0.3290938" />
+      <window_info id="Favorites" order="0" side_tool="true" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -2245,8 +1888,15 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/src/assets/logo.png">
-      <provider selected="true" editor-type-id="images" />
+    <entry file="file://$PROJECT_DIR$/BACK-Tatevin/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/test/e2e/nightwatch.conf.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -2262,22 +1912,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/.babelrc">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/build/webpack.dev.conf.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-323" />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/build/utils.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/config/prod.env.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/config/dev.env.js">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/build/webpack.prod.conf.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -2293,9 +1931,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/build/dev-client.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/config/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="175">
@@ -2303,20 +1938,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/src/worker.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="51" column="3" selection-start-line="51" selection-start-column="3" selection-end-line="51" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/src/worker.js" />
     <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/src/router/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" selection-start-line="5" selection-end-line="5" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2337,9 +1963,6 @@
         <state relative-caret-position="-357" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/src/sw.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/BACK-Tatevin/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -2347,32 +1970,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/src/assets/sw-toolbox/lib/route.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/static/manifest.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        <state relative-caret-position="272">
+          <caret line="16" column="26" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="26" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tatevin/tatevin/src/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tatevin/tatevin/static/manifest.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="2" selection-start-column="2" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/tatevin/tatevin/src/main.js" />
+    <entry file="file://$PROJECT_DIR$/tatevin/tatevin/static/manifest.json" />
     <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/static/sw.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
@@ -2382,7 +1988,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/build/service-worker-dev.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
+        <state relative-caret-position="51">
           <caret line="7" selection-start-line="7" selection-end-line="16" selection-end-column="3" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
@@ -2406,25 +2012,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="29" column="10" selection-start-line="29" selection-start-column="10" selection-end-line="29" selection-end-column="10" />
+        <state relative-caret-position="272">
+          <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/BACK-Tatevin/app/routes/router.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="10" column="73" selection-start-line="10" selection-start-column="73" selection-end-line="10" selection-end-column="73" />
+        <state relative-caret-position="170">
+          <caret line="11" column="5" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/src/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="11" column="81" lean-forward="true" selection-start-line="11" selection-start-column="81" selection-end-line="11" selection-end-column="81" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
+        <state relative-caret-position="119">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
         </state>
       </provider>
     </entry>
@@ -2437,11 +2040,175 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/BACK-Tatevin/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
+        <state relative-caret-position="272">
+          <caret line="53" selection-start-line="53" selection-end-line="53" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/test/e2e/nightwatch.conf.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="25" column="39" selection-start-line="25" selection-start-column="30" selection-end-line="25" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/test/e2e/runner.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="34" selection-start-line="2" selection-start-column="34" selection-end-line="2" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/build/webpack.dev.conf.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-323" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/build/webpack.prod.conf.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="73" column="13" selection-start-line="73" selection-start-column="13" selection-end-line="73" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/build/service-worker-prod.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="16" column="11" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/config/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="30" column="26" selection-start-line="30" selection-start-column="26" selection-end-line="30" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/src/worker.js" />
+    <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/src/router/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/src/components/Hello.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="27" column="5" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/src/App.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-646" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/build/build.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-357" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BACK-Tatevin/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="16" selection-start-line="1" selection-start-column="16" selection-end-line="1" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/static/manifest.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="26" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tatevin/tatevin/src/main.js" />
+    <entry file="file://$PROJECT_DIR$/tatevin/tatevin/static/manifest.json" />
+    <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/static/sw.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="50" selection-start-line="21" selection-start-column="50" selection-end-line="21" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/build/service-worker-dev.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="7" selection-start-line="7" selection-end-line="16" selection-end-column="3" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BACK-Tatevin/dist/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="7" selection-start-column="7" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/src/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FRONT-Tatevin/build/dev-server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1156">
+          <caret line="68" column="29" selection-start-line="68" selection-start-column="29" selection-end-line="68" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BACK-Tatevin/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="45" column="13" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="13" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BACK-Tatevin/app/controllers/userController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="95" column="6" lean-forward="true" selection-end-line="106" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BACK-Tatevin/app/routes/router.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="37" selection-start-line="37" selection-end-line="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BACK-Tatevin/app/controllers/wineStoryController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="11" selection-start-line="3" selection-start-column="11" selection-end-line="3" selection-end-column="11" />
         </state>
       </provider>
     </entry>
