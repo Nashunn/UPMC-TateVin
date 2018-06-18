@@ -1,12 +1,15 @@
-/* 
- * USER MODEL 
+/*
+ * USER MODEL
  */
 
-var mongoose = require("mongoose");
-var bcrypt = require("bcryptjs");
+let mongoose = require("mongoose");
+let bcrypt = require("bcryptjs");
+let shortid = require("shortid");
+let Schema = mongoose.Schema;
 
 //Describe the schema (model)
-var userSchema = mongoose.Schema({
+let userSchema = mongoose.Schema({
+  id: {type: String, require: true, default: shortid.generate()},
   email: {
     type: String,
     trim: true,
@@ -16,32 +19,26 @@ var userSchema = mongoose.Schema({
   },
   username: {
     type: String,
-    trim: true
+    trim: true,
+    required: true,
+    unique: true,
   },
-  firstName: {
-    type: String,
-    trim: true
-  },
-  lastName: {
-    type: String,
-    trim: true
-  },
-  userStatus: {
-    type: Boolean
+  birthday: {
+    type: Date,
+    default: Date.now
   },
   password: {
     type: String
   },
-  passwordConf: {
-    type: String
-  },
-  authorOfCards: [Number],
-  authorOfBooks: [Number],
-  avatar: {type:String}
-
+  avatar: {type: String},
+  subscription: [{type: Schema.Types.ObjectId, ref: "User"}],
+  description: String,
+  is_admin: Boolean,
+  cave: {type: Schema.Types.ObjectId, ref: "WineList"},
+  wishlist: {type: Schema.Types.ObjectId, ref: "WineList"}
 });
 
-var User = mongoose.model("User", userSchema);
+let User = mongoose.model("User", userSchema);
 
 //not used
 userSchema.methods.comparePassword = function(pass, cb) {
