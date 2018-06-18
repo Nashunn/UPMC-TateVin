@@ -9,7 +9,7 @@ var path    = require("path");
 var router = express.Router();
 //Host-variables
 let hostname = "localhost";
-let port = 3001;
+let port = 4001;
 
 //Using express
 const app = express();
