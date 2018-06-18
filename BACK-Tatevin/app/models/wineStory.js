@@ -1,21 +1,23 @@
 /*
- * USER MODEL
+ * WS MODEL
  */
 
 var mongoose = require("mongoose");
 var bcrypt = require("bcryptjs");
+let shortid= require("shortid");
+let Schema = mongoose.Schema;
 
 //Describe the schema (model)
 var wineStorySchema = mongoose.Schema({
-  id: { type: String, require: true },
-  author: {type: ObjectId, ref:'User'},
-  date: Date.now,
+  id: { type: String, require: true, default: shortid.generate()},
+  author: {type: Schema.Types.ObjectId, ref:'User'},
+  date: {type:Date, default:Date.now},
   title: String,
   text: String,
   image: String,
-  wine : [{type: ObjectId, ref: 'Wine'}],
-  tags: [{type:ObjectId, ref: "Tag"}],
-  comments: [{type:ObjectId, ref: "Comment"}],
+  wine : [{type: Schema.Types.ObjectId, ref: 'Wine'}],
+  tags: [{type:Schema.Types.ObjectId, ref: "Tag"}],
+  comments: [{type:Schema.Types.ObjectId, ref: "Comment"}]
 });
 
 var WineStory = mongoose.model("WineStory", wineStorySchema);

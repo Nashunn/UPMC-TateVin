@@ -48,7 +48,7 @@ router
 router.get("/wineStory",  wineStoryController.findAll)
 
 router
-  .post("/wineStory", wine.createWS);
+  .post("/wineStory", wineStoryController.createWS);
 
 /*===========*
  * Instance  *
