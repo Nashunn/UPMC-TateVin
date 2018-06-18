@@ -9,8 +9,7 @@ let Schema = mongoose.Schema;
 
 //Describe the schema (model)
 var TagSchema = mongoose.Schema({
-  id: {type: String, require: true, default: shortid.generate()},
-  label: { type: String, unique: true },
+  label: { type: String, require: true, unique: true },
   type: String
 });
 

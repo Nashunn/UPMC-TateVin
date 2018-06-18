@@ -19,7 +19,7 @@ var WineSchema = mongoose.Schema({
   type: String,
   classification: String,
   gaz: Boolean,
-  grape: [{ type: Schema.Types.ObjectId, ref:"Tag" }],
+  grape: [{ type: String}],
   keep_in_cave: Boolean,
   tasting_date: Date,
   decantation: Number, //Carrafage
