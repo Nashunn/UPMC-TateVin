@@ -1,5 +1,5 @@
 <template>
-    <div>
+
         <nav>
             <ul>
                 <li class="wineMenu"><a href="/vins">Vins</a></li>
@@ -12,7 +12,7 @@
                 <li class="dictionnaryMenu"><a href="liste-de-souhait">Ma liste de souhait</a></li>
             </ul>
         </nav>
-    </div>
+    
 </template>
 <script>
 export default {
