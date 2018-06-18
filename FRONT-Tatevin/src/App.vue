@@ -1,8 +1,7 @@
 <template>
   <div id="app">
-    <header>
-      <span>Vue.js PWA</span>
-    </header>
+      <Header />
+      <MenuLeft />
     <main>
       <img src="./assets/logo.png" alt="Vue.js PWA">
       <router-view></router-view>
@@ -11,7 +10,10 @@
 </template>
 
 <script>
+import Header from './components/Header.vue'
+import MenuLeft from './components/MenuLeft.vue'
 export default {
+  components:{Header, MenuLeft},
   name: 'app'
 }
 </script>
