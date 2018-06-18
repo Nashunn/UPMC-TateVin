@@ -4,6 +4,7 @@ var path    = require("path");
 
 const userController = require("./../controllers/userController");
 const wineStoryController = require("./../controllers/wineStoryController");
+const wineController = require("./../controllers/wineController");
 
 //HOME
 router.route("/").all(function(req, res) {
@@ -48,11 +49,32 @@ router
 router.get("/wineStory",  wineStoryController.findAll)
 
 router
-  .post("/wineStory", wine.createWS);
+  .post("/wineStory", wineStoryController.createWS);
 
 /*===========*
  * Instance  *
  *===========*/
 
+/**~~~~~~~~~~~~~~~~~END WS~~~~~~~~~~~~~~~~~**/
 
+
+/********************************************
+ *                ROADS : Wine              *
+ ********************************************/
+
+/*===========*
+ *   Type    *
+ *===========*/
+
+/* fetch all the users */
+router.get("/wines",  wineController.findAll)
+
+router
+  .post("/wine", wineController.createWine);
+
+/*===========*
+ * Instance  *
+ *===========*/
+
+/**~~~~~~~~~~~~~~~END Wine~~~~~~~~~~~~~~~~~**/
 module.exports = router;
