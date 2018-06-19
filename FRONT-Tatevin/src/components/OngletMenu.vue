@@ -10,11 +10,12 @@ export default {
       className:{type:String},
       link:{type:String},
       textOnglet:{type:String},
+      numCol:{type:Number}
   },
   computed:{
       getSize:function(){
-          var size=screen.height/10;
-          return {"height":size+"px", "width":size+"px", "margin":size*0.1}
+          var size=window.innerHeight/10*this.numCol;
+          return {"margin":"5px "+size*0.1+"px", "height":size+"px", "width":size+"px"}
       }
   }
 }

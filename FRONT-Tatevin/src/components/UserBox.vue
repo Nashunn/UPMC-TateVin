@@ -1,9 +1,9 @@
 <template>
-<b-col cols="3" xl="1" class="redGradient userBox" v-bind:class="{open:open, notOpen:!open}" no-gutters v-on:mouseenter="animProfileBox(true)" v-on:mouseleave="animProfileBox(false)">
+<b-col md="3" sm="12" class="redGradient userBox" v-bind:class="{open:open, notOpen:!open}" no-gutters v-on:mouseenter="animProfileBox(true)" v-on:mouseleave="animProfileBox(false)">
     <ul class="redGradient">
         <li class="content">
             <img class="profileIcon" src="./../assets/img/profile/default.svg" alt="Image du profil" />
-            <span class="serif">Connection</span>
+            <span class="serif"><a href="/login">Connection</a></span>
             <ul>
                 <li >Mon profil</li>
                 <li>Ma cave</li>
