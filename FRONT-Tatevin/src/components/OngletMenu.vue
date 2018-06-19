@@ -1,5 +1,5 @@
 <template>
-    <li :class="className" v-bind:style="getSize">
+    <li :class="className" v-bind:style="getSize" class="redGradient">
         <a :href="link">{{ textOnglet }}</a>
     </li>
 </template>
@@ -15,7 +15,7 @@ export default {
   computed:{
       getSize:function(){
           var size=window.innerHeight/10*this.numCol;
-          return {"margin":"5px "+size*0.1+"px", "height":size+"px", "width":size+"px"}
+          return {"margin":"5px "+size*0.05+"px", "height":size+"px", "width":size+"px"}
       }
   }
 }

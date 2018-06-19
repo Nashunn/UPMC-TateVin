@@ -15,16 +15,19 @@ html #app{
 }
 
 /****************************************************************************
-*                                    HEADER                                 *
+*                                    #header                                 *
 *****************************************************************************/
-header{
+#header{
     padding-left: 0;
     padding-right: 0;
     height:50px;
+    box-shadow:0px 5px 10px rgba(0,0,0,0.8);
+}
+#header .logo{
+    margin-left:20%;
 }
 .userBox{
     height:55px;
-    overflow:hidden;
     color:#fff;
     position:absolute;
     right:0;
@@ -36,66 +39,104 @@ header{
     font-size:1.2em;
 }
 
-.userBox.open{
+.userBox.open, .userBox.open li ul{
     height:270px;
     animation-name: open;
     animation-duration: 0.5s;
     animation-timing-function: ease;
 }
-.userBox.notOpen{
+.userBox.notOpen, .userBox.notOpen li ul{
     height:55px;
     animation-name: close;
     animation-duration: 0.5s;
     animation-timing-function: ease;
 }
-
+.userBox.open li ul{
+    height:inherit;
+}
+.userBox.notOpen li ul{
+    height:0;
+    overflow: hidden;
+}
 .userBox li ul li{
     width:80%;
     padding:15px 0;
     cursor:pointer;
 }
 .userBox li ul li:not(:last-child){
-        border-bottom:1px solid #fff;
+    border-bottom:1px solid #fff;
 }
 .userBox li ul li:not(:first-child){
-        border-top:1px solid #fff;
+    border-top:1px solid #fff;
 }
 .profileIcon{
     width:10%;
     border-radius: 100%;
 }
-
+/
 @keyframes open { 0% {height: 55px;} 100% {height: 270px;}}
 @keyframes close { 0% {height: 270px;} 100% {height: 55px; }}
 
 /****************************************************************************
 *                               MENU LEFT                                 *
 *****************************************************************************/
-.menuLeft{
+#menuLeft{
     position:fixed;
     top:0;
     height:100%;
+
 }
-.menuLeft.numCol2{
+#menuLeft{
+    display:flex;
+    cursor:pointer;
+}
+#menuLeft nav{
+    box-shadow:5px 0px 10px rgba(0,0,0,0.8);
+}
+#menuLeft div{
+    padding-top:80%;
+}
+#menuLeft.numCol2{
     width:100%;
     max-width:400px;
 }
-.menuLeft.numCol2 li{
+#menuLeft.numCol2.notOpen{
+    margin-left: -340px;
+    transition-property: margin-left;
+    transition-duration: 0.8s;
+}
+#menuLeft.numCol2.open{
+    margin-left: 0;
+    transition-property: margin-left;
+    transition-duration: 0.8s;
+}
+#menuLeft.numCol2 li{
     width:100%;
     max-width:400px;
     max-width:150px;
     max-height:150px;
 }
-.menuLeft li{
-    border:1px solid #fff;
+#menuLeft li{
+    box-shadow:2px 2px 8px rgba(0,0,0,0.8);
     min-width:100px;
     min-height:100px;
-
+    padding:15% 5%;
+    font-size:1.2em;
+    font-family: "Roboto-Bold", arial, sans-serif;
 }
-.menuLeft.numCol2 li{
+#menuLeft li:hover{
+    box-shadow:2px 2px 15px rgba(0,0,0,1);
+    transition-property: box-shadow;
+    transition-duration: 0.5s;
+}
+#menuLeft li a{
+    color:#fff;
+    padding:20% 5%;
+}
+#menuLeft.numCol2 li{
     float:left;
 }
-.menuLeft ul{
+#menuLeft ul{
     margin-top:10px;
     padding-left:0;
     text-align:center;
