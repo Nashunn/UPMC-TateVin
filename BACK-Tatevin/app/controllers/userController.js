@@ -15,7 +15,7 @@ exports.findAllUser = function (req, res) {
 
 
 exports.findOneUser = function (req, res) {
-  User.findById(req.params.user_id, function (err, user) {
+  User.find({username: req.params.user_id}, function (err, user) {
     if (err) res.send(err);
     res.json(user);
   });
@@ -99,9 +99,48 @@ exports.account = function (req, res) {
 
 
 exports.updateUser = function (req, res) {
+  var token = req.headers["x-access-token"];
+  console.log(req.headers)
+  //Deal if not found
+  if (!token)
+    return res.status(499).send({auth: false, message: "No token."});
+  jwt.verify(token, config.secret, function (err, decoded) {
+    console.log("id : ", decoded.id);
+    console.log(decoded);
+    //or found but not correct
+    if (err)
+      return res
+        .status(498)
+        .send({auth: false, message: "Failed to authenticate token.", error: err});
+    //retrieve user
+    User.findByIdAndUpdate(
+      decoded.id,
+      req.body,
+      {new: true}, //return the new one
+
+      // the callback function
+      (err, user) => {
+        // Handle any possible database errors
+        if (err) return res.status(500).send(err);
+        return res.send(user);
+      }
+    )
+  });
 }
 
 
 exports.deleteUser = function (req, res) {
-
+  let token = req.headers["x-access-token"];
+  if (!token)
+    return res.status(401).send({auth: false, message: "Not authorized."});
+  jwt.verify(token, config.secret, function (err, decoded) {
+    if (err)
+      return res
+        .status(500)
+        .send({auth: false, message: "Failed to authenticate token.", error: err});
+    User.findByIdAndRemove(decoded.id, (err, todo) => {
+      if (err) return res.status(500).send(err);
+      return res.status(200).send({msg: "User deleted ! "});
+    })
+  });
 }

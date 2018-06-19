@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Hello from '@/components/Hello'
 import Sandbox from '@/components/Sandbox'
 
+import Scanner from '@/components/Scanner/BarcodeScan'
+
 Vue.use(Router);
 
 
@@ -13,10 +15,15 @@ export default new Router({
       name: 'Hello',
       component: Hello
     },
-	{
+    {
       path: '/sandbox',
       name: 'Sandbox',
       component: Sandbox
-    }
+    },
+    {
+      path: '/scan',
+      component: Scanner
+    },
+
   ]
 })

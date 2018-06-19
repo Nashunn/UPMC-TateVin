@@ -6,6 +6,11 @@ const userController = require("./../controllers/userController");
 const wineStoryController = require("./../controllers/wineStoryController");
 const wineController = require("./../controllers/wineController");
 const tagController = require("./../controllers/tagController");
+
+const Quagga = require('quagga').default;
+
+
+
 //HOME
 router.route("/").all(function(req, res) {
   res.sendFile(path.join(__dirname+'/../../dist/index.html'));
@@ -50,7 +55,7 @@ router
  * Instance  *
  *===========*/
 router
-  .get("/users/:user_id", userController.findOneUser)
+  .get("/users/:user_id", userController.findOneUser) //need to remove password
   .put("/users/:user_id", userController.updateUser)
   .delete("/users/:user_id", userController.deleteUser);
 
@@ -96,6 +101,7 @@ router
  *===========*/
 
 /**~~~~~~~~~~~~~~~~~END WS~~~~~~~~~~~~~~~~~**/
+
 
 
 module.exports = router;
