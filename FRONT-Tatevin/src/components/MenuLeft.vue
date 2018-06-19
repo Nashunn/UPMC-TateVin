@@ -1,21 +1,34 @@
 <template>
 
-        <nav>
+        <nav class="menuLeft redGradient" :class="getNumCol">
             <ul>
-                <li class="wineMenu"><a href="/vins">Vins</a></li>
-                <li class="wineStoryMenu"><a href="comptoir">Le Comptoir <span>(Histoires de vins)</span></a></li>
-                <li class="learningMenu"><a href="/apprendre">Apprendre le vin</a></li>
-                <li class="dictionnaryMenu"><a href="/lexique">Lexique</a></li>
-                <li class="searchMenu"><a href="recherche">Rechercher un vin</a></li>
-                <li class="userPageMenu"><a href="profil/account">Mon profil</a></li>
-                <li class="caveMenu"><a href="cave">Ma cave</a></li>
-                <li class="dictionnaryMenu"><a href="liste-de-souhait">Ma liste de souhait</a></li>
+                <OngletMenu className="wineMenu" link="/vins" textOnglet="Vins" :numCol="numCol" />
+                <OngletMenu className="wineStoryMenu" link="/comptoir" textOnglet="Le Comptoir (Histoires de vins)" :numCol="numCol"/>
+                <OngletMenu className="learningMenu" link="/apprendre" textOnglet="Apprendre le vin" :numCol="numCol" />
+                <OngletMenu className="dictionnaryMenu" link="/lexique" textOnglet="Lexique" :numCol="numCol"/>
+                <OngletMenu className="userPageMenu" link="/recherche" textOnglet="Rechercher un vin" :numCol="numCol"/>
+                <OngletMenu className="wineMenu" link="/account" textOnglet="Mon profil" :numCol="numCol"/>
+                <OngletMenu className="caveMenu" link="/cave" textOnglet="Ma cave" :numCol="numCol"/>
+                <OngletMenu className="wishesMenu" link="/liste-de-souhait" textOnglet="Ma liste de souhait" :numCol="numCol" />
             </ul>
         </nav>
-    
+
 </template>
 <script>
+import OngletMenu from './OngletMenu.vue';
 export default {
-  name: 'menuLeft'
+    components:{OngletMenu},
+    data:function(){
+            return {numCol:1}
+    },
+  name: 'menuLeft',
+  computed:{
+      getNumCol:function(){
+          var numCol=1;
+          if(screen.height/11<100){numCol=2; this.numCol=2;}
+          return "numCol"+numCol;
+      }
+  }
 }
+
 </script>

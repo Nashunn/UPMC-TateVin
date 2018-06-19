@@ -1,27 +1,18 @@
 <template>
     <header>
-        <b-row xl="1"></b-row>
-        <b-row align-h="between">
-            <b-col xl="2">
-                <a href="/"><img src="./../assets/logo.svg" alt="Accueil" /></a>
+        <b-row align-h="between" no-gutters class="whiteGradient">
+            <b-col md="2" sm="12">
+                <a href="/"><img class="logo" src="./../assets/logo.svg" alt="Accueil" /></a>
             </b-col>
-            <b-col xl="3">
-                <ul>
-                    <li>Connection
-                        <ul>
-                            <li>Mon profil</li>
-                            <li>Ma cave</li>
-                            <li>Ma liste de souhait</li>
-                            <li>Deconnection</li>
-                        </ul>
-                    </li>
-                </ul>
-            </b-col>
+            <UserBox />
+
         </b-row>
     </header>
 </template>
 <script>
+import UserBox from './UserBox.vue';
 export default {
+    components:{UserBox},
   name: 'header'
 }
 </script>

@@ -1,7 +1,7 @@
 const french = {
   message: {
-    hello: 'Bonjour monde'
+    hello: 'Bonjour monde',
+    user:' coucou'
   }
 }
 export default french;
-
