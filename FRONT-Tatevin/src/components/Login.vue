@@ -1,12 +1,12 @@
 <template>
-    <section class="user-account">
-        <h2>user profile</h2>
+    <section class="login">
+        <h2>Login</h2>
     </section>
 </template>
 
 <script>
     export default {
-        name: 'UserAccount',
+        name: 'Login',
         data () {
             return {
 
