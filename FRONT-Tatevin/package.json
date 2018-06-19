@@ -15,7 +15,12 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+<<<<<<< HEAD
     "bootstrap-vue": "^2.0.0-rc.11",
+=======
+    "vuex-persistedstate": "^2.5.4",
+    "vuex": "^3.0.1",
+>>>>>>> cd5224d79a9010c7595392eb73329a873463ba24
     "dotenv": "^6.0.0",
     "sw-precache-webpack-plugin-loader": "^1.0.2",
     "sw-toolbox": "^3.6.0",
