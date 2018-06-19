@@ -1,17 +1,30 @@
 <template>
   <div id="app">
-    <header>
-      <span>Vue.js PWA</span>
-    </header>
-    <main>
-      <img src="./assets/logo.png" alt="Vue.js PWA">
-      <router-view></router-view>
-    </main>
+      <b-container fluid>
+      <Header />
+      <b-row>
+         <b-col xl="1">
+             <MenuLeft />
+        </b-col>
+        <b-col xl="11">
+            <main>
+              <img src="./assets/logo.png" alt="Vue.js PWA">
+              <router-view></router-view>
+            </main>
+        </b-col>
+    </b-row>
+</b-container>
   </div>
 </template>
 
 <script>
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+import Header from './components/Header.vue'
+import MenuLeft from './components/MenuLeft.vue'
+
 export default {
+  components:{Header, MenuLeft},
   name: 'app'
 }
 </script>
