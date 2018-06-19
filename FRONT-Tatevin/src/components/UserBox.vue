@@ -1,5 +1,5 @@
 <template>
-<b-col cols="3" class="redGradient userBox" v-bind:class="{open:open, notOpen:!open}" no-gutters v-on:mouseenter="animProfileBox(true)" v-on:mouseleave="animProfileBox(false)">
+<b-col cols="3" xl="1" class="redGradient userBox" v-bind:class="{open:open, notOpen:!open}" no-gutters v-on:mouseenter="animProfileBox(true)" v-on:mouseleave="animProfileBox(false)">
     <ul class="redGradient">
         <li class="content">
             <img class="profileIcon" src="./../assets/img/profile/default.svg" alt="Image du profil" />

@@ -8,7 +8,6 @@
         </b-col>
         <b-col cols="11">
             <main>
-              <img src="./assets/logo.png" alt="Vue.js PWA">
               <router-view></router-view>
             </main>
         </b-col>
