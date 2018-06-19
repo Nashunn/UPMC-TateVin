@@ -1,0 +1,69 @@
+li{
+    list-style-type: none;
+}
+html #app{
+    font-family:'Roboto-Medium', Arial, sans-sans-serif;
+}
+.serif{
+    font-family:'Lora-Bold', serif;
+}
+.redGradient{
+  background: linear-gradient(to right, rgb(105,0,41),rgb(128,0,43));
+}
+.whiteGradient{
+  background: linear-gradient(to right, rgb(255,243,219),rgb(255,238,158));
+}
+
+/****************************************************************************
+*                                    HEADER                                 *
+*****************************************************************************/
+header{
+    padding-left: 0;
+    padding-right: 0;
+    height:50px;
+}
+.userBox{
+    height:55px;
+    overflow:hidden;
+    color:#fff;
+    position:absolute;
+    right:0;
+    padding:15px 0;
+    z-index: 5;
+    cursor:pointer;
+}
+.userBox span{
+    font-size:1.2em;
+}
+
+.userBox.open{
+    height:270px;
+    animation-name: open;
+    animation-duration: 0.5s;
+    animation-timing-function: ease;
+}
+.userBox.notOpen{
+    height:55px;
+    animation-name: close;
+    animation-duration: 0.5s;
+    animation-timing-function: ease;
+}
+
+.userBox li ul li{
+    width:80%;
+    padding:15px 0;
+    cursor:pointer;
+}
+.userBox li ul li:not(:last-child){
+        border-bottom:1px solid #fff;
+}
+.userBox li ul li:not(:first-child){
+        border-top:1px solid #fff;
+}
+.profileIcon{
+    width:10%;
+    border-radius: 100%;
+}
+
+@keyframes open { 0% {height: 55px;} 100% {height: 270px;}}
+@keyframes close { 0% {height: 270px;} 100% {height: 55px; }}
