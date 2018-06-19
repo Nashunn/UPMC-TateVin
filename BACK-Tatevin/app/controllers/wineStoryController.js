@@ -17,7 +17,7 @@ exports.createWS = function (req, res) {
       title: req.body.title,
       text: req.body.text,
       image: req.body.img,
-      wine : req.body.wines,
+      wine: req.body.wines,
       tags: req.body.tags,
       comments: req.body.comments
     },
@@ -30,4 +30,11 @@ exports.createWS = function (req, res) {
       res.status(200).send({msg: "WineStory created"})
     }
   );
+}
+
+exports.deleteWS = function (req, res) {
+  WineStory.findByIdAndRemove(req.idWS, (err) => {
+    if (err) return res.status(500).send(err);
+    return res.status(200).send({msg: "Wine story deleted ! "});
+  });
 }

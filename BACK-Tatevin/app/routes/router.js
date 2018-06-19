@@ -7,9 +7,6 @@ const wineStoryController = require("./../controllers/wineStoryController");
 const wineController = require("./../controllers/wineController");
 const tagController = require("./../controllers/tagController");
 
-const Quagga = require('quagga').default;
-
-
 
 //HOME
 router.route("/").all(function(req, res) {
@@ -91,14 +88,14 @@ router
  *===========*/
 
 /* fetch all the users */
-router.get("/wineStory",  wineStoryController.findAll)
-
 router
+  .get("/wineStory",  wineStoryController.findAll)
   .post("/wineStory", wineStoryController.createWS);
-
 /*===========*
  * Instance  *
  *===========*/
+router
+  .delete("/wineStory/:ws_id", wineStoryController.deleteWS)
 
 /**~~~~~~~~~~~~~~~~~END WS~~~~~~~~~~~~~~~~~**/
 

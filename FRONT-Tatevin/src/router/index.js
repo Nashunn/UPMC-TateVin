@@ -6,12 +6,12 @@ import UserAccount from '@/components/UserAccount'
 import Login from '@/components/Login'
 import Signup from '@/components/Signup'
 
-import Scanner from '@/components/Scanner/BarcodeScan'
+import BarcodeScan from '@/components/Scanner/BarcodeScan'
 
 Vue.use(Router);
 
 export default new Router({
-<<<<<<< HEAD
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -23,41 +23,26 @@ export default new Router({
       name: 'Sandbox',
       component: Sandbox
     },
+    // User
+    {
+      path: '/user',
+      name: 'UserAccount',
+      component: UserAccount
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/signup',
+      name: 'Signup',
+      component: Signup
+    },
     {
       path: '/scan',
-      component: Scanner
-    },
-
+      name: 'Signup',
+      component: BarcodeScan
+    }
   ]
-=======
-    mode: 'history',
-    routes: [
-        {
-            path: '/',
-            name: 'Hello',
-            component: Hello
-        },
-        {
-            path: '/sandbox',
-            name: 'Sandbox',
-            component: Sandbox
-        },
-        // User
-        {
-            path: '/user',
-            name: 'UserAccount',
-            component: UserAccount
-        },
-        {
-            path: '/login',
-            name: 'Login',
-            component: Login
-        },
-        {
-            path: '/signup',
-            name: 'Signup',
-            component: Signup
-        }
-    ]
->>>>>>> ac2b9dd6b6c3248f9bf3ee6ea72e1a55a93ec196
 })
