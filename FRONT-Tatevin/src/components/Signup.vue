@@ -13,11 +13,11 @@
             </p>
             <p class="">
                 <label for="password">Password : </label>
-                <input v-model="credentials.password" type="text" id="password" required/>
+                <input v-model="credentials.password" type="password" id="password" required/>
             </p>
             <p class="">
                 <label for="passwordconf">Password Confirmation : </label>
-                <input v-model="credentials.username" type="text" id="passwordconf" required/>
+                <input v-model="credentials.passwordConf" type="password" id="passwordconf" required/>
             </p>
             <p class="">
                 <label for="birthdate">Birth date : </label>
@@ -95,7 +95,7 @@
             },
             submit() {
                 var that = this;
-                console.log(this.credentials);
+                console.log("User "+this.credentials.username+" created !");
                 var p1 = new Promise(function(resolve, reject) {
                     resolve(auth.signup(this, that.credentials, "secretquote"));
                 });
@@ -107,7 +107,6 @@
                         let user = response.data;
                         that.$store.commit("instanceUser",user);
                         console.log(user)
-                        EventBusModal.$emit('usr-loaded', user);
                     });
                     throw "Inscription impossible";
                 })

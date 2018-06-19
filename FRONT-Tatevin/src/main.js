@@ -50,9 +50,10 @@ if ('serviceWorker' in navigator) {
 }
 
 new Vue({
-  el: '#app',
-  router,
-  template: '<App/>',
-  components: { App }
+    store,
+    el: '#app',
+    router,
+    template: '<App/>',
+    components: { App }
 });
 
