@@ -5,15 +5,12 @@
 </template>
 
 <script>
-
-
-  export default {
-    name: 'hello',
-    data() {
-      return {
-        msg: 'Hello !',
-        src: "",
-      }
-    },
+export default {
+  name: 'hello',
+  data () {
+    return {
+      msg: 'Hello Laura, Nico et Tim !!!'
+    }
   }
+}
 </script>

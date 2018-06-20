@@ -70,9 +70,11 @@ exports.account = function (req, res) {
   // Get the token in the header
   var token = req.headers["x-access-token"];
   console.log(req.headers)
+
   //Deal if not found
   if (!token)
     return res.status(401).send({auth: false, message: "Not authorized."});
+
   jwt.verify(token, config.secret, function (err, decoded) {
     //or found but not correct
     if (err)
@@ -95,6 +97,7 @@ exports.account = function (req, res) {
       }
     );
   });
+
 }
 
 
