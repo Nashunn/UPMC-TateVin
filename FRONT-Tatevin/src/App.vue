@@ -1,11 +1,14 @@
 <template>
     <div id="app">
         <b-container fluid class="main">
-            <TimIsHappy/>
+            <TimIsHappy/> <!-- Header -->
             <b-row no-gutters>
                 <MenuLeft/>
                 <div class="main-content">
+                    <!-- Popups -->
                     <wine-popup v-show="showWinePopup"></wine-popup>
+                    <!-- End Popups -->
+
                     <router-view></router-view>
                 </div>
             </b-row>
@@ -27,7 +30,7 @@
         name: 'app',
         data() {
             return {
-                showWinePopup: false, //switch to true
+                showWinePopup: true,
             }
         },
         created(){

@@ -38,7 +38,7 @@ export default {
                 email: creds.email,
                 username: creds.username,
                 password: creds.password,
-                birthday: new Date(creds.birthday)    ,
+                birthday: new Date(creds.birthday),
                 avatar: creds.avatar
             },
             {
