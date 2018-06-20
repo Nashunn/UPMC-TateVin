@@ -26,7 +26,7 @@
 
 
 <script>
-
+import Auth from '../auth/'
 
 export default {
   name: 'userBox',
@@ -40,7 +40,7 @@ export default {
           this.open=isOpen;
       },
       disconnect:function(){
-          alert("to do !")
+          Auth.logout();
          /* EventBusModal.$on('loading', loading => {
 
          })*/

@@ -89,6 +89,7 @@ export default {
     },
 
     logout(context) {
+        alert("disconnect");
         localStorage.removeItem("id_token");
         context.$store.commit("destroyUser");
 
