@@ -3,10 +3,10 @@
       <b-container fluid class="main">
       <Header />
       <b-row no-gutters>
-             <MenuLeft />
-            <main>
+            <MenuLeft />
+            <div class="main-content">
               <router-view></router-view>
-            </main>
+            </div>
     </b-row>
 </b-container>
   </div>
