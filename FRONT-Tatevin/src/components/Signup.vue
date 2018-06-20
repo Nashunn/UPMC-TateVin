@@ -20,8 +20,8 @@
                 <input v-model="credentials.passwordConf" type="password" id="passwordconf" required/>
             </p>
             <p class="">
-                <label for="birthdate">Birth date : </label>
-                <input v-model="credentials.birthdate" type="date" id="birthdate" required/>
+                <label for="birthday">Birth date : </label>
+                <input v-model="credentials.birthday" type="date" id="birthday" required/>
             </p>
             <p>
                 <vue-dropzone
@@ -68,7 +68,7 @@ export default {
                 username: "",
                 pseudo: "",
                 email: "",
-                birthdate: "",
+                birthday: "",
                 password: "",
                 passwordConf: ""
             },
@@ -95,7 +95,7 @@ export default {
         },
         submit() {
             var that = this;
-            console.log(this.credentials);
+            console.log(this.credentials.birthday);
 
             /*var p1 = new Promise(function(resolve, reject) {
                 resolve(auth.signup(this, that.credentials, "secretquote"));
