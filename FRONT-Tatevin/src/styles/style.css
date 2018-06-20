@@ -6,6 +6,12 @@
     padding-top: 20px;
 }
 
+@media (max-width: 600px){
+    .main-content {
+        padding-top: 75px;
+    }
+}
+
 li{
     list-style-type: none;
 }
@@ -25,13 +31,13 @@ html #app{
 /****************************************************************************
 *                                    #header                                 *
 *****************************************************************************/
-#header{
+#timIsHappy{
     padding-left: 0;
     padding-right: 0;
     height:50px;
     box-shadow:0px 5px 10px rgba(0,0,0,0.8);
 }
-#header .logo{
+#timIsHappy .logo{
     margin-left:75px;
     min-width: 200px;
     max-height:40px;
@@ -171,6 +177,7 @@ html #app{
         position:inherit;
     }
 }
+
 @media (max-width: 600px){
     #menuLeft.numCol2.notOpen{
         margin-left: -79%;

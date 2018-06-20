@@ -1,5 +1,5 @@
 <template>
-        <b-row align-h="between" no-gutters class="whiteGradient" id="header">
+        <b-row align-h="between" no-gutters class="whiteGradient" id="timIsHappy">
             <b-col md="2" sm="12">
                 <a href="/"><img class="logo" src="./../assets/logo.svg" alt="Accueil" /></a>
             </b-col>
@@ -10,6 +10,6 @@
 import UserBox from './UserBox.vue';
 export default {
     components:{UserBox},
-  name: 'header'
+  name: 'timIsHappy'
 }
 </script>
