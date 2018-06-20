@@ -6,6 +6,8 @@ const userController = require("./../controllers/userController");
 const wineStoryController = require("./../controllers/wineStoryController");
 const wineController = require("./../controllers/wineController");
 const tagController = require("./../controllers/tagController");
+
+
 //HOME
 router.route("/").all(function(req, res) {
   res.sendFile(path.join(__dirname+'/../../dist/index.html'));
@@ -50,7 +52,7 @@ router
  * Instance  *
  *===========*/
 router
-  .get("/users/:user_id", userController.findOneUser)
+  .get("/users/:user_id", userController.findOneUser) //need to remove password
   .put("/users/:user_id", userController.updateUser)
   .delete("/users/:user_id", userController.deleteUser);
 
@@ -86,16 +88,17 @@ router
  *===========*/
 
 /* fetch all the users */
-router.get("/wineStory",  wineStoryController.findAll)
-
 router
+  .get("/wineStory",  wineStoryController.findAll)
   .post("/wineStory", wineStoryController.createWS);
-
 /*===========*
  * Instance  *
  *===========*/
+router
+  .delete("/wineStory/:ws_id", wineStoryController.deleteWS)
 
 /**~~~~~~~~~~~~~~~~~END WS~~~~~~~~~~~~~~~~~**/
+
 
 
 module.exports = router;
