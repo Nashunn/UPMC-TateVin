@@ -4,8 +4,12 @@ import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
 import App from './App'
 import router from './router'
+
+//Styles
 import './styles/style.css';
+import './styles/menu.css';
 import './styles/fonts.css';
+
 import Vuex from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
 Vue.use(Vuex)
