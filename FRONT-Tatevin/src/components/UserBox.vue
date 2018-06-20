@@ -3,12 +3,13 @@
     <ul class="firstUl">
         <li class="content redGradient">
             <img class="profileIcon" src="./../assets/img/profile/default.svg" alt="Image du profil" />
+
             <span class="serif"><a href="/login">Connexion</a></span>
             <ul>
                 <li >Mon profil</li>
                 <li>Ma cave</li>
                 <li>Ma liste de souhait</li>
-                <li>Deconnection</li>
+                <li>Deconnexion</li>
             </ul>
         </li>
         <li>

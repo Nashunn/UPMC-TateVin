@@ -31,6 +31,7 @@
             }
         },
         mounted() {
+            console.log(this.$store.state.usr);
             EventBusModal.$on("winePopup", showModal => {
                 this.showWinePopup = showModal;
             });

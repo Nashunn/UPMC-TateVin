@@ -89,6 +89,8 @@ html #app{
 }
 .profileIcon{
     width:10%;
+    max-width:40px;
+    max-Height:40px; 
     border-radius: 100%;
 }
 
@@ -159,9 +161,7 @@ html #app{
     text-align:center;
 }
 @media (max-width: 768px){
-    #menuLeft.numCol2.notOpen{
-        margin-left: -80%;
-    }
+
     #menuLeft li {
         font-size:0.8em;
         padding:10% 5%;
@@ -173,7 +173,7 @@ html #app{
 }
 @media (max-width: 600px){
     #menuLeft.numCol2.notOpen{
-        margin-left: -80%;
+        margin-left: -79%;
     }
 }
 .modal-mask {
