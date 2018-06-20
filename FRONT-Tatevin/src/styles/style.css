@@ -32,7 +32,10 @@ html #app{
     box-shadow:0px 5px 10px rgba(0,0,0,0.8);
 }
 #header .logo{
-    margin-left:20%;
+    margin-left:75px;
+    min-width: 200px;
+    max-height:40px;
+    padding-bottom:5px;
 }
 .userBox{
     height:55px;
@@ -155,12 +158,21 @@ html #app{
     padding-left:0;
     text-align:center;
 }
-@media (max-width: 600px){
+@media (max-width: 768px){
     #menuLeft.numCol2.notOpen{
-        margin-left: -260px;
+        margin-left: -80%;
     }
     #menuLeft li {
         font-size:0.8em;
         padding:10% 5%;
+    }
+    .userBox{
+        display:block;
+        position:inherit;
+    }
+}
+@media (max-width: 600px){
+    #menuLeft.numCol2.notOpen{
+        margin-left: -80%;
     }
 }
