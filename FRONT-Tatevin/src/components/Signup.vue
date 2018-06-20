@@ -86,17 +86,18 @@ export default {
         },
         checkPass() {
             if (this.credentials.password !== this.credentials.passwordConf) {
-                this.error = "Passwords don't match !";
+                this.passMsg = "Passwords don't match !";
                 this.$refs.btnSubmit.disabled = true;
             } else {
-                this.error = "Passwords matches !";
+                this.passMsg = "Passwords matches !";
                 this.$refs.btnSubmit.disabled = false;
             }
         },
         submit() {
             var that = this;
-            console.log("User "+this.credentials.username+" created !");
-            var p1 = new Promise(function(resolve, reject) {
+            console.log(this.credentials);
+
+            /*var p1 = new Promise(function(resolve, reject) {
                 resolve(auth.signup(this, that.credentials, "secretquote"));
             });
 
@@ -107,6 +108,7 @@ export default {
                     let user = response.data;
                     that.$store.commit("instanceUser",user);
                     console.log(user)
+                    EventBusModal.$emit('usr-loaded', user);
                 });
                 throw "Inscription impossible";
             })
@@ -115,7 +117,7 @@ export default {
             })
             .then(function(e) {
                 that.error = e;
-            });
+            });*/
         }
     }
 }
