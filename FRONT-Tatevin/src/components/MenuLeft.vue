@@ -1,5 +1,5 @@
 <template>
-    <div id="menuLeft" :class="[getNumCol, isOpen ? 'open': 'notOpen']" v-on:click="openClose">
+    <div id="menuLeft" :class="[getNumCol, isOpen ? 'open': 'notOpen']" v-on:click="openClose" v-on:resize="getNumCol">
     <!--<div id="menuLeft" :class="[getNumCol]" v-on:click="openClose" :style="getMarginLeft">-->
         <nav class="redGradient" >
             <ul>
