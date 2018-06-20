@@ -6,12 +6,22 @@ import App from './App'
 import router from './router'
 import './styles/style.css';
 import './styles/fonts.css';
-
 import Vuex from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
 Vue.use(Vuex)
 Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
+
+import vuexI18n from 'vuex-i18n';
+const storeTranslation = new Vuex.Store();
+import {fr} from './assets/i18n/languages/fr'
+import {en} from './assets/i18n/languages/en'
+Vue.use(vuexI18n.plugin, storeTranslation);
+Vue.i18n.add('fr', fr);
+Vue.i18n.add('en', en);
+
+Vue.i18n.set(navigator.language.substr(0,2))
+
 
 const store = new Vuex.Store({
     state: {

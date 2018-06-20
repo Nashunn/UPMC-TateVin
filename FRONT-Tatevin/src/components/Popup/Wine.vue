@@ -1,47 +1,83 @@
 <template>
-  <!-- Connection Popup -->
-  <div class="row margin-bottom-0">
-    <div class="popup-bg" v-on:click="close()"></div>
-    <div class="popup connection col s10 offset-s2 pull-s1 m10 offset-m2 pull-m1">
-      <div class="header">
-
-        <div class="wrapper-logo">
+    <!-- Connection Popup -->
+    <transition name="modal">
+        <div class="modal-mask">
+            <div class="modal-wrapper">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Ajouter un vin</h4>
+                            <button type="button" class="close" @click="close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="row">
+                                <label for="mail">Nom : </label>
+                                <input
+                                        type="email"
+                                        id="mail"
+                                        class="tb-input"
+                                        placeholder="Enter your username"
+                                        v-model="credentials.nom"
+                                />
+                            </p>
+                            <p class="row">
+                                <label for="pwd">Millésime: </label>
+                                <input
+                                        type="password"
+                                        id="pwd"
+                                        class="tb-input"
+                                        placeholder="Enter your password"
+                                        v-model="credentials.millesime"
+                                />
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="wrapper-btn">
-          <button @click="showLogin()" v-bind:class={selected:!showSignupPart} class="tb-btn btn-red col s12 m4">Connexion</button>
-          <button @click="showSignup()" v-bind:class={selected:showSignupPart} class="tb-btn btn-red col s12 m4">Inscription</button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-  <!-- End Connection Popup -->
+    </transition>
+    <!-- End Connection Popup -->
 </template>
 
-<script>
-  import { EventBusModal } from "../../events/";
-
-  export default {
-    name: "modalLogin",
-
-    methods: {
-      close() {
-        this.showModal = false;
-        EventBusModal.$emit("change-state-login", this.showModal);
-      },
-      showLogin() {
-        this.showSignupPart = false;
-      },
-      showSignup() {
-        this.showSignupPart = true;
-      },
-    },
-    data() {
-      return {
-        showModal: false,
-        showSignupPart: false
-      };
+<style>
+    .modal-mask {
+        position: fixed;
+        z-index: 9998;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, .5);
+        display: table;
+        transition: opacity .3s ease;
     }
-  };
+
+    .modal-wrapper {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+</style>
+<script>
+    import {EventBusModal} from "../../events/";
+
+    export default {
+        name: "modalWine",
+
+        methods: {
+            close() {
+                EventBusModal.$emit("winePopup", false);
+            },
+        },
+        data() {
+            return {
+                credentials:{
+                    nom:"",
+                    millesime:""
+                }
+            };
+        }
+    };
 </script>

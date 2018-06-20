@@ -1,143 +1,279 @@
-li{
-    list-style-type: none;
+li {
+  list-style-type: none;
 }
-html #app{
-    font-family:'Roboto-Medium', Arial, sans-sans-serif;
+
+html #app {
+  font-family: 'Roboto-Medium', Arial, sans-sans-serif;
 }
-.serif{
-    font-family:'Lora-Bold', serif;
+
+.serif {
+  font-family: 'Lora-Bold', serif;
 }
-.redGradient{
-  background: linear-gradient(to right, rgb(105,0,41),rgb(128,0,43));
+
+.redGradient {
+  background: linear-gradient(to right, rgb(105, 0, 41), rgb(128, 0, 43));
 }
-.whiteGradient{
-  background: linear-gradient(to right, rgb(255,243,219),rgb(255,238,158));
+
+.whiteGradient {
+  background: linear-gradient(to right, rgb(255, 243, 219), rgb(255, 238, 158));
 }
 
 /****************************************************************************
 *                                    #header                                 *
 *****************************************************************************/
-#header{
-    padding-left: 0;
-    padding-right: 0;
-    height:50px;
-    box-shadow:0px 5px 10px rgba(0,0,0,0.8);
-}
-#header .logo{
-    margin-left:20%;
-}
-.userBox{
-    height:55px;
-    color:#fff;
-    position:absolute;
-    right:0;
-    padding:15px 0;
-    z-index: 5;
-    cursor:pointer;
-}
-.userBox span{
-    font-size:1.2em;
+#header {
+  padding-left: 0;
+  padding-right: 0;
+  height: 50px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.8);
 }
 
-.userBox.open, .userBox.open li ul{
-    height:270px;
-    animation-name: open;
-    animation-duration: 0.5s;
-    animation-timing-function: ease;
+#header .logo {
+  margin-left: 20%;
 }
-.userBox.notOpen, .userBox.notOpen li ul{
-    height:55px;
-    animation-name: close;
-    animation-duration: 0.5s;
-    animation-timing-function: ease;
+
+.userBox {
+  height: 55px;
+  color: #fff;
+  position: absolute;
+  right: 0;
+  padding: 15px 0;
+  z-index: 5;
+  cursor: pointer;
 }
-.userBox.open li ul{
-    height:inherit;
+
+.userBox span {
+  font-size: 1.2em;
 }
-.userBox.notOpen li ul{
-    height:0;
-    overflow: hidden;
+
+.userBox.open, .userBox.open li ul {
+  height: 270px;
+  animation-name: open;
+  animation-duration: 0.5s;
+  animation-timing-function: ease;
 }
-.userBox li ul li{
-    width:80%;
-    padding:15px 0;
-    cursor:pointer;
+
+.userBox.notOpen, .userBox.notOpen li ul {
+  height: 55px;
+  animation-name: close;
+  animation-duration: 0.5s;
+  animation-timing-function: ease;
 }
-.userBox li ul li:not(:last-child){
-    border-bottom:1px solid #fff;
+
+.userBox.open li ul {
+  height: inherit;
 }
-.userBox li ul li:not(:first-child){
-    border-top:1px solid #fff;
+
+.userBox.notOpen li ul {
+  height: 0;
+  overflow: hidden;
 }
-.profileIcon{
-    width:10%;
-    border-radius: 100%;
+
+.userBox li ul li {
+  width: 80%;
+  padding: 15px 0;
+  cursor: pointer;
 }
-/
-@keyframes open { 0% {height: 55px;} 100% {height: 270px;}}
-@keyframes close { 0% {height: 270px;} 100% {height: 55px; }}
+
+.userBox li ul li:not(:last-child) {
+  border-bottom: 1px solid #fff;
+}
+
+.userBox li ul li:not(:first-child) {
+  border-top: 1px solid #fff;
+}
+
+.profileIcon {
+  width: 10%;
+  border-radius: 100%;
+}
+
+@keyframes open {
+  0% {
+    height: 55px;
+  }
+  100% {
+    height: 270px;
+  }
+}
+
+@keyframes close {
+  0% {
+    height: 270px;
+  }
+  100% {
+    height: 55px;
+  }
+}
 
 /****************************************************************************
 *                               MENU LEFT                                 *
 *****************************************************************************/
-#menuLeft{
-    position:fixed;
-    top:0;
-    height:100%;
+#menuLeft {
+  position: fixed;
+  top: 0;
+  height: 100%;
 
 }
-#menuLeft{
-    display:flex;
-    cursor:pointer;
+
+#menuLeft {
+  display: flex;
+  cursor: pointer;
 }
-#menuLeft nav{
-    box-shadow:5px 0px 10px rgba(0,0,0,0.8);
+
+#menuLeft nav {
+  box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.8);
 }
-#menuLeft div{
-    padding-top:80%;
+
+#menuLeft div {
+  padding-top: 80%;
 }
-#menuLeft.numCol2{
-    width:100%;
-    max-width:400px;
+
+#menuLeft.numCol2 {
+  width: 100%;
+  max-width: 400px;
 }
-#menuLeft.numCol2.notOpen{
-    margin-left: -340px;
-    transition-property: margin-left;
-    transition-duration: 0.8s;
+
+#menuLeft.numCol2.notOpen {
+  margin-left: -340px;
+  transition-property: margin-left;
+  transition-duration: 0.8s;
 }
-#menuLeft.numCol2.open{
-    margin-left: 0;
-    transition-property: margin-left;
-    transition-duration: 0.8s;
+
+#menuLeft.numCol2.open {
+  margin-left: 0;
+  transition-property: margin-left;
+  transition-duration: 0.8s;
 }
-#menuLeft.numCol2 li{
-    width:100%;
-    max-width:400px;
-    max-width:150px;
-    max-height:150px;
+
+#menuLeft.numCol2 li {
+  width: 100%;
+  max-width: 400px;
+  max-width: 150px;
+  max-height: 150px;
 }
-#menuLeft li{
-    box-shadow:2px 2px 8px rgba(0,0,0,0.8);
-    min-width:100px;
-    min-height:100px;
-    padding:15% 5%;
-    font-size:1.2em;
-    font-family: "Roboto-Bold", arial, sans-serif;
+
+#menuLeft li {
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+  min-width: 100px;
+  min-height: 100px;
+  padding: 15% 5%;
+  font-size: 1.2em;
+  font-family: "Roboto-Bold", arial, sans-serif;
 }
-#menuLeft li:hover{
-    box-shadow:2px 2px 15px rgba(0,0,0,1);
-    transition-property: box-shadow;
-    transition-duration: 0.5s;
+
+#menuLeft li:hover {
+  box-shadow: 2px 2px 15px rgba(0, 0, 0, 1);
+  transition-property: box-shadow;
+  transition-duration: 0.5s;
 }
-#menuLeft li a{
-    color:#fff;
-    padding:20% 5%;
+
+#menuLeft li a {
+  color: #fff;
+  padding: 20% 5%;
 }
-#menuLeft.numCol2 li{
-    float:left;
+
+#menuLeft.numCol2 li {
+  float: left;
 }
-#menuLeft ul{
-    margin-top:10px;
-    padding-left:0;
-    text-align:center;
+
+#menuLeft ul {
+  margin-top: 10px;
+  padding-left: 0;
+  text-align: center;
+}
+
+/****************************************************************************
+*                               POP UP WINE                                 *
+*****************************************************************************/
+
+.popup-bg {
+  position:fixed;
+  background-color: rgba(0,0,0,0.3);
+  width: 100%;
+  height: 100vh;
+  z-index: 1000;
+}
+
+.popup {
+  position: absolute!important;
+  margin-top: 200px;
+  padding: 15px!important;
+  background-color: #fff;
+  box-shadow: 0 3px 3px 0 rgba(0,0,0,0.14),0 1px 7px 0 rgba(0,0,0,0.12),0 3px 1px -1px rgba(0,0,0,0.2);
+  z-index: 1500;
+}
+
+@media all and (max-width: 600px) {
+  .popup {
+    margin-top: 50px;
+  }
+}
+
+.tb-btn {
+  border: 1px solid rgba(255,255,255,0);
+}
+
+/* Header */
+.header .wrapper-logo, .header .wrapper-btn {
+  position: relative;
+  display: inline-block;
+}
+
+.popup .header .wrapper-logo {
+  width: 25%;
+  max-width: 200px;
+}
+
+.popup .wrapper-logo .logo {
+  width: 100%;
+}
+
+.popup .header .wrapper-btn {
+  width: 70%;
+}
+
+.selected, .selected:focus {
+  background-color: #fff;
+  color: rgb(248, 88, 100);
+  border: 1px solid rgb(248, 88, 100);
+}
+
+@media all and (min-width: 600px) {
+  .header .wrapper-btn {
+    bottom: 25px;
+    padding-left: 20px;
+  }
+}
+
+@media all and (max-width: 600px) {
+  .header .wrapper-logo {
+    bottom: 15px;
+  }
+}
+
+/* Content */
+.content p > * {
+  display: inline-block;
+}
+
+.content label {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #6E6E6E;
+  width: 100%;
+}
+
+.content input {
+  height: 2rem!important;
+  margin-right: 0!important;
+}
+
+@media all and (max-width: 600px) {
+  .content label {
+    width: 85%;
+  }
+  .content input {
+    width: 85%!important;
+  }
 }
