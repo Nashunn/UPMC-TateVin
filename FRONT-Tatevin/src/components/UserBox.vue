@@ -4,12 +4,12 @@
         <li class="content redGradient">
             <img class="profileIcon" src="./../assets/img/profile/default.svg" alt="Image du profil" />
 
-            <span class="serif"><a href="/login">Connexion</a></span>
+            <span class="serif"><router-link :to="{name:'Login'}">Connexion</router-link></span>
             <ul>
-                <li >Mon profil</li>
-                <li>Ma cave</li>
-                <li>Ma liste de souhait</li>
-                <li>Deconnexion</li>
+                <li><router-link :to="{ name: 'UserAccount' }">Mon profil</router-link></li>
+                <li><router-link :to="{ name: 'Cave' }">Ma cave</router-link></li>
+                <li><router-link :to="{ name: 'Wishes' }">Ma liste de souhait</router-link></li>
+                <li v-on:click="disconnect">Deconnexion</li>
             </ul>
         </li>
         <li>
@@ -38,6 +38,12 @@ export default {
   methods:{
       animProfileBox:function(isOpen){
           this.open=isOpen;
+      },
+      disconnect:function(){
+          alert("to do !")
+         /* EventBusModal.$on('loading', loading => {
+
+         })*/
       }
 
   }

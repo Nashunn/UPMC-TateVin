@@ -1,6 +1,6 @@
 <template>
     <li :class="className" v-bind:style="style" class="redGradient" >
-        <a :href="link">{{ textOnglet }}</a>
+        <router-link :to="{name:link}">{{ textOnglet }}</router-link>
     </li>
 </template>
 <script>

@@ -3,14 +3,14 @@
     <!--<div id="menuLeft" :class="[getNumCol]" v-on:click="openClose" :style="getMarginLeft">-->
         <nav class="redGradient" >
             <ul>
-                <OngletMenu className="wineMenu" link="/vins" textOnglet="Vins" :numCol="numCol" />
-                <OngletMenu className="wineStoryMenu" link="/comptoir" textOnglet="Le Comptoir" :numCol="numCol"/>
-                <OngletMenu className="learningMenu" link="/apprendre" textOnglet="Apprendre le vin" :numCol="numCol" />
-                <OngletMenu className="dictionnaryMenu" link="/lexique" textOnglet="Lexique" :numCol="numCol"/>
-                <OngletMenu className="userPageMenu" link="/recherche" textOnglet="Rechercher un vin" :numCol="numCol"/>
-                <OngletMenu className="wineMenu" link="/account" textOnglet="Mon profil" :numCol="numCol"/>
-                <OngletMenu className="caveMenu" link="/cave" textOnglet="Ma cave" :numCol="numCol"/>
-                <OngletMenu className="wishesMenu" link="/liste-de-souhait" textOnglet="Ma liste de souhait" :numCol="numCol" />
+                <OngletMenu className="wineMenu" link="WinesPage" textOnglet="Vins" :numCol="numCol" />
+                <OngletMenu className="wineStoryMenu" link="WineStories" textOnglet="Le Comptoir" :numCol="numCol"/>
+                <OngletMenu className="learningMenu" link="Learning" textOnglet="Apprendre le vin" :numCol="numCol" />
+                <OngletMenu className="dictionnaryMenu" link="Dictionnary" textOnglet="Lexique" :numCol="numCol"/>
+                <OngletMenu className="searchMenu" link="Search" textOnglet="Rechercher un vin" :numCol="numCol"/>
+                <OngletMenu className="userPageMenu" link="UserAccount" textOnglet="Mon profil" :numCol="numCol"/>
+                <OngletMenu className="caveMenu" link="Cave" textOnglet="Ma cave" :numCol="numCol"/>
+                <OngletMenu className="wishesMenu" link="Wishes" textOnglet="Ma liste de souhait" :numCol="numCol" />
             </ul>
         </nav>
         <div>
