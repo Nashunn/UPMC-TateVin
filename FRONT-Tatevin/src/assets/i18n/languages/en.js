@@ -1,6 +1,3 @@
-const french = {
-  message: {
+exports.en = {
     hello: 'Hello'
-  }
 }
-export default french;

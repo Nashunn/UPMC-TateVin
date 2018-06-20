@@ -1,7 +1,5 @@
-const french = {
-  message: {
+exports.fr = {
     hello: 'Bonjour monde',
-    user:' coucou'
-  }
-}
-export default french;
+    user: ' coucou',
+    Connexion: 'Se connecter'
+};
