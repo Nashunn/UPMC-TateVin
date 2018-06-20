@@ -96,7 +96,8 @@
             submit() {
                 var that = this;
                 console.log(this.credentials);
-                var p1 = new Promise(function(resolve, reject) {
+
+                /*var p1 = new Promise(function(resolve, reject) {
                     resolve(auth.signup(this, that.credentials, "secretquote"));
                 });
 
@@ -116,7 +117,7 @@
                 })
                 .then(function(e) {
                     that.error = e;
-                });
+                });*/
             }
         }
     }
