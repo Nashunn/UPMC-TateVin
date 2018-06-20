@@ -13,25 +13,29 @@
                         </div>
                         <div class="modal-body">
                             <p class="row">
-                                <label for="mail">Nom : </label>
+                                <label for="name">Nom : </label>
                                 <input
-                                        type="email"
-                                        id="mail"
-                                        class="tb-input"
-                                        placeholder="Enter your username"
-                                        v-model="credentials.nom"
+                                    type="text"
+                                    id="name"
+                                    class="tb-input"
+                                    placeholder="Entrez le nom"
+                                    v-model="credentials.name"
                                 />
                             </p>
                             <p class="row">
                                 <label for="pwd">Millésime: </label>
                                 <input
-                                        type="password"
-                                        id="pwd"
-                                        class="tb-input"
-                                        placeholder="Enter your password"
-                                        v-model="credentials.millesime"
+                                    type="text"
+                                    id="pwd"
+                                    class="tb-input"
+                                    placeholder="Entrez le millésime"
+                                    v-model="credentials.millesime"
+                                    @keyup.enter="submit"
                                 />
                             </p>
+                            <div class="btn-wrapper">
+                                <button type="submit" ref="btnSubmit" @click="submit">Ajouter</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -62,19 +66,34 @@
 </style>
 <script>
     import {EventBusModal} from "../../events/";
+    import {HTTP} from "../../HTTP/http";
 
     export default {
         name: "modalWine",
-
         methods: {
             close() {
                 EventBusModal.$emit("winePopup", false);
             },
+            submit() {
+                console.log(this.credentials);
+
+                //Create wine back
+                HTTP.post(
+                    "/wine",
+                    {
+                        name: this.credentials.name,
+                        millesime: this.credentials.millesime,
+                    },
+                    {}
+                ).then(response => {
+                    console.log(response.data);
+                });
+            }
         },
         data() {
             return {
                 credentials:{
-                    nom:"",
+                    name:"",
                     millesime:""
                 }
             };
