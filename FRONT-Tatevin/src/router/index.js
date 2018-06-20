@@ -5,6 +5,13 @@ import Sandbox from '@/components/Sandbox'
 import UserAccount from '@/components/UserAccount'
 import Login from '@/components/Login'
 import Signup from '@/components/Signup'
+import WinesPage from '@/components/WinesPage'
+import WineStories from '@/components/WineStories'
+import Learning from '@/components/Learning'
+import Dictionnary from '@/components/Dictionnary'
+import Search from '@/components/Search'
+import Cave from '@/components/Cave'
+import Wishes from '@/components/Wishes'
 
 import BarcodeScan from '@/components/Scanner/BarcodeScan'
 
@@ -40,9 +47,40 @@ export default new Router({
       component: Signup
     },
     {
-      path: '/scan',
-      name: 'Signup',
-      component: BarcodeScan
+      path: '/wines',
+      name: 'WinesPage',
+      component: WinesPage
+    },
+    {
+      path: '/wineStories',
+      name: 'WineStories',
+      component: WineStories
+    },
+    {
+      path: '/learning',
+      name: 'Learning',
+      component: Learning
+    },
+    {
+      path: '/dictionnary',
+      name: 'Dictionnary',
+      component: Dictionnary
+    },
+    {
+      path: '/search',
+      name: 'Search',
+      component: Search
+
+    },
+    {
+      path: '/cave',
+      name: 'Cave',
+      component: Cave
+    },
+    {
+      path: '/wishes',
+      name: 'Wishes',
+      component: Wishes
     }
   ]
 })

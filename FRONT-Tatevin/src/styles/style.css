@@ -52,6 +52,9 @@ html #app{
     z-index: 5;
     cursor:pointer;
 }
+.userBox a{
+    color:#fff;
+}
 .userBox span{
     font-size:1.2em;
 }
@@ -96,7 +99,7 @@ html #app{
 .profileIcon{
     width:10%;
     max-width:40px;
-    max-Height:40px; 
+    max-Height:40px;
     border-radius: 100%;
 }
 

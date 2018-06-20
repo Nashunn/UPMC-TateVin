@@ -84,20 +84,10 @@ export default {
             console.log(file);
             this.credentials.avatar = file.dataURL;
         },
-        checkPass() {
-            if (this.credentials.password !== this.credentials.passwordConf) {
-                this.passMsg = "Passwords don't match !";
-                this.$refs.btnSubmit.disabled = true;
-            } else {
-                this.passMsg = "Passwords matches !";
-                this.$refs.btnSubmit.disabled = false;
-            }
-        },
         submit() {
             var that = this;
-            console.log(this.credentials.birthday);
 
-            /*var p1 = new Promise(function(resolve, reject) {
+            var p1 = new Promise(function(resolve, reject) {
                 resolve(auth.signup(this, that.credentials, "secretquote"));
             });
 
@@ -108,16 +98,16 @@ export default {
                     let user = response.data;
                     that.$store.commit("instanceUser",user);
                     console.log(user)
-                    EventBusModal.$emit('usr-loaded', user);
+                    //EventBusModal.$emit('usr-loaded', user);
                 });
-                throw "Inscription impossible";
+                //throw "Inscription impossible";
             })
             .catch(function(e) {
                 console.error(e);
             })
             .then(function(e) {
                 that.error = e;
-            });*/
+            });
         }
     }
 }
