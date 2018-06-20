@@ -3,7 +3,7 @@
     <ul class="">
         <li class="content redGradient">
             <img class="profileIcon" src="./../assets/img/profile/default.svg" alt="Image du profil" />
-            <span class="serif"><a href="/login">Connection</a></span>
+            <span class="serif"><a href="/login">Connexion</a></span>
             <ul>
                 <li >Mon profil</li>
                 <li>Ma cave</li>

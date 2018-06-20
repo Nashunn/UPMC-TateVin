@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <b-container fluid class="main">
-      <Header />
+      <b-container fluid class="main">
+      <TimIsHappy />
       <b-row no-gutters>
         <MenuLeft />
         <main>
@@ -16,14 +16,14 @@
 <script>
   import 'bootstrap/dist/css/bootstrap.css'
   import 'bootstrap-vue/dist/bootstrap-vue.css'
-  import Header from './components/Header.vue'
+  import TimIsHappy from './components/TimIsHappy.vue'
   import MenuLeft from './components/MenuLeft.vue'
   import WinePopup from "./components/Popup/Wine";
   import { EventBusModal } from "./events/";
 
 
   export default {
-    components:{Header, MenuLeft, WinePopup},
+    components:{TimIsHappy, MenuLeft, WinePopup},
     name: 'app',
     data() {
       return {
