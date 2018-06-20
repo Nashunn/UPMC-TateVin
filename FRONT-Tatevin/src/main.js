@@ -21,23 +21,8 @@ Vue.i18n.add('fr', fr);
 Vue.i18n.add('en', en);
 
 Vue.i18n.set(navigator.language.substr(0,2))
+import store from './store/'
 
-
-const store = new Vuex.Store({
-    state: {
-        usr: {}
-    },
-    plugins: [createPersistedState()],
-    mutations: {
-        instanceUser: (state, usr) => {
-            state.usr = usr;
-        },
-        destroyUser: (state) => {
-            state.usr = {};
-        }
-
-    }
-});
 
 /* eslint-disable no-new */
 

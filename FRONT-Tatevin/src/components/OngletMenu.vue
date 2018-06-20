@@ -18,7 +18,6 @@ export default {
   methods:{
       getSize:function(){
           var size=window.innerHeight/10*this.numCol;
-          console.log(size);
           this.style={"margin":"5px "+size*0.05+"px", "height":size+"px", "width":size+"px"};
           //return this.style;
       }

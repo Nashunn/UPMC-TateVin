@@ -2,48 +2,45 @@
     <section class="login">
         <h2>Login</h2>
         <form class="">
+            <p>fdddddp</p>
             <p class="">
                 <label for="username">Username : </label>
-                <input v-model="credentials.username" type="text" id="username" required/>
+                <input v-model="credentials.email" type="text" id="username" required/>
             </p>
             <p class="">
                 <label for="password">Password : </label>
                 <input v-model="credentials.password" type="password" id="password" required/>
             </p>
             <div class="btn-wrapper">
-                <button @keyup.enter="submit()" @click="submit()" class="btn-next tb-btn btn-red right">Login</button>
+                <h2 @keyup.enter="submit()" @click="submit()" class="btn-next tb-btn btn-red right">Login</h2>
             </div>
         </form>
     </section>
 </template>
-
 <script>
-import auth from "./../auth/index";
+    import Auth from '../auth/'
 
-export default {
-    name: 'Login',
-    data () {
-        return {
-            credentials: {
-                username: '',
-                password: ''
-            },
-            error: '',
-        }
-    },
-    methods: {
-        validateBeforeSubmit() {
-            //add more security
-            this.submit();
+    export default {
+        name: 'login',
+        data() {
+            return {
+                credentials: {
+                    email: '',
+                    password: ''
+                },
+                error: '',
+            }
         },
-        submit() {
-            var credentials = {
-                username: this.credentials.username,
-                password: this.credentials.password
-            };
-
-            auth.login(this, credentials, "secretquote");
+        methods: {
+            validateBeforeSubmit() {
+                this.submit();
+            },
+            submit() {
+                new Promise( (resolve, reject) => {
+                    resolve(Auth.login(this, this.credentials, "secretquote"));
+                }).then(() => this.$router.push( '/'))
+            }
         }
     }
-}
+
 </script>

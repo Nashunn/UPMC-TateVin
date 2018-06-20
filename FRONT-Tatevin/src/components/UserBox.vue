@@ -5,11 +5,16 @@
             <img class="profileIcon" src="./../assets/img/profile/default.svg" alt="Image du profil" />
 
             <span class="serif"><router-link :to="{name:'Login'}">Connexion</router-link></span>
-            <ul>
-                <li><router-link :to="{ name: 'UserAccount' }">Mon profil</router-link></li>
-                <li><router-link :to="{ name: 'Cave' }">Ma cave</router-link></li>
-                <li><router-link :to="{ name: 'Wishes' }">Ma liste de souhait</router-link></li>
-                <li v-on:click="disconnect">Deconnexion</li>
+            <ul v-if="usr.username">
+                <li ><router-link :to="{ name: 'UserAccount' }">Mon profil</router-link></li>
+                <li ><router-link :to="{ name: 'Cave' }">Ma cave</router-link></li>
+                <li ><router-link :to="{ name: 'Wishes' }">Ma liste de souhait</router-link></li>
+                <li  v-on:click="disconnect">Deconnexion</li>
+            </ul>
+            <ul v-else>
+                <li ><router-link :to="{ name: 'Login' }">Se connecter</router-link></li>
+                <li ><router-link :to="{ name: 'Signup' }">S'inscrire</router-link></li>
+
             </ul>
         </li>
         <li>
@@ -32,15 +37,21 @@ export default {
   name: 'userBox',
   data(){
       return {
-          open:false
+          open:false,
       }
   },
+    computed: {
+        usr: function() {
+            // `this` pointe sur l'instance vm
+            return this.$store.state.usr
+        }
+    },
   methods:{
       animProfileBox:function(isOpen){
           this.open=isOpen;
       },
       disconnect:function(){
-          Auth.logout();
+          Auth.logout(this);
          /* EventBusModal.$on('loading', loading => {
 
          })*/

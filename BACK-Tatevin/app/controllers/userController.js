@@ -24,15 +24,19 @@ exports.findOneUser = function (req, res) {
 exports.register = function (req, res) {
     let hashedPassword = bcrypt.hashSync(req.body.password, 8);
     //Create user with args in the post request
+    console.log(req.body);
     User.create(
         {
             email: req.body.email,
             username: req.body.username,
             password: hashedPassword,
-            birthday: req.body.birthday
+            birthday: req.body.birthday,
+            avatar: req.body.avatar
         },
         function (err, user) {
             // Check if correct
+            console.log(user);
+
             if (err) return res.status(500).send("There was a problem registering the user.");
             // create a token
             var token = jwt.sign({id: user._id}, config.secret, {
@@ -45,6 +49,7 @@ exports.register = function (req, res) {
 
 exports.login = function (req, res) {
     //Retrieve user by its mail
+    console.log(req.body);
     User.findOne({email: req.body.email}, function (err, user) {
         //Error dealing
         if (err) return res.status(500).send("Error on the server.");

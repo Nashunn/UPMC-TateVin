@@ -84,30 +84,13 @@ export default {
             console.log(file);
             this.credentials.avatar = file.dataURL;
         },
+        created(){
+            console.log(this.$store.state.usr);
+        },
         submit() {
-            var that = this;
-
-            var p1 = new Promise(function(resolve, reject) {
-                resolve(auth.signup(this, that.credentials, "secretquote"));
-            });
-
-            p1
-            .then(function(value) {
-                console.log(value); // "Succès!"
-                HTTP.get("/account").then(response => {
-                    let user = response.data;
-                    that.$store.commit("instanceUser",user);
-                    console.log(user)
-                    //EventBusModal.$emit('usr-loaded', user);
-                });
-                //throw "Inscription impossible";
-            })
-            .catch(function(e) {
-                console.error(e);
-            })
-            .then(function(e) {
-                that.error = e;
-            });
+            new Promise( (resolve, reject) => {
+                resolve(auth.signup(this, this.credentials, true));
+            }).then(() => this.$router.push( '/'))
         }
     }
 }
