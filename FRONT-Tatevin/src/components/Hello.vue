@@ -9,11 +9,7 @@ export default {
   name: 'hello',
   data () {
     return {
-<<<<<<< HEAD
-      msg: $t('user') + 'Hello Laura :) !!!'
-=======
       msg: 'Hello Laura, Nico et Tim !!!'
->>>>>>> 6f32160bbd13d1abd7c57d36ed8eacacf757f31c
     }
   }
 }

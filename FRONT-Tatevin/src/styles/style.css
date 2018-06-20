@@ -73,7 +73,7 @@ html #app{
     width:10%;
     border-radius: 100%;
 }
-/
+
 @keyframes open { 0% {height: 55px;} 100% {height: 270px;}}
 @keyframes close { 0% {height: 270px;} 100% {height: 55px; }}
 
@@ -89,6 +89,7 @@ html #app{
 #menuLeft{
     display:flex;
     cursor:pointer;
+    z-index:6;
 }
 #menuLeft nav{
     box-shadow:5px 0px 10px rgba(0,0,0,0.8);
@@ -140,4 +141,13 @@ html #app{
     margin-top:10px;
     padding-left:0;
     text-align:center;
+}
+@media (max-width: 600px){
+    #menuLeft.numCol2.notOpen{
+        margin-left: -260px;
+    }
+    #menuLeft li {
+        font-size:0.8em;
+        padding:10% 5%;
+    }
 }

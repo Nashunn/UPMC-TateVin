@@ -1,23 +1,38 @@
 <template>
-    <li :class="className" v-bind:style="getSize" class="redGradient">
+    <li :class="className" v-bind:style="style" class="redGradient" >
         <a :href="link">{{ textOnglet }}</a>
     </li>
 </template>
 <script>
 export default {
   name: 'ongletMenu',
+  data(){
+      return{ style:{} };
+  },
   props:{
       className:{type:String},
       link:{type:String},
       textOnglet:{type:String},
       numCol:{type:Number}
   },
-  computed:{
+  methods:{
       getSize:function(){
           var size=window.innerHeight/10*this.numCol;
-          return {"margin":"5px "+size*0.05+"px", "height":size+"px", "width":size+"px"}
+          console.log(size);
+          this.style={"margin":"5px "+size*0.05+"px", "height":size+"px", "width":size+"px"};
+          //return this.style;
       }
-  }
+  },
+  created(){
+      this.getSize();
+      var ob=this;
+      window.addEventListener('resize', ()=>{
+          this.getSize();
+      });
+  },
+beforeDestroy: function () {
+  window.removeEventListener('resize',this.getSize())
+}
 }
 
 </script>
