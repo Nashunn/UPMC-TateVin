@@ -37,10 +37,8 @@ export default {
             {
                 email: creds.email,
                 username: creds.username,
-                firstName: creds.firstName,
-                lastName: creds.lastName,
                 password: creds.password,
-                passwordConf: creds.passwordConf,
+                birthday: new Date(creds.birthday)    ,
                 avatar: creds.avatar
             },
             {
@@ -53,8 +51,7 @@ export default {
                 that.getUserData(context)
                 //EventBusModal.$emit("change-state-login", false)
                 if (redirect) {
-
-                    //context.$router.replace("/");
+                    context.$router.replace("/");
                     // should be : context.$router.replace("/");
                 }
             })

@@ -30,6 +30,9 @@
                 showWinePopup: false, //switch to true
             }
         },
+        created(){
+            console.log(this.$store.state.usr.username);
+        },
         mounted() {
             EventBusModal.$on("winePopup", showModal => {
                 this.showWinePopup = showModal;
