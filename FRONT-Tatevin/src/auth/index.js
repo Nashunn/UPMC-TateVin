@@ -1,4 +1,4 @@
-import { HTTP } from "./../http/http";
+import { HTTP } from "./../HTTP/http";
 import auth from "./../auth/index";
 //import {EventBusModal} from "../events/event-modals";
 

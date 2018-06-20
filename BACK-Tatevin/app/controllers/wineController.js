@@ -12,7 +12,7 @@ exports.findAll = function (req, res) {
 
 exports.createWine = function (req, res) {
   let grapes = req.body.grapeTag;
-  TagController.createTagIfNotCreated(grapes,TagController.TAGS_TYPE.CEPAGE )
+  TagController.createTagIfNotCreated(grapes, TagController.TAGS_TYPE.CEPAGE)
   Wine.create(
     {
       name: req.body.name,
@@ -31,7 +31,20 @@ exports.createWine = function (req, res) {
       if (err) return res.status(500).send("There was a problem registering the Wine.");
       console.log(user)
       // create a token
-      res.status(200).send({msg: "Wine created", wine:user})
+      res.status(200).send({msg: "Wine created", wine: user})
     }
   );
+}
+
+
+exports.modifyWine = function (req, res) {
+  Wine.findByIdAndUpdate(
+    req.idWine,
+    req.body,
+    {new: true},
+    (err, newWine) => {
+      if (err) return res.status(500).send(err);
+      return res.send(newWine);
+    }
+  )
 }
