@@ -7,7 +7,7 @@
         </b-row>
 </template>
 <script>
-import UserBox from '../UserBox.vue';
+import UserBox from './UserBox.vue';
 export default {
     components:{UserBox},
   name: 'WineHeader'

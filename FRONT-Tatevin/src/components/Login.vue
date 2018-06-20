@@ -12,7 +12,7 @@
                 <input v-model="credentials.password" type="password" id="password" required/>
             </p>
             <div class="btn-wrapper">
-                <h2 @keyup.enter="submit()" @click="submit()" class="btn-next tb-btn btn-red right">Login</h2>
+                <button @keyup.enter="submit()" @click="submit()" class="btn">Login</button>
             </div>
         </form>
     </section>
