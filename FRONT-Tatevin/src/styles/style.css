@@ -39,25 +39,32 @@ html #app{
     font-size:1.2em;
 }
 
-.userBox.open, .userBox.open li ul{
+.userBox.open{
     height:270px;
-    animation-name: open;
-    animation-duration: 0.5s;
-    animation-timing-function: ease;
+    transition-property: height;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
 }
-.userBox.notOpen, .userBox.notOpen li ul{
+.userBox.notOpen{
     height:55px;
-    animation-name: close;
-    animation-duration: 0.5s;
-    animation-timing-function: ease;
-}
-.userBox.open li ul{
-    height:inherit;
+    transition-property: height;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
 }
 .userBox.notOpen li ul{
     height:0;
     overflow: hidden;
+    transition-property: height;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
 }
+.userBox.open li ul{
+    height:220px;
+    transition-property: height;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+}
+
 .userBox li ul li{
     width:80%;
     padding:15px 0;
@@ -74,8 +81,6 @@ html #app{
     border-radius: 100%;
 }
 
-@keyframes open { 0% {height: 55px;} 100% {height: 270px;}}
-@keyframes close { 0% {height: 270px;} 100% {height: 55px; }}
 
 /****************************************************************************
 *                               MENU LEFT                                 *
