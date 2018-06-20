@@ -27,7 +27,7 @@
         name: 'app',
         data() {
             return {
-                showWinePopup: true,
+                showWinePopup: false, //switch to true
             }
         },
         mounted() {
