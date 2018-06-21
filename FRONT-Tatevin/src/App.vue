@@ -26,7 +26,6 @@
     import WinePopup from "./components/Popup/Wine";
     import {EventBusModal} from "./events/";
 
-
     export default {
         components: {WineHeader, MenuLeft, WinePopup},
         name: 'app',

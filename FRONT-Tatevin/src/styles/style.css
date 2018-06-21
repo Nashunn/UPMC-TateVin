@@ -6,17 +6,12 @@
     padding-top: 20px;
 }
 
-@media (max-width: 600px){
-    .main-content {
-        padding-top: 75px;
-    }
-}
-
 li{
     list-style-type: none;
 }
 html #app{
     font-family:'Roboto-Medium', Arial, sans-sans-serif;
+    height: 100%;
 }
 .serif{
     font-family:'Lora-Bold', serif;
@@ -28,6 +23,52 @@ html #app{
     background: linear-gradient(to right, rgb(255,243,219),rgb(255,238,158));
 }
 
+/* Media queries */
+@media (max-width: 600px){
+    .main-content {
+        padding-top: 75px;
+    }
+}
+
 /****************************************************************************
 *                                 Buttons                                   *
+*****************************************************************************/
+.wine-btn {
+    height: 25px;
+    padding: 0 20px;
+    margin: 1px;
+}
+.wine-btn:hover {
+    cursor: pointer;
+}
+
+.wine-btn:active {
+    -moz-transform: scale(0.9);
+    -webkit-transform: scale(0.9);
+    -o-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9);
+}
+
+.btn-purple {
+    border: 1px groove transparent;
+    background-color: rgb(105,0,41);
+    color: #fff;
+}
+
+.btn-purple:hover {
+    border: 1px groove rgb(105,0,41);
+    background-color: #fff;
+    color: rgb(105,0,41);
+}
+
+/****************************************************************************
+*                                  Search                                   *
+*****************************************************************************/
+.search-wrapper {
+    background: rgb(200,200,200);
+}
+
+/****************************************************************************
+*                                 Minimal                                   *
 *****************************************************************************/
