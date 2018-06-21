@@ -1,28 +1,18 @@
 <template>
     <section class="signup">
-        <h2>Signup</h2>
+        <h2>Créez votre hitoire de vin</h2>
 
         <form @submit.prevent="validateBeforeSubmit()" class="">
             <p class="">
-                <label for="username">Username : </label>
-                <input v-model="credentials.username" type="text" id="username" required/>
+                <label for="username">Titre : </label>
+                <input v-model="story.title" type="text" id="username" required/>
             </p>
+            <p>{{ story.title }}</p>
             <p class="">
-                <label for="username">Email : </label>
-                <input v-model="credentials.email" type="email" id="email" required/>
+                <label for="text">Votre histoire</label>
+                <input v-model="story.text" type="email" id="email" required/>
             </p>
-            <p class="">
-                <label for="password">Password : </label>
-                <input v-model="credentials.password" type="password" id="password" required/>
-            </p>
-            <p class="">
-                <label for="passwordconf">Password Confirmation : </label>
-                <input v-model="credentials.passwordConf" type="password" id="passwordconf" required/>
-            </p>
-            <p class="">
-                <label for="birthday">Birth date : </label>
-                <input v-model="credentials.birthday" type="date" id="birthday" required/>
-            </p>
+            <p>{{ story.text }}</p>
             <p>
                 <vue-dropzone
                     ref="userAvatar"
@@ -63,14 +53,12 @@ export default {
                     done();
                 }
             },
-            credentials: {
-                avatar: "",
-                username: "",
-                pseudo: "",
-                email: "",
-                birthday: "",
-                password: "",
-                passwordConf: ""
+            story: {
+                title: "",
+                text: "",
+                image: "",
+                wines: [],
+                tags: [],
             },
             error:'',
         }
