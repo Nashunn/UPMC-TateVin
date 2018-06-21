@@ -9,6 +9,7 @@ html #app{
 .main-content {
     padding-left: 75px;
     padding-top: 20px;
+    width:100%;
 }
 
 li{
