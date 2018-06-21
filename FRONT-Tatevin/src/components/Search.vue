@@ -1,5 +1,5 @@
 <template>
-    <section class="hello">
+    <section class="search">
         <h2>Recherche</h2>
         <p>Affiner votre recherche</p>
 
@@ -9,24 +9,23 @@
                 </b-form-checkbox-group>
             </b-form-group>
 
-        
-            <p class="m4">
-                <label for="tags">Mots clés : </label>
-                <input v-model="search.tags" id="tags" type="text"/>
-            </p>
+            <b-row>
+                <b-col md="3" sm="12"><label for="tags">Mots clés : </label></b-col>
+                <b-col md="6" sm="12"><input v-model="search.tags" id="tags" type="text"/></b-col>
+            </b-row>
 
-            <p class="m4">
-                <label for="domaine">Domaine : </label>
-                <input v-model="search.domaine" id="domaine" type="text"/>
-            </p>
-            <p class="m4">
-                <label for="terroir">Terroir : </label>
-                <input v-model="search.terroir" id="terroir" type="text"/>
-            </p>
-            <p class="m4">
-                <label for="millesime">Millésime : </label>
-                <input v-model="search.millesime" id="millesime" type="number"/>
-            </p>
+            <b-row>
+                <b-col md="3" sm="12"><label for="domaine">Domaine : </label></b-col>
+                <b-col md="6" sm="12"><input v-model="search.domaine" id="domaine" type="text"/></b-col>
+            </b-row>
+            <b-row>
+                <b-col md="3" sm="12"><label for="terroir">Terroir : </label></b-col>
+                <b-col md="6" sm="12"><input v-model="search.terroir" id="terroir" type="text"/></b-col>
+            </b-row>
+            <b-row>
+                <b-col md="3" sm="12"><label for="millesime">Millésime : </label></b-col>
+                <b-col md="6" sm="12"><input v-model="search.millesime" id="millesime" type="number"/></b-col>
+            </b-row>
 
             <div class="btn-wrapper">
                 <button @click="doSearch()" class="wine-btn btn-purple">Rechercher</button>
