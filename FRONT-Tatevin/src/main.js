@@ -4,8 +4,12 @@ import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
 import App from './App'
 import router from './router'
+
+//Styles
 import './styles/style.css';
+import './styles/menu.css';
 import './styles/fonts.css';
+
 import Vuex from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
 Vue.use(Vuex)
@@ -21,23 +25,8 @@ Vue.i18n.add('fr', fr);
 Vue.i18n.add('en', en);
 
 Vue.i18n.set(navigator.language.substr(0,2))
+import store from './store/'
 
-
-const store = new Vuex.Store({
-    state: {
-        usr: {}
-    },
-    plugins: [createPersistedState()],
-    mutations: {
-        instanceUser: (state, usr) => {
-            state.usr = usr;
-        },
-        destroyUser: (state) => {
-            state.usr = {};
-        }
-
-    }
-});
 
 /* eslint-disable no-new */
 

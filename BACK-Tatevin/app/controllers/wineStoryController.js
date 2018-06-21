@@ -1,4 +1,6 @@
 var WineStory = require("../models/wineStory");
+var mongoose = require("mongoose");
+const TagController = require("./tagController");
 
 exports.findAll = function (req, res) {
   WineStory.find(function (err, users) {
@@ -11,13 +13,22 @@ exports.findAll = function (req, res) {
 
 
 exports.createWS = function (req, res) {
+    console.log(req.body.tags);
+    if(req.body.tags) TagController.createTagIfNotCreated(req.body.tags, TagController.TAGS_TYPE.DIVERS);
+    if(req.body.wines){
+        var winesId=req.body.wines;
+        for(var i=0; i<winesId.length; i++){
+            winesId[i]=mongoose.Types.ObjectId(winesId[i]);
+        }
+        console.log(winesId);
+    }
   WineStory.create(
     {
       author: req.body.userID,
       title: req.body.title,
       text: req.body.text,
       image: req.body.img,
-      wine: req.body.wines,
+      wines: winesId,
       tags: req.body.tags,
       comments: req.body.comments
     },

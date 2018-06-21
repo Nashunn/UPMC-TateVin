@@ -1,0 +1,169 @@
+/****************************************************************************
+*                                    #Header                                 *
+*****************************************************************************/
+#wineHeader{
+    padding-left: 0;
+    padding-right: 0;
+    height:50px;
+    box-shadow:0px 5px 10px rgba(0,0,0,0.8);
+}
+#wineHeader .logo{
+    margin-left:75px;
+    min-width: 200px;
+    max-height:40px;
+    padding-bottom:5px;
+}
+.userBox{
+    height:52px;
+    color:#fff;
+    position:absolute;
+    right:0;
+    padding:15px 0;
+    z-index: 5;
+    cursor:pointer;
+}
+.userBox a{
+    color:#fff;
+}
+.userBox span{
+    font-size:1.2em;
+}
+
+.userBox.open{
+    height:270px;
+    transition-property: height;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+}
+.userBox.notOpen{
+    height:52px;
+    transition-property: height;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+}
+.userBox.notOpen li ul{
+    height:0;
+    overflow: hidden;
+    transition-property: height;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+}
+.userBox.open li ul{
+    height:220px;
+    transition-property: height;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+}
+
+.userBox li ul li{
+    width:80%;
+    padding:15px 0;
+    cursor:pointer;
+}
+.userBox li ul li:not(:last-child){
+    border-bottom:1px solid #fff;
+}
+.userBox li ul li:not(:first-child){
+    border-top:1px solid #fff;
+}
+.profileIcon{
+    width:10%;
+    max-width:40px;
+    max-Height:40px;
+    border-radius: 100%;
+}
+
+/****************************************************************************
+*                               MENU LEFT                                 *
+*****************************************************************************/
+@keyframes smallSlideLeft {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(30px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+#menuLeft{
+    position:fixed;
+    top:0;
+    height:100%;
+    animation: smallSlideLeft 1s ease-out 0s 1;
+}
+#menuLeft{
+    display:flex;
+    cursor:pointer;
+    z-index:6;
+}
+#menuLeft nav{
+    box-shadow:5px 0px 10px rgba(0,0,0,0.8);
+}
+#menuLeft div{
+    padding-top:80%;
+}
+#menuLeft.numCol2{
+    width:100%;
+    max-width:400px;
+}
+#menuLeft.numCol2.notOpen{
+    margin-left: -340px;
+    transition-property: margin-left;
+    transition-duration: 0.8s;
+}
+#menuLeft.numCol2.open{
+    margin-left: 0;
+    transition-property: margin-left;
+    transition-duration: 0.8s;
+}
+#menuLeft.numCol2 li{
+    width:100%;
+    max-width:400px;
+    max-width:150px;
+    max-height:150px;
+}
+#menuLeft li{
+    box-shadow:2px 2px 8px rgba(0,0,0,0.8);
+    min-width:100px;
+    min-height:100px;
+    padding:15% 5%;
+    font-size:1.2em;
+    font-family: "Roboto-Bold", arial, sans-serif;
+}
+#menuLeft li:hover{
+    box-shadow:2px 2px 15px rgba(0,0,0,1);
+    transition-property: box-shadow;
+    transition-duration: 0.5s;
+}
+#menuLeft li a{
+    color:#fff;
+    padding:20% 5%;
+}
+#menuLeft.numCol2 li{
+    float:left;
+}
+#menuLeft ul{
+    margin-top:10px;
+    padding-left:0;
+    text-align:center;
+}
+@media (max-width: 768px){
+
+    #menuLeft li {
+        font-size:0.8em;
+        padding:10% 5%;
+    }
+    .userBox{
+        display:block;
+        position:inherit;
+    }
+}
+
+@media (max-width: 600px){
+    #menuLeft.numCol2.notOpen{
+        margin-left: -79%;
+    }
+}
