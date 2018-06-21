@@ -4,7 +4,7 @@
         <li class="content redGradient">
             <img class="profileIcon" src="../../assets/img/profile/default.svg" alt="Image du profil" />
 
-            <span class="serif">{{ usr?usr.username:"Anonyme" }}</span>
+            <span class="serif">{{ usr.username?(usr.username):"Anonyme" }}</span>
             <ul v-if="usr.username">
                 <li ><router-link :to="{ name: 'UserAccount' }">Mon profil</router-link></li>
                 <li ><router-link :to="{ name: 'Cave' }">Ma cave</router-link></li>

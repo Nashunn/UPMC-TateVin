@@ -9,14 +9,14 @@ let Schema = mongoose.Schema;
 
 //Describe the schema (model)
 var wineStorySchema = mongoose.Schema({
-  id: { type: String, require: true, default: shortid.generate()},
+  id: { type: String, require: true, default: shortid.generate(), unique: true},
   author: {type: Schema.Types.ObjectId, ref:'User'},
   date: {type:Date, default:Date.now},
   title: String,
   text: String,
   image: String,
-  wine : [{type: Schema.Types.ObjectId, ref: 'Wine'}],
-  tags: [{type:Schema.Types.ObjectId, ref: "Tag"}],
+  wines : [{type: Schema.Types.ObjectId, ref: 'Wine'}],
+  tags: [{type:Schema.Types.String, ref: "Tag"}],
   comments: [{type:Schema.Types.ObjectId, ref: "Comment"}]
 });
 

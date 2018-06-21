@@ -89,6 +89,7 @@ router
 
 /* fetch all the users */
 router
+  .get("/wineStory/:id_wineStory",  wineStoryController.findOneByIdd)
   .get("/wineStory",  wineStoryController.findAll)
   .post("/wineStory", wineStoryController.createWS);
 /*===========*
