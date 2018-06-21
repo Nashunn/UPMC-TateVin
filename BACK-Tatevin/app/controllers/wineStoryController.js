@@ -10,7 +10,14 @@ exports.findAll = function (req, res) {
     res.json(users);
   });
 };
-
+exports.findOneByIdd = function (req, res) {
+    console.log("RECHERCHE");
+    console.log(req.params.id_wineStory);
+    WineStory.find({id: req.params.id_wineStory}, function (err, user) {
+        if (err) res.send(err);
+        res.json(user);
+    });
+}
 
 exports.createWS = function (req, res) {
     console.log(req.body.tags);
@@ -27,7 +34,7 @@ exports.createWS = function (req, res) {
       author: req.body.userID,
       title: req.body.title,
       text: req.body.text,
-      image: req.body.img,
+      image: req.body.image,
       wines: winesId,
       tags: req.body.tags,
       comments: req.body.comments

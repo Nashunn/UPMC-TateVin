@@ -4,6 +4,8 @@
 .main-content {
     padding-left: 75px;
     padding-top: 20px;
+    width:80%;
+    margin:0 auto;
 }
 
 @media (max-width: 600px){
@@ -31,3 +33,13 @@ html #app{
 /****************************************************************************
 *                                 Buttons                                   *
 *****************************************************************************/
+/****************************************************************************
+*                                 wineStories                                   *
+*****************************************************************************/
+.coverWineStory{
+    max-height:400px;
+    overflow:hidden;
+    border:1px solid #690029;
+    border-bottom:3px solid #690029;
+    vertical-align: middle;
+}

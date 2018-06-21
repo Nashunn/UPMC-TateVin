@@ -9,7 +9,7 @@ let Schema = mongoose.Schema;
 
 //Describe the schema (model)
 var wineStorySchema = mongoose.Schema({
-  id: { type: String, require: true, default: shortid.generate()},
+  id: { type: String, require: true, default: shortid.generate(), unique: true},
   author: {type: Schema.Types.ObjectId, ref:'User'},
   date: {type:Date, default:Date.now},
   title: String,
