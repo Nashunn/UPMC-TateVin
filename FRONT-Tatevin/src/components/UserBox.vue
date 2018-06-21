@@ -46,6 +46,10 @@ export default {
          })*/
       }
 
+  },
+  created(){
+      console.log("USER : ");
+      console.log(this.$store.state.usr.username);
   }
 }
 </script>

@@ -1,20 +1,20 @@
 <template>
   <div class="hello">
-      <StoryBloc v-for="story in stories" :title="story.title" :id="story.id" />
+        <p>Ma story !</p>
   </div>
 </template>
 
 <script>
   import { EventBusModal } from "./../events/";
-  import StoryBloc from './StoryBloc'
-  import {HTTP} from "../HTTP/http";
+
   export default {
     name: 'hello',
-    components:{StoryBloc},
     data () {
       return {
-          stories:[]
       }
+    },
+    props:{
+        title:{type:String}
     },
     mounted(){
       EventBusModal.$on('loading', loading => {
@@ -25,11 +25,6 @@
       test() {
         EventBusModal.$emit("loading", true);
       }
-  },
-  created(){
-      HTTP.get('/wineStory').then(response=>{
-          this.stories=response.data;
-      });
-  }
+    }
   }
 </script>

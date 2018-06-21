@@ -7,6 +7,7 @@ import Login from '@/components/Login'
 import Signup from '@/components/Signup'
 import WinesPage from '@/components/WinesPage'
 import WineStories from '@/components/WineStories'
+import Story from '@/components/Story'
 import Learning from '@/components/Learning'
 import Dictionnary from '@/components/Dictionnary'
 import Search from '@/components/Search'
@@ -55,6 +56,11 @@ export default new Router({
       path: '/wineStories',
       name: 'WineStories',
       component: WineStories
+    },
+    {
+      path: '/story/:id',
+      name: 'Story',
+      component: Story
     },
     {
       path: '/learning',
