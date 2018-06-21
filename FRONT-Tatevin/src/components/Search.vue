@@ -9,7 +9,7 @@
                 </b-form-checkbox-group>
             </b-form-group>
 
-    
+        
             <p class="m4">
                 <label for="tags">Mots clés : </label>
                 <input v-model="search.tags" id="tags" type="text"/>
