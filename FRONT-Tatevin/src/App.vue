@@ -6,6 +6,7 @@
                 <MenuLeft/>
 
                 <div class="main-content">
+                    <div v-show="isLoading" ><!-- loader --> </div>
                     <!-- Popups -->
                     <wine-popup v-show="showWinePopup"></wine-popup>
                     <!-- End Popups -->
@@ -32,13 +33,15 @@
         data() {
             return {
                 showWinePopup: false,
+                isLoading: false,
             }
         },
         created(){
-            console.log(this.$store.state.usr.username);
         },
         mounted() {
-            console.log(this.$store.state.usr);
+            EventBusModal.$on('loading-loader', loading => {
+                this.isLoading = loading;
+            });
             EventBusModal.$on("winePopup", showModal => {
                 this.showWinePopup = showModal;
             });
