@@ -1,6 +1,11 @@
 /****************************************************************************
 *                                 General                                   *
 *****************************************************************************/
+html #app{
+    font-family:'Roboto-Medium', Arial, sans-sans-serif;
+    height: 100%;
+}
+
 .main-content {
     padding-left: 75px;
     padding-top: 20px;
@@ -9,18 +14,9 @@
 li{
     list-style-type: none;
 }
-html #app{
-    font-family:'Roboto-Medium', Arial, sans-sans-serif;
-    height: 100%;
-}
+
 .serif{
     font-family:'Lora-Bold', serif;
-}
-.redGradient{
-    background: linear-gradient(to right, rgb(105,0,41),rgb(128,0,43));
-}
-.whiteGradient{
-    background: linear-gradient(to right, rgb(255,243,219),rgb(255,238,158));
 }
 
 /* Media queries */
@@ -28,6 +24,16 @@ html #app{
     .main-content {
         padding-top: 75px;
     }
+}
+
+/****************************************************************************
+*                                 Gradient                                  *
+*****************************************************************************/
+.redGradient{
+    background: linear-gradient(to right, rgb(105,0,41),rgb(128,0,43));
+}
+.whiteGradient{
+    background: linear-gradient(to right, rgb(255,243,219),rgb(255,238,158));
 }
 
 /****************************************************************************
@@ -50,6 +56,7 @@ html #app{
     transform: scale(0.9);
 }
 
+/* Button colors */
 .btn-purple {
     border: 1px groove transparent;
     background-color: rgb(105,0,41);
