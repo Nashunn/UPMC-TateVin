@@ -14,6 +14,7 @@ import Search from '@/components/Search'
 import Cave from '@/components/Cave'
 import Wishes from '@/components/Wishes'
 import OtherUser from '@/components/OtherUser'
+import WineStoryCreation from '@/components/WineStoryCreation'
 Vue.use(Router);
 
 export default new Router({
@@ -55,6 +56,11 @@ export default new Router({
       path: '/wineStories',
       name: 'WineStories',
       component: WineStories
+    },
+    {
+      path: '/wineStories/creation',
+      name: 'WineStoryCreation',
+      component: WineStoryCreation
     },
     {
       path: '/story/:id',

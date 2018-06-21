@@ -1,5 +1,6 @@
 <template>
   <div class="hello">
+      <router-link :to="{ name: 'WineStoryCreation' }">Ecrire une nouvelle histoire</router-link>      
       <StoryBloc v-for="story in stories" :title="story.title" :id="story.id" />
   </div>
 </template>
