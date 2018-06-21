@@ -13,9 +13,7 @@ import Dictionnary from '@/components/Dictionnary'
 import Search from '@/components/Search'
 import Cave from '@/components/Cave'
 import Wishes from '@/components/Wishes'
-
-import BarcodeScan from '@/components/Scanner/BarcodeScan'
-
+import OtherUser from '@/components/OtherUser'
 Vue.use(Router);
 
 export default new Router({
@@ -142,6 +140,12 @@ export default new Router({
             path: '/wishes',
             name: 'Wishes',
             component: Wishes
-        }
+        },
+        {
+            path: "/user/:username",
+            component: OtherUser,
+            name: "otherUser"
+        },
+
     ]
 })
