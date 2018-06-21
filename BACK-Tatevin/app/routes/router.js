@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var path    = require("path");
+var path = require("path");
 
 const userController = require("./../controllers/userController");
 const wineStoryController = require("./../controllers/wineStoryController");
@@ -9,9 +9,9 @@ const tagController = require("./../controllers/tagController");
 
 
 //HOME
-router.route("/").all(function(req, res) {
-  res.sendFile(path.join(__dirname+'/../../dist/index.html'));
-  // prod => res.sendFile(path.join(__dirname+'/../../dist/index.html'));
+router.route("/").all(function (req, res) {
+    res.sendFile(path.join(__dirname + '/../../dist/index.html'));
+    // prod => res.sendFile(path.join(__dirname+'/../../dist/index.html'));
 });
 
 
@@ -24,10 +24,10 @@ router.route("/").all(function(req, res) {
  *===========*/
 
 /* fetch all the users */
-router.get("/tags",  tagController.findAll)
+router.get("/tags", tagController.findAll)
 
 router
-  .post("/tag", tagController.createTag);
+    .post("/tag", tagController.createTag);
 
 /*===========*
  * Instance  *
@@ -43,18 +43,18 @@ router
  *   Type    *
  *===========*/
 router
-  .get("/users", userController.findAllUser)
-  .post("/register", userController.register)
-  .post("/login", userController.login)
-  .get("/account", userController.account);
+    .get("/users", userController.findAllUser)
+    .post("/register", userController.register)
+    .post("/login", userController.login)
+    .get("/account", userController.account);
 
 /*===========*
  * Instance  *
  *===========*/
 router
-  .get("/users/:user_id", userController.findOneUser) //need to remove password
-  .put("/users/:user_id", userController.updateUser)
-  .delete("/users/:user_id", userController.deleteUser);
+    .get("/users/:user_id", userController.findOneUser) //todo : need to remove password
+    .put("/users/:user_id", userController.updateUser)
+    .delete("/users/:user_id", userController.deleteUser);
 
 /**~~~~~~~~~~~~~~~~~END USER~~~~~~~~~~~~~~~~~**/
 
@@ -67,14 +67,17 @@ router
  *===========*/
 
 /* fetch all the users */
-router.get("/wines",  wineController.findAll)
+router
+    .get("/wines", wineController.findAll);
 
 router
-  .post("/wine", wineController.createWine);
+    .post("/wine", wineController.createWine);
 
 /*===========*
  * Instance  *
  *===========*/
+router
+    .get("/wine/:wine_id", wineController.findOneWine);
 
 /**~~~~~~~~~~~~~~~END Wine~~~~~~~~~~~~~~~~~**/
 
@@ -89,14 +92,14 @@ router
 
 /* fetch all the users */
 router
-  .get("/wineStory/:id_wineStory",  wineStoryController.findOneByIdd)
-  .get("/wineStory",  wineStoryController.findAll)
-  .post("/wineStory", wineStoryController.createWS);
+    .get("/wineStory/:id_wineStory", wineStoryController.findOneByIdd)
+    .get("/wineStory", wineStoryController.findAll)
+    .post("/wineStory", wineStoryController.createWS);
 /*===========*
  * Instance  *
  *===========*/
 router
-  .delete("/wineStory/:ws_id", wineStoryController.deleteWS)
+    .delete("/wineStory/:ws_id", wineStoryController.deleteWS)
 
 /**~~~~~~~~~~~~~~~~~END WS~~~~~~~~~~~~~~~~~**/
 

@@ -63,9 +63,6 @@
             }
         },
         created() {
-            EventBusModal.$on('loading', loading => {
-                alert("coucou")
-            })
         },
         methods: {
             test() {

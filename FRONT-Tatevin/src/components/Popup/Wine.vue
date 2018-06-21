@@ -5,14 +5,17 @@
             <div class="modal-wrapper">
                 <div class="modal-dialog">
                     <div class="modal-content">
+                        <!-- modal header -->
                         <div class="modal-header">
                             <h4 class="modal-title">Ajouter un vin</h4>
                             <button type="button" class="close" @click="close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
+                        <!-- end of modal header -->
+                        <!-- modal body -->
                         <div class="modal-body">
-                            <p class="row">
+                            <p class="">
                                 <label for="name">Nom : </label>
                                 <input
                                     type="text"
@@ -22,21 +25,25 @@
                                     v-model="credentials.name"
                                 />
                             </p>
-                            <p class="row">
+                            <p class="">
                                 <label for="pwd">Millésime: </label>
                                 <input
-                                    type="text"
+                                    type="number"
                                     id="pwd"
                                     class="tb-input"
                                     placeholder="Entrez le millésime"
                                     v-model="credentials.millesime"
-                                    @keyup.enter="submit"
+                                    @keyup.enter="checkBeforeSubmit"
                                 />
                             </p>
+
+                            <p class="error-text">{{ error }}</p>
+
                             <div class="btn-wrapper">
-                                <button type="submit" ref="btnSubmit" @click="submit">Ajouter</button>
+                                <button ref="btnSubmit" @click="checkBeforeSubmit" class="wine-btn btn-purple">Ajouter</button>
                             </div>
                         </div>
+                        <!-- end of modal body -->
                     </div>
                 </div>
             </div>
@@ -70,13 +77,29 @@
 
     export default {
         name: "modalWine",
+        data() {
+            return {
+                credentials:{
+                    name:"",
+                    millesime:""
+                },
+                error: "",
+            };
+        },
         methods: {
             close() {
                 EventBusModal.$emit("winePopup", false);
             },
+            checkBeforeSubmit() {
+                this.error = "";
+
+                if(this.credentials.name ==="" || this.credentials.millesime === "")
+                    this.error = "Veuillez remplir l'ensemble des champs pour créer un vin.";
+                else
+                    this.submit();
+            },
             submit() {
                 console.log(this.credentials);
-
                 //Create wine back
                 HTTP.post(
                     "/wine",
@@ -87,16 +110,10 @@
                     {}
                 ).then(response => {
                     console.log(response.data);
+                    this.close();
+                    this.$router.push("/wine/"+response.data.wine.id);
                 });
             }
         },
-        data() {
-            return {
-                credentials:{
-                    name:"",
-                    millesime:""
-                }
-            };
-        }
     };
 </script>

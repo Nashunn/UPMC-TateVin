@@ -19,6 +19,10 @@ li{
     font-family:'Lora-Bold', serif;
 }
 
+.error-text {
+    color: rgb(128,0,43);
+}
+
 /* Media queries */
 @media (max-width: 600px){
     .main-content {
