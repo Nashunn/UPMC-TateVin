@@ -1,9 +1,10 @@
 <template>
     <div id="app">
         <b-container fluid class="main">
-            <TimIsHappy/> <!-- Header -->
+            <WineHeader/> <!-- Header -->
             <b-row no-gutters>
                 <MenuLeft/>
+
                 <div class="main-content">
                     <div v-show="isLoading" ><!-- loader --> </div>
                     <!-- Popups -->
@@ -20,14 +21,14 @@
 <script>
     import 'bootstrap/dist/css/bootstrap.css'
     import 'bootstrap-vue/dist/bootstrap-vue.css'
-    import TimIsHappy from './components/TimIsHappy.vue'
-    import MenuLeft from './components/MenuLeft.vue'
+    import WineHeader from './components/Menus/WineHeader.vue'
+    import MenuLeft from './components/Menus/MenuLeft.vue'
     import WinePopup from "./components/Popup/Wine";
     import {EventBusModal} from "./events/";
 
 
     export default {
-        components: {TimIsHappy, MenuLeft, WinePopup},
+        components: {WineHeader, MenuLeft, WinePopup},
         name: 'app',
         data() {
             return {

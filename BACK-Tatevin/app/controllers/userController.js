@@ -23,6 +23,9 @@ exports.findOneUser = function (req, res) {
 
 exports.register = function (req, res) {
     let hashedPassword = bcrypt.hashSync(req.body.password, 8);
+
+    //todo : mieux gérer l'erreur
+
     //Create user with args in the post request
     console.log(req.body);
     User.create(
