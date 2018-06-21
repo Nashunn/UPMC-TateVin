@@ -4,6 +4,7 @@
 .main-content {
     padding-left: 75px;
     padding-top: 20px;
+    width:100%;
 }
 
 @media (max-width: 600px){
