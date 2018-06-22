@@ -167,3 +167,18 @@
         margin-left: -79%;
     }
 }
+
+@media (min-height:1000px){
+    #menuLeft{
+        animation:none;
+    }
+    #menuLeft li{
+        font-size:0.9em;
+    }
+    #menuLeft div{
+        display:none;
+    }
+    #menuLeft nav{
+        padding:0 10px;
+    }
+}
