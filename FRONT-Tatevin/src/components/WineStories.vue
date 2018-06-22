@@ -10,7 +10,7 @@
   import StoryBloc from './StoryBloc'
   import {HTTP} from "../HTTP/http";
   export default {
-    name: 'hello',
+    name: 'WineStories',
     components:{StoryBloc},
     data () {
       return {

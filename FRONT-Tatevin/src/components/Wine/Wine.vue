@@ -2,7 +2,7 @@
     <section class="wine">
         <h2>{{ this.wine.name }} ({{ this.wine.millesime }})</h2>
         <p>
-            //todo faire la fiche vin
+
         </p>
     </section>
 </template>
