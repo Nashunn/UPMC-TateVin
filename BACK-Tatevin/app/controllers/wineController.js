@@ -61,3 +61,13 @@ exports.modifyWine = function (req, res) {
         }
     )
 }
+
+/************************SEARCH**********************************/
+
+exports.searchWine = async function (query) {
+    return await Wine.find(query, async function (err, ws) {
+        console.log(ws);
+        return await ws;
+    });
+}
+

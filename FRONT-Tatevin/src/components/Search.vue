@@ -1,4 +1,4 @@
-<template>
+    <template>
     <section class="search">
         <h2>Recherche</h2>
         <p>Affiner votre recherche</p>
@@ -41,13 +41,14 @@
 
 <script>
     import {EventBusModal} from "./../events/";
+    import {HTTP} from "./../HTTP/http";
 
     export default {
         name: 'hello',
         data() {
             return {
                 search: {
-                    tags: [],
+                    tags: "",
                     categories: [],
                     domaine: "",
                     terroir: "",
@@ -62,14 +63,14 @@
                 ]
             }
         },
-        created() {
-        },
         methods: {
             test() {
                 EventBusModal.$emit("loading", true);
             },
             doSearch() {
-                alert("Todo");
+                HTTP.get('/search',{  params: this.search }).then(response=>{
+                    console.log(response.data)
+                });
             },
             displayCreateWine() {
                 EventBusModal.$emit("winePopup", true);

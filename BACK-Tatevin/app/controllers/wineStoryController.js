@@ -65,3 +65,14 @@ exports.deleteWS = function (req, res) {
     
   });*/
 }
+
+
+/************************SEARCH**********************************/
+
+exports.findWSByTags = async function (tags) {
+    return await WineStory.find({tags:tags}, async function (err, ws) {
+        return await ws;
+    });
+}
+
+

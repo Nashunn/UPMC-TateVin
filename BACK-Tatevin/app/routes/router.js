@@ -6,6 +6,7 @@ const userController = require("./../controllers/userController");
 const wineStoryController = require("./../controllers/wineStoryController");
 const wineController = require("./../controllers/wineController");
 const tagController = require("./../controllers/tagController");
+const searchController = require("./../controllers/searchController");
 
 
 //HOME
@@ -14,6 +15,13 @@ router.route("/").all(function (req, res) {
     // prod => res.sendFile(path.join(__dirname+'/../../dist/index.html'));
 });
 
+
+/********************************************
+ *             ROADS : Search               *
+ ********************************************/
+router.get("/search", searchController.search)
+
+/**~~~~~~~~~~~~~~~END Search~~~~~~~~~~~~~~~~~**/
 
 /********************************************
  *                ROADS : Tag               *
@@ -52,7 +60,7 @@ router
  * Instance  *
  *===========*/
 router
-    .get("/users/:user_id", userController.findOneUser) //todo : need to remove password
+    .get("/users/:user_id", userController.findOneUser) //need to remove password
     .put("/users/:user_id", userController.updateUser)
     .delete("/users/:user_id", userController.deleteUser);
 
@@ -68,7 +76,7 @@ router
 
 /* fetch all the users */
 router
-    .get("/wines", wineController.findAll);
+    .get("/wines", wineController.findAll)
 
 router
     .post("/wine", wineController.createWine);
