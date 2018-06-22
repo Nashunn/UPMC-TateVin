@@ -1,5 +1,5 @@
 <template>
-    <div id="menuLeft" :class="[getNumCol, isOpen ? 'open': 'notOpen']" v-on:click="openClose" v-on:resize="getNumCol">
+    <div id="menuLeft" :class="[getNumCol, isOpen ? 'open': 'notOpen']" v-on:click="openClose">
     <!--<div id="menuLeft" :class="[getNumCol]" v-on:click="openClose" :style="getMarginLeft">-->
         <nav class="redGradient" >
             <ul>
@@ -33,16 +33,23 @@ export default {
   name: 'menuLeft',
   computed:{
       getNumCol:function(){
-          var numCol=1;
-          if(screen.height/11<100){numCol=2; this.numCol=2;}
-          return "numCol"+numCol;
+          this.numColMethod();
+          return "numCol"+this.numCol;
       },
 
   },
   methods:{
       openClose:function(){
           this.isOpen=!this.isOpen;
+      },
+      numColMethod:function(){
+          this.numCol= window.innerHeight/10<100 ? 2:1;
       }
+  },created(){
+      var ob=this;
+      window.addEventListener('resize', ()=>{
+          this.numColMethod();
+      });
   }
 }
 

@@ -63,10 +63,6 @@
                 ]
             }
         },
-        created() {
-            EventBusModal.$on('loading', loading => {
-            })
-        },
         methods: {
             test() {
                 EventBusModal.$emit("loading", true);

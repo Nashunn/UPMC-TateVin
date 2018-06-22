@@ -1,26 +1,29 @@
 <template>
-    <div class="hello">
+    <section class="wine">
+        <h2>{{ this.wine.name }} ({{ this.wine.millesime }})</h2>
+        <p>
 
-    </div>
+        </p>
+    </section>
 </template>
 
 <script>
-    import {EventBusModal} from "./../events/";
+import {HTTP} from "../../HTTP/http";
 
-    export default {
-        name: 'hello',
-        data() {
-            return {}
-        },
-        mounted() {
-            EventBusModal.$on('loading', loading => {
-                alert("coucou")
-            })
-        },
-        methods: {
-            test() {
-                EventBusModal.$emit("loading", true);
-            }
+export default {
+    name: 'Wine',
+    data() {
+        return {
+            wine: [],
         }
+    },
+    mounted() {
+        console.log("Page de vin : "+this.$route.params.id);
+        HTTP.get('/wine/'+this.$route.params.id).then(response=>{
+            this.wine=response.data;
+        });
+    },
+    methods: {
     }
+}
 </script>

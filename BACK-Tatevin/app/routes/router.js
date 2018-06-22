@@ -75,7 +75,8 @@ router
  *===========*/
 
 /* fetch all the users */
-router.get("/wines", wineController.findAll)
+router
+    .get("/wines", wineController.findAll)
 
 router
     .post("/wine", wineController.createWine);
@@ -83,6 +84,8 @@ router
 /*===========*
  * Instance  *
  *===========*/
+router
+    .get("/wine/:wine_id", wineController.findOneWine);
 
 /**~~~~~~~~~~~~~~~END Wine~~~~~~~~~~~~~~~~~**/
 

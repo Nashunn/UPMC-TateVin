@@ -1,4 +1,7 @@
 const Wine = require("../models/wine");
+const TagController = require("./tagController");
+
+let shortid = require("shortid");
 
 exports.findAll = function (req, res) {
     Wine.find(function (err, users) {
@@ -9,12 +12,22 @@ exports.findAll = function (req, res) {
     });
 };
 
+exports.findOneWine = function (req, res) {
+    Wine.findOne({id: req.params.wine_id}, function(error, result) {
+        if(error)
+            res.status(500).send(error);
+
+        // if all ok
+        res.status(200).send(result);
+    })
+};
 
 exports.createWine = function (req, res) {
     //let grapes = req.body.grapeTag;
     //TagController.createTagIfNotCreated(grapes, TagController.TAGS_TYPE.CEPAGE)
     Wine.create(
         {
+            id: shortid.generate(),
             name: req.body.name,
             millesime: req.body.millesime, //Millesime
             terroir: null,

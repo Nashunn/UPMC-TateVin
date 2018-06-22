@@ -9,6 +9,7 @@
                     <div v-show="isLoading" ><!-- loader --> </div>
                     <!-- Popups -->
                     <wine-popup v-show="showWinePopup"></wine-popup>
+                    <Delete v-show="showDeletePopup"/>
                     <!-- End Popups -->
 
                     <router-view></router-view>
@@ -24,14 +25,16 @@
     import WineHeader from './components/Menus/WineHeader.vue'
     import MenuLeft from './components/Menus/MenuLeft.vue'
     import WinePopup from "./components/Popup/Wine";
+    import Delete from "./components/Popup/Delete";
     import {EventBusModal} from "./events/";
 
     export default {
-        components: {WineHeader, MenuLeft, WinePopup},
+        components: {WineHeader, MenuLeft, WinePopup, Delete},
         name: 'app',
         data() {
             return {
                 showWinePopup: false,
+                showDeletePopup:false,
                 isLoading: false,
             }
         },
@@ -43,6 +46,9 @@
             });
             EventBusModal.$on("winePopup", showModal => {
                 this.showWinePopup = showModal;
+            });
+            EventBusModal.$on("Delete", showModal => {
+                this.showDeletePopup = showModal;
             });
         }
     }

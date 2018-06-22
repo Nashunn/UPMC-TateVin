@@ -20,6 +20,10 @@ li{
     font-family:'Lora-Bold', serif;
 }
 
+.error-text {
+    color: rgb(128,0,43);
+}
+
 /* Media queries */
 @media (max-width: 600px){
     .main-content {
@@ -82,3 +86,16 @@ li{
 *                                 Minimal                                   *
 *****************************************************************************/
 .margin-bottom-25 { margin-bottom: 25px!important; }
+
+@media (max-width: 768px){
+    .main-content{
+        padding-top:65px;
+    }
+}
+
+
+@media (min-height:1000px){
+    .main-content{
+        padding-left:165px;
+    }
+}
