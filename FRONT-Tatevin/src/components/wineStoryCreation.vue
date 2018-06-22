@@ -10,7 +10,7 @@
             <p>{{ story.title }}</p>
             <p class="">
                 <label for="text">Votre histoire</label>
-                <input v-model="story.text" type="email" id="email" required/>
+                <wysiwyg v-model="story.text" />
             </p>
             <p>{{ story.text }}</p>
             <p>
@@ -34,6 +34,8 @@ import {HTTP} from "../HTTP/http";
 import auth from "../auth/index"
 import vue2Dropzone from "vue2-dropzone";
 import "vue2-dropzone/dist/vue2Dropzone.css";
+import store from './../store'
+
 
 export default {
     name: 'Signup',
@@ -59,6 +61,7 @@ export default {
                 image: "",
                 wines: [],
                 tags: [],
+                author:store.state.usr.username
             },
             error:'',
         }
@@ -70,15 +73,18 @@ export default {
         },
         afterComplete(file) {
             console.log(file);
-            this.credentials.avatar = file.dataURL;
+            this.story.image = file.dataURL;
         },
         created(){
-            console.log(this.$store.state.usr);
         },
         submit() {
+            console.log(store.state.usr.username)
+            HTTP.post("/wineStory", this.story).then(()=>this.$router.push('/wineStories'));
+            /*
             new Promise( (resolve, reject) => {
-                resolve(auth.signup(this, this.credentials, true));
-            }).then(() => this.$router.push( '/'))
+
+                //resolve(auth.signup(this, this.story, true));
+            }).then(() => this.$router.push( '/'))*/
         }
     }
 }

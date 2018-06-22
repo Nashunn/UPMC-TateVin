@@ -1,5 +1,6 @@
 var WineStory = require("../models/wineStory");
 var mongoose = require("mongoose");
+let shortid= require("shortid");
 const TagController = require("./tagController");
 
 exports.findAll = function (req, res) {
@@ -20,7 +21,6 @@ exports.findOneByIdd = function (req, res) {
 }
 
 exports.createWS = function (req, res) {
-    console.log(req.body.tags);
     if(req.body.tags) TagController.createTagIfNotCreated(req.body.tags, TagController.TAGS_TYPE.DIVERS);
     if(req.body.wines){
         var winesId=req.body.wines;
@@ -31,7 +31,8 @@ exports.createWS = function (req, res) {
     }
   WineStory.create(
     {
-      author: req.body.userID,
+      id:shortid.generate(),
+      author: req.body.author,
       title: req.body.title,
       text: req.body.text,
       image: req.body.image,
@@ -51,7 +52,8 @@ exports.createWS = function (req, res) {
 }
 
 exports.deleteWS = function (req, res) {
-  WineStory.findByIdAndRemove(req.idWS, (err) => {
+  WineStory.findByIdAndRemove(req.ws_id, (err) => {
+      console.log(err);
     if (err) return res.status(500).send(err);
     return res.status(200).send({msg: "Wine story deleted ! "});
   });
