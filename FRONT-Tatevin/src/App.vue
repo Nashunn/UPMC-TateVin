@@ -1,54 +1,65 @@
 <template>
-  <div id="app">
-    <header>
-      <span>Vue.js PWA</span>
-    </header>
-    <main>
-      <img src="./assets/logo.png" alt="Vue.js PWA">
-      <router-view></router-view>
-    </main>
-  </div>
+    <div id="app">
+        <b-container fluid class="main">
+            <WineHeader/> <!-- Header -->
+            <b-row no-gutters>
+                <MenuLeft/>
+
+                <div class="main-content">
+                    <div v-show="isLoading" ><!-- loader --> </div>
+                    <!-- Popups -->
+                    <wine-popup v-show="showWinePopup"></wine-popup>
+                    <Delete v-show="showDeletePopup"/>
+                    <!-- End Popups -->
+
+                    <router-view></router-view>
+                </div>
+            </b-row>
+        </b-container>
+    </div>
 </template>
 
 <script>
-export default {
-  name: 'app'
-}
+    import 'bootstrap/dist/css/bootstrap.css'
+    import 'bootstrap-vue/dist/bootstrap-vue.css'
+    import WineHeader from './components/Menus/WineHeader.vue'
+    import MenuLeft from './components/Menus/MenuLeft.vue'
+    import WinePopup from "./components/Popup/Wine";
+    import Delete from "./components/Popup/Delete";
+    import {EventBusModal} from "./events/";
+
+    export default {
+        components: {WineHeader, MenuLeft, WinePopup, Delete},
+        name: 'app',
+        data() {
+            return {
+                showWinePopup: false,
+                showDeletePopup:false,
+                isLoading: false,
+            }
+        },
+        created(){
+        },
+        mounted() {
+            EventBusModal.$on('loading-loader', loading => {
+                this.isLoading = loading;
+            });
+            EventBusModal.$on("winePopup", showModal => {
+                this.showWinePopup = showModal;
+            });
+            EventBusModal.$on("Delete", showModal => {
+                this.showDeletePopup = showModal;
+            });
+        }
+    }
 </script>
 
 <style>
-body {
-  margin: 0;
-}
+    body {
+        margin: 0;
+    }
 
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-}
-
-main {
-  text-align: center;
-  margin-top: 40px;
-}
-
-header {
-  margin: 0;
-  height: 56px;
-  padding: 0 16px 0 24px;
-  background-color: #35495E;
-  color: #ffffff;
-}
-
-header span {
-  display: block;
-  position: relative;
-  font-size: 20px;
-  line-height: 1;
-  letter-spacing: .02em;
-  font-weight: 400;
-  box-sizing: border-box;
-  padding-top: 16px;
-}
+    .main {
+        padding: 0;
+    }
 </style>

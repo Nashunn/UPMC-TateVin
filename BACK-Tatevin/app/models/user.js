@@ -25,7 +25,6 @@ let userSchema = mongoose.Schema({
   },
   birthday: {
     type: Date,
-    default: Date.now
   },
   password: {
     type: String
