@@ -1,5 +1,5 @@
 const Wine = require("../models/wine");
-const TagController = require("./tagController");
+
 exports.findAll = function (req, res) {
     Wine.find(function (err, users) {
         if (err) {
@@ -48,3 +48,13 @@ exports.modifyWine = function (req, res) {
         }
     )
 }
+
+/************************SEARCH**********************************/
+
+exports.searchWine = async function (query) {
+    return await Wine.find(query, async function (err, ws) {
+        console.log(ws);
+        return await ws;
+    });
+}
+

@@ -56,3 +56,14 @@ exports.deleteWS = function (req, res) {
     return res.status(200).send({msg: "Wine story deleted ! "});
   });
 }
+
+
+/************************SEARCH**********************************/
+
+exports.findWSByTags = async function (tags) {
+    return await WineStory.find({tags:tags}, async function (err, ws) {
+        return await ws;
+    });
+}
+
+

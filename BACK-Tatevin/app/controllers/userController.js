@@ -13,13 +13,13 @@ exports.findAllUser = function (req, res) {
     });
 };
 
-
 exports.findOneUser = function (req, res) {
     User.find({username: req.params.user_id}, function (err, user) {
         if (err) res.send(err);
         res.json(user);
     });
 }
+
 
 exports.register = function (req, res) {
     let hashedPassword = bcrypt.hashSync(req.body.password, 8);
@@ -154,5 +154,16 @@ exports.deleteUser = function (req, res) {
             if (err) return res.status(500).send(err);
             return res.status(200).send({msg: "User deleted ! "});
         })
+    });
+}
+
+
+/************************SEARCH**********************************/
+
+
+exports.findUserByUsername = async function (username) {
+    return await User.find({username:username}, async function (err, user) {
+        console.log("user:",user);
+        return await user;
     });
 }
