@@ -31,7 +31,7 @@ exports.createWine = function (req, res) {
             name: req.body.name,
             millesime: req.body.millesime, //Millesime
             terroir: null,
-            type: null,
+            type: req.body.type,
             classification: null,
             gaz: null,
             grape: null,
