@@ -10,6 +10,14 @@ exports.findAll = function (req, res) {
     res.json(tags);
   });
 };
+exports.findByType = function (req, res) {
+  Tag.find({type: req.body.type},function (err, tags) {
+    if (err) {
+      res.send(err);
+    }
+    res.json(tags);
+  });
+};
 
 exports.createTagIfNotCreated = function (label, type) {
     console.log(label);

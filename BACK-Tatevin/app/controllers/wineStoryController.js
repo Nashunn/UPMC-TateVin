@@ -52,20 +52,27 @@ exports.createWS = function (req, res) {
 }
 
 exports.deleteWS = function (req, res) {
+  console.log("EFFACE");
+  console.log(req.params.ws_id);
+  WineStory.findOneAndRemove({id: req.params.ws_id}, function (err, wine) {
+          console.log(err);
+          if (err) return res.status(500).send(err);
+          return res.status(200).send({msg: "Wine story deleted ! "});
+    });
+
+    /*
   WineStory.findByIdAndRemove(req.ws_id, (err) => {
-      console.log(err);
-    if (err) return res.status(500).send(err);
-    return res.status(200).send({msg: "Wine story deleted ! "});
-  });
+    
+  });*/
 }
 
 
 /************************SEARCH**********************************/
-
+/*
 exports.findWSByTags = async function (tags) {
     return await WineStory.find({tags:tags}, async function (err, ws) {
         return await ws;
     });
 }
 
-
+*/

@@ -25,6 +25,7 @@
     import WineHeader from './components/Menus/WineHeader.vue'
     import MenuLeft from './components/Menus/MenuLeft.vue'
     import WinePopup from "./components/Popup/Wine";
+    import AddWine from "./components/Popup/AddWine";
     import Delete from "./components/Popup/Delete";
     import Loader from "./components/Loader";
     import {EventBusModal} from "./events/";
@@ -50,6 +51,9 @@
             });
             EventBusModal.$on("Delete", showModal => {
                 this.showDeletePopup = showModal;
+            });
+            EventBusModal.$on("AddWine", showModal => {
+                this.showAddWinePopup = showModal;
             });
         }
     }

@@ -19,7 +19,7 @@ router.route("/").all(function (req, res) {
 /********************************************
  *             ROADS : Search               *
  ********************************************/
-router.get("/search", searchController.search)
+/*router.get("/search", searchController.search)
 
 /**~~~~~~~~~~~~~~~END Search~~~~~~~~~~~~~~~~~**/
 
@@ -33,6 +33,7 @@ router.get("/search", searchController.search)
 
 /* fetch all the users */
 router.get("/tags", tagController.findAll)
+router.post("/tags", tagController.findByType)
 
 router
     .post("/tag", tagController.createTag);

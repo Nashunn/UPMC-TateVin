@@ -1,7 +1,7 @@
 const userController = require("./../controllers/userController");
 const wineStoryController = require("./../controllers/wineStoryController");
 const wineController = require("./../controllers/wineController");
-
+/*
 exports.search = async function (req, res) {
     let ret = [];
     for (let i = 0; i < req.query.categories.length; i++) {
@@ -25,7 +25,7 @@ exports.search = async function (req, res) {
                 console.log("default")
         }
     }
-    console.log("REEEEEEEEEEEEEEEEEEEEET", ret);
+    console.log("Buuuuuuuuuuuuuuuuuuuuuuuuuuuuuuttttttttt", ret);
     res.send(ret)
 
-}
+}*/
