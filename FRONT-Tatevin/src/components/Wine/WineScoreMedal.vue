@@ -1,9 +1,6 @@
 <template>
     <div class="wine-score-medal">
-        <div>
-            <span v-for="i in score">Y</span>
-            <span v-for="o in emptyGlass">!</span>
-        </div>
+        <glass-score :score="score" :maxScore="maxScore"/>
 
         <div class="score">{{ score+"/"+maxScore || "Not noted" }}</div>
         <div class="nb-vote">{{ vote }} votant{{ vote>=1?"s":"" }}</div>
@@ -11,10 +8,13 @@
 </template>
 
 <script>
-    import {HTTP} from "../../HTTP/http";
+    import GlassScore from "./GlassScore";
 
     export default {
         name: 'WineScoreMedal',
+        components: {
+            GlassScore,
+        },
         props: {
             score: Number,
             vote: Number,
@@ -28,10 +28,5 @@
         },
         methods: {
         },
-        computed: {
-            emptyGlass: function() {
-                return (this.maxScore - this.score);
-            }
-        }
     }
 </script>
