@@ -71,6 +71,16 @@
     max-width:40px;
     max-Height:40px;
     border-radius: 100%;
+    background-color: #e4e4e4;
+    padding: 2px;
+}
+
+/* Media queries */
+@media (max-width: 600px) {
+    .profileIcon{
+        margin-left: 15px;
+        margin-right: 10px;
+    }
 }
 
 /****************************************************************************
