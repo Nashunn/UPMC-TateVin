@@ -160,10 +160,10 @@ exports.deleteUser = function (req, res) {
 
 /************************SEARCH**********************************/
 
-/*
+
 exports.findUserByUsername = async function (username) {
     return await User.find({username:username}, async function (err, user) {
         console.log("user:",user);
         return await user;
     });
-}*/
+}

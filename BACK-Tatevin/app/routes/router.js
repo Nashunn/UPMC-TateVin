@@ -19,7 +19,7 @@ router.route("/").all(function (req, res) {
 /********************************************
  *             ROADS : Search               *
  ********************************************/
-/*router.get("/search", searchController.search)
+router.get("/search", searchController.search)
 
 /**~~~~~~~~~~~~~~~END Search~~~~~~~~~~~~~~~~~**/
 
