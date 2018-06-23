@@ -7,12 +7,10 @@
                 <label for="username">Titre : </label>
                 <input v-model="story.title" type="text" id="username" required/>
             </p>
-            <p>{{ story.title }}</p>
             <p class="">
                 <label for="text">Votre histoire</label>
                 <wysiwyg v-model="story.text" />
             </p>
-            <p>{{ story.text }}</p>
             <p>
                 <vue-dropzone
                     ref="userAvatar"
@@ -22,8 +20,7 @@
                 />
             </p>
             <h3>Tags associés</h3>
-            
-            <Tag v-for="tag in story.tags" :label="tag" :key="tag"/>
+            <Tag v-for="(tag,index) in story.tags" :label="tag" :key="index" :index="index" v-model="indexTag"/>
             <p v-show="tagExists">Le tag {{tagToAdd }} est déjà enregistré.</p>
             <p>Ajouter un tag :  <Autocomplete :items="tagList" ref="newTag"/> <b-button v-on:click="addTag">+</b-button></p>
             <div class="btn-wrapper">
@@ -44,7 +41,7 @@ import Tag from './Tag';
 import Autocomplete from './Autocomplete';
 
 export default {
-    name: 'Signup',
+    name: 'wineStoryCreation',
     components: {
         vueDropzone: vue2Dropzone,
         Tag, Autocomplete
@@ -67,11 +64,12 @@ export default {
                 text: "",
                 image: "",
                 wines: [],
-                tags: ["test"],
+                tags: [],
                 author:store.state.usr.username
             },
             tagToAdd:"test",
             tagExists:false,
+            indexTag:-1,
             tagList:[],
             error:'',
         }
@@ -92,13 +90,13 @@ export default {
             console.log(file);
             this.story.image = file.dataURL;
         },
-        
+
         submit() {
-            
+
             HTTP.post("/wineStory", this.story).then(()=>{
                 this.$router.push('/wineStories')
             });
-            
+
         },
         addTag(){
 
@@ -109,6 +107,9 @@ export default {
             }else{
                 this.tagExists=true;
             }
+        },
+        deleteTag(){
+            alert("delete");
         },
         initTag(){
             this.tagExists=false;
