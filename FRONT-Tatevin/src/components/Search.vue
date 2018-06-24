@@ -1,16 +1,14 @@
     <template>
     <section class="search">
-<<<<<<< HEAD
+
         <div v-if='!wineStory'>
-        <h2>Recherche</h2>
-=======
         <div class="mb-3">
             <button @click="displayCreateWine()" class="wine-btn btn-purple">Nouveau vin</button>
         </div>
 
         <h2 class="mb-0">Recherche</h2>
->>>>>>> 4aca73e20b714365eb259bf0fbff3067ca8dd371
         <p>Affiner votre recherche</p>
+    </div>
     </div>
         <b-card class="search-wrapper">
             <b-form-group label="Catégories : " v-if='!wineStory'>
@@ -41,13 +39,11 @@
             </div>
         </b-card>
 
-        <div class="">
+        <div class="" v-if="!wineStory"> 
             <button @click="displayCreateWine()" class="wine-btn btn-purple">Nouveau vin</button>
         </div>
         <div>
-            <div v-for="(wine, index) in wineList">{{ wine.name }} Todo : $emit:je comprends pas comment ça marche (remonter depuis un composant vers son parent)
-                <button v-if="wineList" type="button">+</button>
-            </div>
+            <WineBloc v-for="(wine, index) in results" :key="index" :wine="wine.id" :wineStory="wineStory" value="+" v-on:addWine="$emit('addWine', wine)"/>
         </div>
     </section>
 </template>
@@ -55,9 +51,11 @@
 <script>
     import {EventBusModal} from "./../events/";
     import {HTTP} from "./../HTTP/http";
+    import WineBloc from './WineBloc';
 
     export default {
         name: 'hello',
+        components:{WineBloc},
         data() {
             return {
                 search: {
@@ -67,7 +65,7 @@
                     terroir: "",
                     millesime: "",
                 },
-                wineList:[],
+                results:[],
                 optionsCat: [
                     {text: 'Vin', value: 'vin'},
                     {text: 'Histoire de vin', value: 'hdv'},
@@ -85,7 +83,7 @@
             doSearch() {
                 if(this.wineStory) this.search.categories=["vin"];
                 HTTP.get('/search',{  params: this.search }).then(response=>{
-                    this.wineList=response.data[0];
+                    this.results=response.data[0];
                 });
             },
             displayCreateWine() {

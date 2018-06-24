@@ -19,10 +19,13 @@
                     @vdropzone-complete="afterComplete"
                 />
             </p>
-            <h3>Associer un vin</h3>
-            <Search :wineStory="true"/>
+            <h3>Vins associés</h3>
+            <WineBloc v-for="(wine, index) in story.wines" :key="index" :wine="wine.id" value="-" :wineStory="true" v-on:addWine="removeWine(index)"/>
+            <h3>Associer un nouveau vin</h3>
+            <Search :wineStory="true" v-on:addWine="addWine($event)"/>
+
             <h3>Tags associés</h3>
-            <Tag v-for="(tag,index) in story.tags" :label="tag" />
+            <Tag v-for="(tag,index) in story.tags" :label="tag" v-on:deleteTag="deleteTag(index)" :canBeDelete="true"/>
             <p v-show="tagExists">Le tag {{tagToAdd }} est déjà enregistré.</p>
             <p>Ajouter un tag :  <Autocomplete :items="tagList" ref="newTag"/> <b-button v-on:click="addTag">+</b-button></p>
             <div class="btn-wrapper">
@@ -40,6 +43,7 @@ import vue2Dropzone from "vue2-dropzone";
 import "vue2-dropzone/dist/vue2Dropzone.css";
 import store from './../store';
 import Tag from './Tag';
+import WineBloc from './WineBloc';
 import Autocomplete from './Autocomplete';
 import Search from './Search';
 
@@ -47,7 +51,7 @@ export default {
     name: 'wineStoryCreation',
     components: {
         vueDropzone: vue2Dropzone,
-        Tag, Autocomplete, Search
+        Tag, Autocomplete, Search,WineBloc
     },
     data () {
         return {
@@ -93,7 +97,6 @@ export default {
             this.submit();
         },
         afterComplete(file) {
-            console.log(file);
             this.story.image = file.dataURL;
         },
 
@@ -122,12 +125,21 @@ export default {
             }
             this.updateStore();
         },
-        deleteTag(){
-            alert("delete");
+        deleteTag( index ){
+            this.story.tags.splice(index,1);
             this.updateStore();
         },
         initTag(){
             this.tagExists=false;
+        },
+        addWine( wine ){
+            alert("ajout");
+            this.story.wines.push(wine);
+            this.updateStore();
+        },
+        removeWine( index ){
+            this.story.wines.splice(index,1);
+            this.updateStore();
         }
     },
 }

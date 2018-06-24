@@ -5,20 +5,19 @@
         </div>
 
         <h2>Vins</h2>
-        <div class="wines" v-for="wine in wines">
-            <router-link :to="{ name: 'Wine', params: {id: wine.id } }">
-                {{ wine.name }} ({{ wine.millesime }})
-            </router-link>
-        </div>
+        <WineBloc v-for="(wine,index) in wines" :wine="wine.id" :key="index"/>
+
     </section>
 </template>
 
 <script>
     import { HTTP } from "../HTTP/http";
     import {EventBusModal} from "./../events/";
+    import WineBloc from './WineBloc';
 
     export default {
         name: 'WinesPage',
+        components:{WineBloc},
         data () {
             return {
                 wines: [],
@@ -27,7 +26,6 @@
         mounted(){
             // Get all wines
             HTTP.get('/wines').then(response=>{
-                console.log(response.data);
                 this.wines=response.data;
             });
         },

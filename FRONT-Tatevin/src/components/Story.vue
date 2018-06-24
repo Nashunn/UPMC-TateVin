@@ -9,7 +9,9 @@
         </div>
         <h2>{{story.title}}</h2>
         <p>Tags : <Tag v-for="tag in story.tags" :label="tag" /></p>
-        <p v-for="paragraphe in p">{{ paragraphe }}</p>
+        <div v-html="story.text"></div>
+        <h3>Vins associés</h3>
+        <WineBloc v-for="(wine,index) in story.wines" :key="index" :wine="wine"  />
   </div>
 </template>
 
@@ -19,14 +21,14 @@
   import Utils from "./../utils/";
   import store from "./../store/"
   import Tag from './Tag';
+  import WineBloc from './WineBloc';
   import Delete from "./Popup/Delete"
   export default {
     name: 'hello',
-    components:{Delete, Tag},
+    components:{Delete, Tag, WineBloc},
     data () {
       return {
           story:{},
-          p:[],
           userStory:false,
           toDelete:true
       }
@@ -38,9 +40,6 @@
         HTTP.get('/wineStory/'+ this.$route.params.id).then(response=>{
             this.story=response.data[0];
             this.story.date=Utils.dateLocale(this.story.date);
-
-
-            this.p=Utils.getParagraphe(this.story.text);
             this.userStory=(this.story.author==store.state.usr.username);
             console.log(this.story);
         });
@@ -61,7 +60,7 @@
         },
         updateStory(){
             store.state.story=this.story;
-            this.$router.push('/wineStories/creation/'+this.story.id);
+            this.$router.push('/wineStories/creation');
         }
   },
   computed:{
