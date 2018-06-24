@@ -31,6 +31,19 @@ li{
     }
 }
 
+@media (max-width: 768px){
+    .main-content{
+        padding-top:65px;
+    }
+}
+
+
+@media (min-height:1000px){
+    .main-content{
+        padding-left:165px;
+    }
+}
+
 /****************************************************************************
 *                                 Gradient                                  *
 *****************************************************************************/
@@ -75,11 +88,132 @@ li{
 }
 
 /****************************************************************************
+*                                  Tags                                   *
+*****************************************************************************/
+.tag{
+    display:inline-block;
+    padding:5px 10px;
+    margin-right:20px;
+    color:#fff;
+    box-shadow:0px 5px 10px rgba(0,0,0,0.8);
+
+}
+/****************************************************************************
 *                                  Search                                   *
 *****************************************************************************/
 .search-wrapper {
     background: rgb(200,200,200);
+    width: 80%;
     margin: 25px 0;
+
+}
+
+/* Media queries */
+@media (max-width: 600px){
+    .search-wrapper {
+        width: 98%;
+    }
+}
+
+/****************************************************************************
+*                                  Wines                                    *
+*****************************************************************************/
+.wine-color-bloc {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #333;
+    border-radius: 50%;
+}
+
+.wine-score-medal {
+    position: absolute;
+    right: 100px;
+    width: 120px;
+    height: 120px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: rgb(105,0,41);
+    color: #fff;
+}
+
+.wine-score-medal>.score-bar {
+    position: relative;
+    top: 20px;
+}
+.wine-score-medal>.score {
+    position: relative;
+    top: 20px;
+    font-size: 1.7em;
+    font-family: 'Lora-Bold', serif;
+}
+.wine-score-medal>.nb-vote {
+    position: relative;
+    top: 25px;
+    font-size: 0.8em;
+}
+
+.wine-bar {
+    margin-top: 100px;
+    height: 50px;
+    width: 98%;
+    line-height: 50px;
+}
+
+.wine-bar .score {
+    background-color: #dddddd;
+}
+.wine-bar .cave {
+    background-color: rgb(105,0,41);
+    color: #e4e4e4;
+}
+.wine-bar .wishes {
+    background-color: #5c5c5c;
+    color: #e4e4e4;
+}
+
+/* Media queries */
+@media (max-width: 600px){
+    .wine-color-bloc {
+        display: block;
+    }
+
+    .wine-score-medal {
+        position: relative;
+        left: 0px;
+        width: 95%;
+        height: 60px;
+        border-radius: 0%;
+    }
+
+    .wine-score-medal>.score-bar {
+        position: absolute;
+        left: 20px;
+    }
+    .wine-score-medal>.score {
+        position: absolute;
+        top: 0px;
+        right: 20px;
+        font-size: 1.7em;
+        font-family: 'Lora-Bold', serif;
+    }
+    .wine-score-medal>.nb-vote {
+        position: absolute;
+        top: 35px;
+        right: 20px;
+        font-size: 0.8em;
+    }
+
+    .wine-bar {
+        margin-top: 10px;
+        height: 150px;
+        width: 100%;
+        line-height: 50px;
+    }
+    .wine-bar>* {
+        height: 50px;
+    }
+
 }
 
 /****************************************************************************
@@ -87,15 +221,10 @@ li{
 *****************************************************************************/
 .margin-bottom-25 { margin-bottom: 25px!important; }
 
-@media (max-width: 768px){
-    .main-content{
-        padding-top:65px;
-    }
-}
-
-
-@media (min-height:1000px){
-    .main-content{
-        padding-left:165px;
+/* Media queries */
+@media (max-width: 600px){
+    .mob-not-inline {
+        display: block!important;
+        width: 100%;
     }
 }

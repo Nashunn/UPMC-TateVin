@@ -1,5 +1,9 @@
 <template>
     <section class="winesPage">
+        <div class="mb-3">
+            <button @click="displayCreateWine()" class="wine-btn btn-purple">Nouveau vin</button>
+        </div>
+
         <h2>Vins</h2>
         <div class="wines" v-for="wine in wines">
             <router-link :to="{ name: 'Wine', params: {id: wine.id } }">
@@ -11,6 +15,7 @@
 
 <script>
     import { HTTP } from "../HTTP/http";
+    import {EventBusModal} from "./../events/";
 
     export default {
         name: 'WinesPage',
@@ -26,7 +31,9 @@
             });
         },
         methods:{
-
+            displayCreateWine() {
+                EventBusModal.$emit("winePopup", true);
+            }
         }
     }
 </script>

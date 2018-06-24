@@ -32,7 +32,7 @@
                 />
             </p>
             <div class="btn-wrapper">
-                <button type="submit" ref="btnSubmit">Signup</button>
+                <button type="submit" ref="btnSubmit" class="wine-btn btn-purple">Signup</button>
             </div>
             <p>{{error}}</p>
         </form>

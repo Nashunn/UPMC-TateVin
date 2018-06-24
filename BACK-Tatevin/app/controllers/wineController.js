@@ -31,7 +31,7 @@ exports.createWine = function (req, res) {
             name: req.body.name,
             millesime: req.body.millesime, //Millesime
             terroir: null,
-            type: null,
+            type: req.body.type,
             classification: null,
             gaz: null,
             grape: null,
@@ -60,4 +60,13 @@ exports.modifyWine = function (req, res) {
             return res.send(newWine);
         }
     )
+}
+
+/************************SEARCH**********************************/
+
+exports.searchWine = async function (query) {
+    return await Wine.find(query, async function (err, ws) {
+        console.log(ws);
+        return await ws;
+    });
 }

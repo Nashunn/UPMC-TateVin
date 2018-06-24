@@ -6,6 +6,7 @@
         <b-img :src="story.image" fluid :alt="story.title" />
         </div>
         <h2>{{story.title}}</h2>
+        <p>Tags : <Tag v-for="tag in story.tags" :label="tag" /></p>
         <p v-for="paragraphe in p">{{ paragraphe }}</p>
   </div>
 </template>
@@ -15,10 +16,11 @@
   import {HTTP} from "../HTTP/http";
   import Utils from "./../utils/";
   import store from "./../store/"
+  import Tag from './Tag';
   import Delete from "./Popup/Delete"
   export default {
     name: 'hello',
-    components:{Delete},
+    components:{Delete, Tag},
     data () {
       return {
           story:{},
@@ -38,6 +40,7 @@
 
             this.p=Utils.getParagraphe(this.story.text);
             this.userStory=(this.story.author==store.state.usr.username);
+            console.log(this.story);
         });
 
 

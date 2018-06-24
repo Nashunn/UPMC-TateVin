@@ -2,7 +2,6 @@
     <section class="login">
         <h2>Login</h2>
         <form class="">
-            <p>fdddddp</p>
             <p class="">
                 <label for="username">Username : </label>
                 <input v-model="credentials.email" type="text" id="username" required/>
@@ -12,7 +11,7 @@
                 <input v-model="credentials.password" type="password" id="password" required/>
             </p>
             <div class="btn-wrapper">
-                <button @keyup.enter="submit()" @click="submit()" class="btn">Login</button>
+                <button @keyup.enter="submit()" @click="submit()" class="wine-btn btn-purple">Login</button>
             </div>
         </form>
     </section>
@@ -38,7 +37,7 @@
             submit() {
                 new Promise( (resolve, reject) => {
                     resolve(Auth.login(this, this.credentials, "secretquote"));
-                }).then(() => this.$router.push( '/'))
+                }).then(() => this.$router.push('/'))
             }
         }
     }

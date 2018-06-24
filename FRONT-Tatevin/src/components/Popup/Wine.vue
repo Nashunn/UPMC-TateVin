@@ -15,27 +15,36 @@
                         <!-- end of modal header -->
                         <!-- modal body -->
                         <div class="modal-body">
-                            <p class="">
-                                <label for="name">Nom : </label>
-                                <input
+                            <b-row class="ml-1 mb-1">
+                                <label class="w-25" for="name">Nom : </label>
+                                <b-form-input
                                     type="text"
                                     id="name"
-                                    class="tb-input"
+                                    class="w-50"
                                     placeholder="Entrez le nom"
                                     v-model="credentials.name"
                                 />
-                            </p>
-                            <p class="">
-                                <label for="pwd">Millésime: </label>
-                                <input
+                            </b-row>
+                            <b-row class="ml-1 mb-1">
+                                <label class="w-25" for="pwd">Millésime: </label>
+                                <b-form-input
                                     type="number"
                                     id="pwd"
-                                    class="tb-input"
+                                    class="w-50"
                                     placeholder="Entrez le millésime"
                                     v-model="credentials.millesime"
                                     @keyup.enter="checkBeforeSubmit"
                                 />
-                            </p>
+                            </b-row>
+
+                            <b-row class="ml-1 mb-1">
+                                <label class="w-25" for="type">Type : </label>
+                                <b-form-select
+                                    id="type"
+                                    class="w-50"
+                                    v-model="credentials.type"
+                                    :options="optionsType" />
+                            </b-row>
 
                             <p class="error-text">{{ error }}</p>
 
@@ -81,8 +90,14 @@
             return {
                 credentials:{
                     name:"",
-                    millesime:""
+                    millesime:"",
+                    type:""
                 },
+                optionsType:[
+                    { value: "rouge", text:"Rouge" },
+                    { value: "rosee", text:"Rosée" },
+                    { value: "blanc", text:"Blanc" }
+                ],
                 error: "",
             };
         },
@@ -93,7 +108,11 @@
             checkBeforeSubmit() {
                 this.error = "";
 
-                if(this.credentials.name ==="" || this.credentials.millesime === "")
+                if(
+                    this.credentials.name ==="" ||
+                    this.credentials.millesime === "" ||
+                    this.credentials.type === ""
+                )
                     this.error = "Veuillez remplir l'ensemble des champs pour créer un vin.";
                 else
                     this.submit();
@@ -105,6 +124,7 @@
                     "/wine",
                     {
                         name: this.credentials.name,
+                        type: this.credentials.type,
                         millesime: this.credentials.millesime,
                     },
                     {}

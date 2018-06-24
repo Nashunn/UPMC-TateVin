@@ -1,12 +1,12 @@
 <template>
     <div id="app">
+        <loader v-show="isLoading" ><!-- loader --> </loader>
         <b-container fluid class="main">
             <WineHeader/> <!-- Header -->
             <b-row no-gutters>
                 <MenuLeft/>
 
                 <div class="main-content">
-                    <div v-show="isLoading" ><!-- loader --> </div>
                     <!-- Popups -->
                     <wine-popup v-show="showWinePopup"></wine-popup>
                     <Delete v-show="showDeletePopup"/>
@@ -25,11 +25,13 @@
     import WineHeader from './components/Menus/WineHeader.vue'
     import MenuLeft from './components/Menus/MenuLeft.vue'
     import WinePopup from "./components/Popup/Wine";
+    import AddWine from "./components/Popup/AddWine";
     import Delete from "./components/Popup/Delete";
+    import Loader from "./components/Loader";
     import {EventBusModal} from "./events/";
 
     export default {
-        components: {WineHeader, MenuLeft, WinePopup, Delete},
+        components: {WineHeader, MenuLeft, WinePopup, Delete, Loader},
         name: 'app',
         data() {
             return {
@@ -49,6 +51,9 @@
             });
             EventBusModal.$on("Delete", showModal => {
                 this.showDeletePopup = showModal;
+            });
+            EventBusModal.$on("AddWine", showModal => {
+                this.showAddWinePopup = showModal;
             });
         }
     }

@@ -1,18 +1,16 @@
 <template>
     <section class="signup">
-        <h2>Créez votre hitoire de vin</h2>
+        <h2>Créez votre histoire de vin</h2>
 
         <form @submit.prevent="validateBeforeSubmit()" class="">
             <p class="">
                 <label for="username">Titre : </label>
                 <input v-model="story.title" type="text" id="username" required/>
             </p>
-            <p>{{ story.title }}</p>
             <p class="">
                 <label for="text">Votre histoire</label>
                 <wysiwyg v-model="story.text" />
             </p>
-            <p>{{ story.text }}</p>
             <p>
                 <vue-dropzone
                     ref="userAvatar"
@@ -21,6 +19,10 @@
                     @vdropzone-complete="afterComplete"
                 />
             </p>
+            <h3>Tags associés</h3>
+            <Tag v-for="(tag,index) in story.tags" :label="tag" :key="index" :index="index" v-model="indexTag"/>
+            <p v-show="tagExists">Le tag {{tagToAdd }} est déjà enregistré.</p>
+            <p>Ajouter un tag :  <Autocomplete :items="tagList" ref="newTag"/> <b-button v-on:click="addTag">+</b-button></p>
             <div class="btn-wrapper">
                 <button type="submit" ref="btnSubmit">Signup</button>
             </div>
@@ -34,13 +36,15 @@ import {HTTP} from "../HTTP/http";
 import auth from "../auth/index"
 import vue2Dropzone from "vue2-dropzone";
 import "vue2-dropzone/dist/vue2Dropzone.css";
-import store from './../store'
-
+import store from './../store';
+import Tag from './Tag';
+import Autocomplete from './Autocomplete';
 
 export default {
-    name: 'Signup',
+    name: 'wineStoryCreation',
     components: {
-        vueDropzone: vue2Dropzone
+        vueDropzone: vue2Dropzone,
+        Tag, Autocomplete
     },
     data () {
         return {
@@ -63,9 +67,20 @@ export default {
                 tags: [],
                 author:store.state.usr.username
             },
+            tagToAdd:"test",
+            tagExists:false,
+            indexTag:-1,
+            tagList:[],
             error:'',
         }
     },
+    created(){
+            HTTP.post("/tags/", {type:"DIVERS"},{}).then(response=>{
+                for(var i=0; i<response.data.length;i++){
+                    this.tagList.push(response.data[i].label);
+                };
+            })
+        },
     methods: {
         validateBeforeSubmit() {
             //add more security
@@ -75,17 +90,30 @@ export default {
             console.log(file);
             this.story.image = file.dataURL;
         },
-        created(){
-        },
-        submit() {
-            console.log(store.state.usr.username)
-            HTTP.post("/wineStory", this.story).then(()=>this.$router.push('/wineStories'));
-            /*
-            new Promise( (resolve, reject) => {
 
-                //resolve(auth.signup(this, this.story, true));
-            }).then(() => this.$router.push( '/'))*/
+        submit() {
+
+            HTTP.post("/wineStory", this.story).then(()=>{
+                this.$router.push('/wineStories')
+            });
+
+        },
+        addTag(){
+
+            var exist=true;
+            console.log(this.story.tags.find(tag=>tag===this.$refs.newTag.search));
+            if(typeof(this.story.tags.find(tag=>tag===this.$refs.newTag.search))==="undefined"){
+                this.story.tags.push(this.$refs.newTag.search);
+            }else{
+                this.tagExists=true;
+            }
+        },
+        deleteTag(){
+            alert("delete");
+        },
+        initTag(){
+            this.tagExists=false;
         }
-    }
+    },
 }
 </script>

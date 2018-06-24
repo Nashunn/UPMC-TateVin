@@ -1,6 +1,10 @@
-<template>
+    <template>
     <section class="search">
-        <h2>Recherche</h2>
+        <div class="mb-3">
+            <button @click="displayCreateWine()" class="wine-btn btn-purple">Nouveau vin</button>
+        </div>
+
+        <h2 class="mb-0">Recherche</h2>
         <p>Affiner votre recherche</p>
 
         <b-card class="search-wrapper">
@@ -31,23 +35,19 @@
                 <button @click="doSearch()" class="wine-btn btn-purple">Rechercher</button>
             </div>
         </b-card>
-
-        <div class="">
-            <button @click="displayCreateWine()" class="wine-btn btn-purple">Nouveau vin</button>
-        </div>
-
     </section>
 </template>
 
 <script>
     import {EventBusModal} from "./../events/";
+    import {HTTP} from "./../HTTP/http";
 
     export default {
         name: 'hello',
         data() {
             return {
                 search: {
-                    tags: [],
+                    tags: "",
                     categories: [],
                     domaine: "",
                     terroir: "",
@@ -62,14 +62,14 @@
                 ]
             }
         },
-        created() {
-        },
         methods: {
             test() {
                 EventBusModal.$emit("loading", true);
             },
             doSearch() {
-                alert("Todo");
+                HTTP.get('/search',{  params: this.search }).then(response=>{
+                    console.log(response.data)
+                });
             },
             displayCreateWine() {
                 EventBusModal.$emit("winePopup", true);
