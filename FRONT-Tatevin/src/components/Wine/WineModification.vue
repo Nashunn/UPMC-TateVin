@@ -33,7 +33,7 @@
             },
             SaveandGoToWine() {
                 //todo save
-                
+
                 this.$router.push('/wine/'+this.$route.params.id);
             }
         }

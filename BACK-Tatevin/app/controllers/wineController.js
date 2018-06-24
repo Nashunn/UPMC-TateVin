@@ -70,3 +70,5 @@ exports.searchWine = async function (query) {
         return await ws;
     });
 }
+
+/********************GET WINE INFORMATION ***********************/

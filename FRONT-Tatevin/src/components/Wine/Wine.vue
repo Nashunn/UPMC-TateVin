@@ -84,7 +84,9 @@ export default {
             });
         },
         getScores() {
+            HTTP.get('/wine/'+this.$route.params.id).then(response=>{
 
+            });
         },
     },
     computed: {
