@@ -7,6 +7,7 @@ const wineStoryController = require("./../controllers/wineStoryController");
 const wineController = require("./../controllers/wineController");
 const tagController = require("./../controllers/tagController");
 const searchController = require("./../controllers/searchController");
+const commentController = require("./../controllers/commentController");
 
 
 //HOME
@@ -111,6 +112,13 @@ router
     .delete("/wineStory/:ws_id", wineStoryController.deleteWS)
 
 /**~~~~~~~~~~~~~~~~~END WS~~~~~~~~~~~~~~~~~**/
+
+/*********************************************************
+*                        ROADS : Comments                *
+**********************************************************/
+router
+    .post("/comment", commentController.createComment)
+    .get("/comments", commentController.findAll);
 
 
 

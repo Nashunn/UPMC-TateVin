@@ -16,7 +16,7 @@ var CommentSchema = mongoose.Schema({
   like: { type: Number, default: 0 },
   author: { type: Schema.Types.ObjectId, ref:"User" },
   date: { type: Date, default: Date.now },
-  is_signaled: Boolean
+  is_signaled: {type:Boolean, default:false}
 });
 
 var Comment = mongoose.model("Comment", CommentSchema);
