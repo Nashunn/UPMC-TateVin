@@ -15,6 +15,7 @@ import Cave from '@/components/Cave'
 import Wishes from '@/components/Wishes'
 import OtherUser from '@/components/OtherUser'
 import Wine from '@/components/Wine/Wine'
+import WineModification from '@/components/Wine/WineModification'
 import WineStoryCreation from '@/components/WineStoryCreation'
 
 Vue.use(Router);
@@ -53,6 +54,11 @@ export default new Router({
             path: '/wine/:id',
             name: 'Wine',
             component: Wine
+        },
+        {
+            path: '/wine/m/:id',
+            name: 'WineModification',
+            component: WineModification
         },
         {
             path: '/wines',

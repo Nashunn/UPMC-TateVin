@@ -121,5 +121,6 @@ router
     .get("/comments", commentController.findAll);
 
 
+/**~~~~~~~~~~~~~~~END Opinion~~~~~~~~~~~~~~**/
 
 module.exports = router;
