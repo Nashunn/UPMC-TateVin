@@ -7,7 +7,7 @@
                     <div class="modal-content">
                         <!-- modal header -->
                         <div class="modal-header">
-                            <h4 class="modal-title">Ajouter un vin</h4>
+                            <h4 class="modal-title">Commenter l'histoire de vin</h4>
                             <button type="button" class="close" @click="close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -16,34 +16,14 @@
                         <!-- modal body -->
                         <div class="modal-body">
                             <b-row class="ml-1 mb-1">
-                                <label class="w-25" for="name">Nom : </label>
-                                <b-form-input
+                                <label class="w-25" for="name">Votre message</label>
+                                <b-form-textarea
                                     type="text"
-                                    id="name"
+                                    id="message"
                                     class="w-50"
                                     placeholder="Entrez le nom"
-                                    v-model="credentials.name"
+                                    v-model="comment.message"
                                 />
-                            </b-row>
-                            <b-row class="ml-1 mb-1">
-                                <label class="w-25" for="pwd">Millésime: </label>
-                                <b-form-input
-                                    type="number"
-                                    id="pwd"
-                                    class="w-50"
-                                    placeholder="Entrez le millésime"
-                                    v-model="credentials.millesime"
-                                    @keyup.enter="checkBeforeSubmit"
-                                />
-                            </b-row>
-
-                            <b-row class="ml-1 mb-1">
-                                <label class="w-25" for="type">Type : </label>
-                                <b-form-select
-                                    id="type"
-                                    class="w-50"
-                                    v-model="credentials.type"
-                                    :options="optionsType" />
                             </b-row>
 
                             <p class="error-text">{{ error }}</p>
@@ -83,55 +63,43 @@
 <script>
     import {EventBusModal} from "../../events/";
     import {HTTP} from "../../HTTP/http";
+     import store from "./../../store/";
 
     export default {
         name: "modalWine",
         data() {
             return {
-                credentials:{
-                    name:"",
-                    millesime:"",
-                    type:""
+                comment:{
+                    message:"",
+                    author:store.state.usr._id
                 },
-                optionsType:[
-                    { value: "rouge", text:"Rouge" },
-                    { value: "rosee", text:"Rosée" },
-                    { value: "blanc", text:"Blanc" }
-                ],
+
                 error: "",
             };
         },
         methods: {
             close() {
-                EventBusModal.$emit("winePopup", false);
+                EventBusModal.$emit("Comment", false);
             },
             checkBeforeSubmit() {
                 this.error = "";
 
                 if(
-                    this.credentials.name ==="" ||
-                    this.credentials.millesime === "" ||
-                    this.credentials.type === ""
+                    this.comment.message ===""
                 )
-                    this.error = "Veuillez remplir l'ensemble des champs pour créer un vin.";
+                    this.error = "Ne rien dire, c'est dire beaucoup trop.";
                 else
                     this.submit();
             },
             submit() {
-                console.log(this.credentials);
                 //Create wine back
                 HTTP.post(
-                    "/wine",
-                    {
-                        name: this.credentials.name,
-                        type: this.credentials.type,
-                        millesime: this.credentials.millesime,
-                    },
+                    "/comment",
+                    this.comment,
                     {}
                 ).then(response => {
                     console.log(response.data);
                     this.close();
-                    this.$router.push("/wine/"+response.data.wine.id);
                 });
             }
         },

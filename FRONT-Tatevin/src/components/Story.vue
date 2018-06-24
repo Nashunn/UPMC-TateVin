@@ -12,6 +12,10 @@
         <div v-html="story.text"></div>
         <h3>Vins associés</h3>
         <WineBloc v-for="(wine,index) in story.wines" :key="index" :wine="wine"  />
+        <div>
+            <button type="button" @click="comment">Ajouter un commentaire</button>
+            <Comment v-for="comment in story.comments" :key="comment" :id="comment"/>
+        </div>
   </div>
 </template>
 
@@ -23,9 +27,10 @@
   import Tag from './Tag';
   import WineBloc from './WineBloc';
   import Delete from "./Popup/Delete"
+  import Comment from "./Comment"
   export default {
     name: 'hello',
-    components:{Delete, Tag, WineBloc},
+    components:{Delete, Tag, WineBloc, Comment},
     data () {
       return {
           story:{},
@@ -61,6 +66,9 @@
         updateStory(){
             store.state.story=this.story;
             this.$router.push('/wineStories/creation');
+        },
+        comment(){
+            EventBusModal.$emit("Comment", true);
         }
   },
   computed:{

@@ -10,6 +10,7 @@
                     <!-- Popups -->
                     <wine-popup v-show="showWinePopup"></wine-popup>
                     <Delete v-show="showDeletePopup"/>
+                    <Comment v-show="showCommentPopup"/>
                     <!-- End Popups -->
 
                     <router-view></router-view>
@@ -27,16 +28,18 @@
     import WinePopup from "./components/Popup/Wine";
     import AddWine from "./components/Popup/AddWine";
     import Delete from "./components/Popup/Delete";
+    import Comment from "./components/Popup/Comment";
     import Loader from "./components/Loader";
     import {EventBusModal} from "./events/";
 
     export default {
-        components: {WineHeader, MenuLeft, WinePopup, Delete, Loader},
+        components: {WineHeader, MenuLeft, WinePopup, Delete, Loader, Comment},
         name: 'app',
         data() {
             return {
                 showWinePopup: false,
                 showDeletePopup:false,
+                showCommentPopup:false,
                 isLoading: false,
             }
         },
@@ -54,6 +57,9 @@
             });
             EventBusModal.$on("AddWine", showModal => {
                 this.showAddWinePopup = showModal;
+            });
+            EventBusModal.$on("Comment", showModal => {
+                this.showCommentPopup = showModal;
             });
         }
     }

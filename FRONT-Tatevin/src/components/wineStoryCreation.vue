@@ -25,7 +25,7 @@
             <Search :wineStory="true" v-on:addWine="addWine($event)"/>
 
             <h3>Tags associés</h3>
-            <Tag v-for="(tag,index) in story.tags" :label="tag" v-on:deleteTag="deleteTag(index)" :canBeDelete="true"/>
+            <Tag v-for="(tag,index) in story.tags" :label="tag" v-on:deleteTag="deleteTag(index)" :canBeDelete="true" :key="index"/>
             <p v-show="tagExists">Le tag {{tagToAdd }} est déjà enregistré.</p>
             <p>Ajouter un tag :  <Autocomplete :items="tagList" ref="newTag"/> <b-button v-on:click="addTag">+</b-button></p>
             <div class="btn-wrapper">
