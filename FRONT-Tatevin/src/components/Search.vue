@@ -1,7 +1,15 @@
     <template>
     <section class="search">
+<<<<<<< HEAD
         <div v-if='!wineStory'>
         <h2>Recherche</h2>
+=======
+        <div class="mb-3">
+            <button @click="displayCreateWine()" class="wine-btn btn-purple">Nouveau vin</button>
+        </div>
+
+        <h2 class="mb-0">Recherche</h2>
+>>>>>>> 4aca73e20b714365eb259bf0fbff3067ca8dd371
         <p>Affiner votre recherche</p>
     </div>
         <b-card class="search-wrapper">
