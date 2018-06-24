@@ -22,6 +22,7 @@
         mounted(){
             // Get all wines
             HTTP.get('/wines').then(response=>{
+                console.log(response.data);
                 this.wines=response.data;
             });
         },

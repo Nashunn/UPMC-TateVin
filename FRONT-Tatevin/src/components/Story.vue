@@ -1,6 +1,8 @@
 <template>
   <div class="hello">
-      <p v-if="userStory"><button v-on:click="deleteStory">Supprimer cette histoire</button></p>
+      <p v-if="userStory"><button v-on:click="deleteStory">Supprimer cette histoire</button>
+          <button v-on:click="updateStory">Modifier cette histoire</button>
+      </p>
       <p>Créée par <router-link :to="{ name: 'otherUser', params: { username:story.author} }">{{ story.author }}</router-link> le {{ story.date}} </p>
       <div v-if="story.image" class="coverWineStory">
         <b-img :src="story.image" fluid :alt="story.title" />
@@ -56,6 +58,10 @@
         },
         deleteStory(){
             EventBusModal.$emit("Delete", true);
+        },
+        updateStory(){
+            store.state.story=this.story;
+            this.$router.push('/wineStories/creation/'+this.story.id);
         }
   },
   computed:{

@@ -1,10 +1,11 @@
     <template>
     <section class="search">
+        <div v-if='!wineStory'>
         <h2>Recherche</h2>
         <p>Affiner votre recherche</p>
-
+    </div>
         <b-card class="search-wrapper">
-            <b-form-group label="Catégories : ">
+            <b-form-group label="Catégories : " v-if='!wineStory'>
                 <b-form-checkbox-group v-model="search.categories" name="category" :options="optionsCat">
                 </b-form-checkbox-group>
             </b-form-group>
@@ -28,14 +29,18 @@
             </b-row>
 
             <div class="btn-wrapper">
-                <button @click="doSearch()" class="wine-btn btn-purple">Rechercher</button>
+                <button @click="doSearch()" type="button" class="wine-btn btn-purple">Rechercher</button>
             </div>
         </b-card>
 
         <div class="">
             <button @click="displayCreateWine()" class="wine-btn btn-purple">Nouveau vin</button>
         </div>
-
+        <div>
+            <div v-for="(wine, index) in wineList">{{ wine.name }} Todo : $emit:je comprends pas comment ça marche (remonter depuis un composant vers son parent)
+                <button v-if="wineList" type="button">+</button>
+            </div>
+        </div>
     </section>
 </template>
 
@@ -54,6 +59,7 @@
                     terroir: "",
                     millesime: "",
                 },
+                wineList:[],
                 optionsCat: [
                     {text: 'Vin', value: 'vin'},
                     {text: 'Histoire de vin', value: 'hdv'},
@@ -63,13 +69,15 @@
                 ]
             }
         },
+        props:{wineStory:{type:Boolean, default:false}},
         methods: {
             test() {
                 EventBusModal.$emit("loading", true);
             },
             doSearch() {
+                if(this.wineStory) this.search.categories=["vin"];
                 HTTP.get('/search',{  params: this.search }).then(response=>{
-                    console.log(response.data)
+                    this.wineList=response.data[0];
                 });
             },
             displayCreateWine() {
