@@ -15,7 +15,7 @@ var wineStorySchema = mongoose.Schema({
   title: String,
   text: String,
   image: String,
-  wines : [{type: Schema.Types.ObjectId, ref: 'Wine'}],
+  wines : [{type: Schema.Types.String, ref: 'Wine'}],
   tags: [{type:Schema.Types.String, ref: "Tag"}],
   comments: [{type:Schema.Types.ObjectId, ref: "Comment"}]
 });
