@@ -6,8 +6,17 @@
 </template>
 
 <script>
+    import {ImageRating} from 'vue-rate-it';
+
     export default {
         name: 'GlassScore',
+        components: {
+            ImageRating
+        },
+        data: {
+            src: "./../../assets/glass.svg",
+            rating: 3,
+        },
         props: {
             score: Number,
             vote: Number,

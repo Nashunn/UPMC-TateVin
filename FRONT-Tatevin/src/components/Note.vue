@@ -1,7 +1,7 @@
 <template>
     <div>
     <span class="note" v-for="n in 4" >
-        {{ note }}
+        {{ n }}
         <svg x="0px" y="0px"
       	 viewBox="0 0 21 21" style="enable-background:new 0 0 21 21;" width="19" height="20" >
       <polygon class="st0" points="1,0.9 7.2,16.4 9.4,16.4 9.4,20.4 5.4,20.4 5.4,21 9.4,21 11.4,21 15,21 15,20.4 11.4,20.4 11.4,16.4
@@ -12,8 +12,6 @@
 </template>
 
 <script>
-  import { EventBusModal } from "./../events/";
-
   export default {
     name: 'glass',
     props:{
