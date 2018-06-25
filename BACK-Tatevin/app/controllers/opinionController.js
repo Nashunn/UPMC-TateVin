@@ -33,6 +33,12 @@ exports.createOpinion = function (req, res) {
 }
 
 exports.getOpinionBy = function (req, res) {
+    let ret = [];
+    let criterias = {};
+
+    //Create criterias json
+    if(req.query.)
+
     /* Todo
     Opinion.findOne({req.body.criteriaName: req.body.criteriaValue}, function(err, user) {
         //Error dealing
