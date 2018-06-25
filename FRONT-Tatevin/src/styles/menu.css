@@ -66,10 +66,9 @@
 .userBox li ul li:not(:first-child){
     border-top:1px solid #fff;
 }
-.profileIcon{
-    width:10%;
-    max-width:40px;
-    max-Height:40px;
+.profileIcon{;
+    width:35px;
+    height:35px;
     border-radius: 100%;
     background-color: #e4e4e4;
     padding: 2px;

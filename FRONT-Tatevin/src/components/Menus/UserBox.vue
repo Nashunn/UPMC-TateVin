@@ -2,7 +2,7 @@
 <b-col md="4" lg="3" sm="12" class="redGradient userBox" v-bind:class="{open:open, notOpen:!open}" no-gutters v-on:mouseenter="animProfileBox(true)" v-on:mouseleave="animProfileBox(false)">
     <ul class="firstUl">
         <li class="content redGradient">
-            <b-img v-if="usr.avatar" class="profileIcon" :src="usr.avatar" alt="Image du profil"></b-img>
+            <b-img v-if="usr.avatar" rounded="circle" class="profileIcon mr-2" :src="usr.avatar" alt="Image du profil"/>
             <b-img v-if="!usr.avatar" class="profileIcon" :src="require('../../assets/img/profile/unknown.png')" alt="Image du profil"></b-img>
 
             <span class="serif">{{ usr.username?(usr.username):"Anonyme" }}</span>
