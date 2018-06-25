@@ -14,7 +14,7 @@
         <WineBloc v-for="(wine,index) in story.wines" :key="index" :wine="wine"  />
         <div>
             <button type="button" @click="comment">Ajouter un commentaire</button>
-            <Comment v-for="comment in story.comments" :key="comment" :id="comment"/>
+            <Comment v-for="comment in story.comments" :key="comment._id"  :comment="comment" />
         </div>
   </div>
 </template>
@@ -33,7 +33,9 @@
     components:{Delete, Tag, WineBloc, Comment},
     data () {
       return {
-          story:{},
+          story:{
+              comment:{}
+          },
           userStory:false,
           toDelete:true
       }
@@ -46,7 +48,14 @@
             this.story=response.data[0];
             this.story.date=Utils.dateLocale(this.story.date);
             this.userStory=(this.story.author==store.state.usr.username);
-            console.log(this.story);
+
+        }).then(res=>{
+            HTTP.get("/wineStoryGetComments",{params:{comments:this.story.comments}}, function(err, res){
+                if(err) console.log(err);
+            } ).then(response=>{
+                this.story.comments=response.data;
+            })
+            console.log(this.story.comments);
         });
 
 
@@ -54,7 +63,11 @@
     mounted(){
       EventBusModal.$on('loading', loading => {
         alert("coucou")
-      })
+    });
+        EventBusModal.$on('updateComments', comment=>{
+            this.story.comments.push(comment);
+        });
+
     },
     methods:{
       test() {
@@ -70,11 +83,10 @@
         comment(){
             EventBusModal.$emit("Comment", true);
         }
+
   },
   computed:{
-      getHTML:function(){
 
-      }
   }
   }
 </script>

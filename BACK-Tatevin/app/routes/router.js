@@ -8,7 +8,7 @@ const wineController = require("./../controllers/wineController");
 const tagController = require("./../controllers/tagController");
 const searchController = require("./../controllers/searchController");
 const commentController = require("./../controllers/commentController");
-
+const opinionController = require("./../controllers/opinionController");
 
 //HOME
 router.route("/").all(function (req, res) {
@@ -106,13 +106,15 @@ router
 /* fetch all the users */
 router
     .get("/wineStory/:id_wineStory", wineStoryController.findOneByIdd)
+    .get("/wineStoryGetComments", commentController.getArray)
     .get("/wineStory", wineStoryController.findAll)
-    .post("/wineStory", wineStoryController.createWS);
+    .post("/wineStory", wineStoryController.createWS)
+    .put("/wineStoryAddComment", wineStoryController.addComment)
 /*===========*
  * Instance  *
  *===========*/
 router
-    .delete("/wineStory/:ws_id", wineStoryController.deleteWS)
+    .delete("/wineStory/:ws_id", wineStoryController.deleteWS);
 
 /**~~~~~~~~~~~~~~~~~END WS~~~~~~~~~~~~~~~~~**/
 
@@ -122,7 +124,13 @@ router
 router
     .post("/comment", commentController.createComment)
     .get("/comments", commentController.findAll);
+/**~~~~~~~~~~~~~~~END Comments~~~~~~~~~~~~~~**/
 
+/*********************************************************
+ *                    ROADS : Opinion                    *
+ **********************************************************/
+router
+    .get("/opinions", opinionController.getOpinionBy);
 
 /**~~~~~~~~~~~~~~~END Opinion~~~~~~~~~~~~~~**/
 

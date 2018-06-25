@@ -11,9 +11,8 @@ exports.findAll = function (req, res) {
     res.json(users);
   });
 };
+
 exports.findOneByIdd = function (req, res) {
-    console.log("RECHERCHE");
-    console.log(req.params.id_wineStory);
     WineStory.find({id: req.params.id_wineStory}, function (err, user) {
         if (err) res.send(err);
         res.json(user);
@@ -65,7 +64,17 @@ exports.deleteWS = function (req, res) {
 
   });*/
 }
-
+exports.addComment=function (req, res){
+    console.log(req.body.id_ws);
+    console.log(req.body.id_comment);
+    WineStory.findOneAndUpdate({id:req.body.id_ws},
+        { $addToSet: { comments: req.body.id_comment } }
+        ,function(err, ws){
+        if (err) return res.status(500).send(err);
+        return res.status(200).send({msg: "WS commented! "});
+    });
+    ;
+}
 
 /************************SEARCH**********************************/
 
