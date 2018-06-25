@@ -7,6 +7,7 @@ const wineStoryController = require("./../controllers/wineStoryController");
 const wineController = require("./../controllers/wineController");
 const tagController = require("./../controllers/tagController");
 const searchController = require("./../controllers/searchController");
+const commentController = require("./../controllers/commentController");
 
 
 //HOME
@@ -19,7 +20,7 @@ router.route("/").all(function (req, res) {
 /********************************************
  *             ROADS : Search               *
  ********************************************/
-/*router.get("/search", searchController.search)
+router.get("/search", searchController.search)
 
 /**~~~~~~~~~~~~~~~END Search~~~~~~~~~~~~~~~~~**/
 
@@ -114,6 +115,14 @@ router
 
 /**~~~~~~~~~~~~~~~~~END WS~~~~~~~~~~~~~~~~~**/
 
+/*********************************************************
+*                        ROADS : Comments                *
+**********************************************************/
+router
+    .post("/comment", commentController.createComment)
+    .get("/comments", commentController.findAll);
 
+
+/**~~~~~~~~~~~~~~~END Opinion~~~~~~~~~~~~~~**/
 
 module.exports = router;
