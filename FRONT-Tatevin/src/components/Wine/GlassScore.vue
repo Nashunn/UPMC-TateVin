@@ -1,7 +1,7 @@
 <template>
     <div class="score-bar">
         <span v-for="i in score"><icon name="glass"></icon></span>
-        <span v-for="o in emptyGlass">Y</span>
+        <span v-for="o in emptyGlass">V</span>
     </div>
 </template>
 

@@ -37,19 +37,16 @@ exports.getOpinionBy = function (req, res) {
     let criterias = {};
 
     //Create criterias json
-    if(req.query.criteriaName && req.query.criteriaValue) {
+    if(req.query.criteriaName && req.query.criteriaValue)
         criterias[req.query.criteriaName] = req.query.criteriaValue;
-    }
 
-    if(req.query.userid) {
+    if(req.query.userid)
         criterias['id_user'] = req.query.userid;
-    }
 
-    if(req.query.wineid) {
+    if(req.query.wineid)
         criterias['id_wine'] = req.query.wineid;
-    }
 
-    Opinion.findOne(criterias, function(err, result) {
+    Opinion.find(criterias, function(err, result) {
         //Error dealing
         if (err) return res.status(500).send("Error on the server.");
         if (!result) return res.status(404).send("No Opinion found.");
