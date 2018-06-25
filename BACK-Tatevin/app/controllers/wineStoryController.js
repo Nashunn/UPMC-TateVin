@@ -25,7 +25,7 @@ exports.createWS = function (req, res) {
     if(req.body.wines){
         var winesId=req.body.wines;
         for(var i=0; i<winesId.length; i++){
-            winesId[i]=mongoose.Types.ObjectId(winesId[i]);
+            winesId[i]=winesId[i].id;
         }
         console.log(winesId);
     }
@@ -62,17 +62,15 @@ exports.deleteWS = function (req, res) {
 
     /*
   WineStory.findByIdAndRemove(req.ws_id, (err) => {
-    
+
   });*/
 }
 
 
 /************************SEARCH**********************************/
-/*
+
 exports.findWSByTags = async function (tags) {
     return await WineStory.find({tags:tags}, async function (err, ws) {
         return await ws;
     });
 }
-
-*/

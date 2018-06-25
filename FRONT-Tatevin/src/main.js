@@ -6,6 +6,9 @@ import App from './App'
 import router from './router'
 import wysiwyg from "vue-wysiwyg";
 
+import 'vue-awesome/icons';
+import Icon from 'vue-awesome/components/Icon';
+Vue.component('icon', Icon);
 
 //Styles
 import './styles/style.css';
