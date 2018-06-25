@@ -84,7 +84,7 @@
                                             <b-img :src="us.avatar" rounded="circle"  width="34" height="34" alt="img"/>
                                         </b-col>
                                         <b-col cols="8">  <router-link :to="'/user/'+us.username">{{us.username}}</router-link> </b-col>
-                                        <b-col v-if="isCurrentUser" cols="2">
+                                        <b-col v-if="isCurrentUser()" cols="2">
                                             <b-button @click="remove(us._id)" class="right">-</b-button>
                                         </b-col>
                                         <b-col v-else>
@@ -186,12 +186,15 @@
                     if (this.oUser.subscription.length !== 0)
                         HTTP.get(`usersByIds/`, { params: {subs: this.oUser.subscription} } ).then(response => {
                             this.subsDetails = response.data
+                            store.commit("updateSubs", response.data);
+
                         })
                     EventBusModal.$emit("loading-loader", false);
                 });
             },
             isInSubs(username) {
-                return typeof (this.oUser.subscription.find(usr => usr.title === username)) !== 'undefined';
+                console.log(store.state.usr.subscription)
+                return typeof (store.state.usr.subscription.find(usr => usr.username === username)) !== 'undefined';
             },
             afterComplete(file) {
                 console.log(file);
@@ -220,6 +223,7 @@
 
                 HTTP.delete(`users/` + store.state.usr.username + '/' + idUserToRm).then(response => {
                     this.subsDetails = this.subsDetails.filter( ids => ids._id !== idUserToRm);
+                    store.commit("updateSubs", response.data);
                     EventBusModal.$emit("loading-loader", false);
                 });
             }
