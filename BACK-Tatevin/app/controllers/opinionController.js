@@ -37,14 +37,23 @@ exports.getOpinionBy = function (req, res) {
     let criterias = {};
 
     //Create criterias json
-    if(req.query.)
+    if(req.query.criteriaName && req.query.criteriaValue) {
+        criterias[req.query.criteriaName] = req.query.criteriaValue;
+    }
 
-    /* Todo
-    Opinion.findOne({req.body.criteriaName: req.body.criteriaValue}, function(err, user) {
+    if(req.query.userid) {
+        criterias['id_user'] = req.query.userid;
+    }
+
+    if(req.query.wineid) {
+        criterias['id_wine'] = req.query.wineid;
+    }
+
+    Opinion.findOne(criterias, function(err, result) {
         //Error dealing
         if (err) return res.status(500).send("Error on the server.");
-        if (!user) return res.status(404).send("No Opinion found.");
+        if (!result) return res.status(404).send("No Opinion found.");
 
-        res.status(200).send({auth: true, token: token});
-    });*/
+        res.status(200).send(result);
+    });
 }
