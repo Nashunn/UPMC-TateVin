@@ -17,13 +17,8 @@
                         <div class="modal-body">
                             <b-row class="ml-1 mb-1">
                                 <label class="w-25" for="name">Votre message</label>
-                                <b-form-textarea
-                                    type="text"
-                                    id="message"
-                                    class="w-50"
-                                    placeholder="Entrez le nom"
-                                    v-model="comment.message"
-                                />
+                                <wysiwyg v-model="comment.message" />
+                
                             </b-row>
 
                             <p class="error-text">{{ error }}</p>
@@ -98,8 +93,19 @@
                     this.comment,
                     {}
                 ).then(response => {
-                    console.log(response.data);
-                    this.close();
+
+                    console.log("FDA", response.data.comment);
+                    HTTP.put(
+                        "/wineStoryAddComment",
+                        {
+                            id_ws:this.$route.params.id,
+                            id_comment:response.data.comment._id
+                        }
+                    ).then(res=>{
+                        EventBusModal.$emit('updateComments', response.data.comment)
+                        this.close();
+                    })
+
                 });
             }
         },

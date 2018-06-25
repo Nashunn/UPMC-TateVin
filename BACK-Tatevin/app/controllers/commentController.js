@@ -15,7 +15,7 @@ exports.getArray = function(req, res){
         if (err) {
           res.send(err);
       }
-    res.json(comments);
+      res.json(comments);
     });
 };
 
