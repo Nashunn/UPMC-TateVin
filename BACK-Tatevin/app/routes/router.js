@@ -8,7 +8,7 @@ const wineController = require("./../controllers/wineController");
 const tagController = require("./../controllers/tagController");
 const searchController = require("./../controllers/searchController");
 const commentController = require("./../controllers/commentController");
-
+const opinionController = require("./../controllers/opinionController");
 
 //HOME
 router.route("/").all(function (req, res) {
@@ -113,7 +113,7 @@ router
  * Instance  *
  *===========*/
 router
-    .delete("/wineStory/:ws_id", wineStoryController.deleteWS)
+    .delete("/wineStory/:ws_id", wineStoryController.deleteWS);
 
 /**~~~~~~~~~~~~~~~~~END WS~~~~~~~~~~~~~~~~~**/
 
@@ -123,7 +123,13 @@ router
 router
     .post("/comment", commentController.createComment)
     .get("/comments", commentController.findAll);
+/**~~~~~~~~~~~~~~~END Comments~~~~~~~~~~~~~~**/
 
+/*********************************************************
+ *                    ROADS : Opinion                    *
+ **********************************************************/
+router
+    .get("/opinions", opinionController.getOpinionBy);
 
 /**~~~~~~~~~~~~~~~END Opinion~~~~~~~~~~~~~~**/
 
