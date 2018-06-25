@@ -7,7 +7,7 @@
             <span class="serif">{{ usr.username?(usr.username):"Anonyme" }}</span>
 
             <ul v-if="usr.username">
-                <li ><router-link :to="{ name: 'UserAccount' }">Mon profil</router-link></li>
+                <li ><router-link :to="{ name: 'UserAccount', params:{username: usr.username} }">Mon profil</router-link></li>
                 <li ><router-link :to="{ name: 'Cave' }">Ma cave</router-link></li>
                 <li ><router-link :to="{ name: 'Wishes' }">Ma liste de souhait</router-link></li>
                 <li  v-on:click="disconnect">Deconnexion</li>

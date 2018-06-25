@@ -35,6 +35,8 @@ Vue.use(wysiwyg, {
      },
 }); // config is optional. more below
 
+
+
 import vuexI18n from 'vuex-i18n';
 const storeTranslation = new Vuex.Store();
 import {fr} from './assets/i18n/languages/fr'

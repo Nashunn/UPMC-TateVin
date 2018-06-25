@@ -56,14 +56,16 @@ router
     .get("/users", userController.findAllUser)
     .post("/register", userController.register)
     .post("/login", userController.login)
-    .get("/account", userController.account);
-
+    .get("/account", userController.account)
+    .get("/usersByIds/", userController.findByIds);
 /*===========*
  * Instance  *
  *===========*/
 router
+    .get("/user/:idMongo", userController.findByIdUser)
     .get("/users/:user_id", userController.findOneUser) //need to remove password
     .put("/users/:user_id", userController.updateUser)
+    .put("/users/:user_id/:idMongo", userController.addSub)
     .delete("/users/:user_id", userController.deleteUser);
 
 /**~~~~~~~~~~~~~~~~~END USER~~~~~~~~~~~~~~~~~**/
