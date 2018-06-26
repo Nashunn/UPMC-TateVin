@@ -92,7 +92,7 @@
             this.$router.push('/wineStories/creation');
         },
         comment(){
-            EventBusModal.$emit("Comment", true);
+            EventBusModal.$emit("Comment", {showModal:true, from:"wineStory"});
         }
 
   },

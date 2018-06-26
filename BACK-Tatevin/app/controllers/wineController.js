@@ -71,4 +71,14 @@ exports.searchWine = async function (query) {
     });
 }
 
+exports.addComment=function (req, res){
+    Wine.findOneAndUpdate({id:req.body.id_ws},
+        { $addToSet: { comments: req.body.id_comment } }
+        ,function(err, ws){
+        if (err) return res.status(500).send(err);
+        return res.status(200).send({msg: "WS commented! "});
+    });
+
+}
+
 /********************GET WINE INFORMATION ***********************/

@@ -7,7 +7,7 @@
                     <div class="modal-content">
                         <!-- modal header -->
                         <div class="modal-header">
-                            <h4 class="modal-title">Commenter l'histoire de vin</h4>
+                            <h4 class="modal-title">Commenter {{ from }}</h4>
                             <button type="button" class="close" @click="close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -18,7 +18,7 @@
                             <b-row class="ml-1 mb-1">
                                 <label class="w-25" for="name">Votre message</label>
                                 <wysiwyg v-model="comment.message" />
-                
+
                             </b-row>
 
                             <p class="error-text">{{ error }}</p>
@@ -62,6 +62,9 @@
 
     export default {
         name: "modalWine",
+        props:{
+            from:String
+        },
         data() {
             return {
                 comment:{
@@ -74,7 +77,7 @@
         },
         methods: {
             close() {
-                EventBusModal.$emit("Comment", false);
+                EventBusModal.$emit("Comment", {showModal:false, from:""});
             },
             checkBeforeSubmit() {
                 this.error = "";
@@ -93,10 +96,8 @@
                     this.comment,
                     {}
                 ).then(response => {
-
-                    console.log("FDA", response.data.comment);
                     HTTP.put(
-                        "/wineStoryAddComment",
+                        "/"+this.from+"AddComment",
                         {
                             id_ws:this.$route.params.id,
                             id_comment:response.data.comment._id

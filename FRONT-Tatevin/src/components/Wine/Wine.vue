@@ -56,7 +56,14 @@
                 <chart idChart="gouts3"></chart>
             </b-col>
         </b-row>
+        <div class="allComments">
+            <button type="button" class="btn-purple"  @click="comment">Ajouter un commentaire</button>
+            <div v-if="commentsHere">
+                <Comment v-for="(comment, index) in wine.comments" :key="comment._id"  :comment="comment" />
+            </div>
+        </div>
     </section>
+
 </template>
 
 <script>
@@ -64,23 +71,26 @@ import {HTTP} from "../../HTTP/http";
 import store from "./../../store";
 import WineScoreMedal from "./WineScoreMedal";
 import GlassScore from "./GlassScore";
+import Comment from "./../Comment";
 import WineBlockProperty from "./WineBlockProperty";
 import Chart from "./../Chart";
-
+ import { EventBusModal } from "./../../events/";
 export default {
     name: 'Wine',
     components: {
         WineScoreMedal,
         GlassScore,
         WineBlockProperty,
-        Chart
+        Chart,
+        Comment
     },
     data() {
         return {
             wine: [],
             wineGlobalScore: [],
             wineUserScore: 0,
-            opinion:{}
+            opinion:{},
+            commentsHere:false
         }
     },
     mounted() {
@@ -104,7 +114,15 @@ export default {
                 //get scores
                 this.getScores();
                 this.getUserScore();
+            }).then(res=>{
+                HTTP.get("/wineGetComments",{params:{comments:this.wine.comments}} ).then( response=>{
+                    this.wine.comments= response.data;
+                    console.log("Comments from wine",this.wine.comments);
+                    this.commentsHere=true;
+                })
+
             });
+;
         },
         getScores() {
             let json = {
@@ -137,6 +155,9 @@ export default {
                 console.log("score array VIDE");
             }
         },
+        comment(){
+            EventBusModal.$emit("Comment", {showModal:true, from:"wine"});
+        }
     },
     computed: {
         wineColor: function() {
