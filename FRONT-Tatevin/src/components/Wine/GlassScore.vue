@@ -20,7 +20,6 @@
 
 <script>
     import VueRateIt from 'vue-rate-it';
-    import ImgRating from './../../assets/wine-glass.png';
     import ImgRatingW from './../../assets/glassW.png';
     import ImgRatingB from './../../assets/glassB.png';
     import store from "./../../store/";
