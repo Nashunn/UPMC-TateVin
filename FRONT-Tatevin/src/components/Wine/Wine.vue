@@ -42,6 +42,20 @@
             <WineBlockProperty title="Vin gazeux" :desc=String(this.wine.gaz) />
             <WineBlockProperty title="Décantation" :desc=String(this.wine.decantation) />
         </b-row>
+
+        <b-row>
+            <b-col cols="4" class=""> 
+                <chart idChart="gouts" ></chart>
+            </b-col>
+            
+            <b-col cols="4" class=""> 
+                <chart idChart="gous2"></chart>
+            </b-col>
+            
+            <b-col cols="4" class=""> 
+                <chart idChart="gouts3"></chart>
+            </b-col>
+        </b-row>
     </section>
 </template>
 
@@ -50,6 +64,7 @@ import {HTTP} from "../../HTTP/http";
 import WineScoreMedal from "./WineScoreMedal";
 import GlassScore from "./GlassScore";
 import WineBlockProperty from "./WineBlockProperty";
+import Chart from "./../Chart";
 
 export default {
     name: 'Wine',
@@ -57,6 +72,7 @@ export default {
         WineScoreMedal,
         GlassScore,
         WineBlockProperty,
+        Chart
     },
     data() {
         return {
