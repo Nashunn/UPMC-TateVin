@@ -8,7 +8,7 @@
                 <span v-else>Ce commentaire n'a pas encore été noté.{{ comment.like.vote }} </span>
             </div>
             <div>
-                <GlassScore  :maxScore="comment.like.maxScore"  :color="true" :readonly="false" v-on:newVote="addVote($event)" :id_comment="comment._id"/>
+                <GlassScore  :maxScore="comment.like.maxScore"  :color="true" :readonly="false" v-on:newVote="addVote($event)" :id_comment="comment._id" :wine="false"/>
                 <!--<GlassVote :maxScore="comment.like.maxScore" v-on:newVote="addVote($event)" :id_comment="comment._id"/>-->
             </div>
         </div>

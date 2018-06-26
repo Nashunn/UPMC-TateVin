@@ -1,7 +1,7 @@
 <template>
     <div class="score-bar" v-if="readonly || (!readonly && isVisible && !aVote)">
 
-        <span v-if="!readonly">Noter ce commentaire : </span>
+        <span v-if="!readonly && !wine">Noter ce commentaire : </span>
 
         <image-rating
             v-model="getScore"
@@ -13,7 +13,7 @@
             :show-rating="false"
             :item-size="size"
         />
-        <span v-if="readonly && color">{{getScore}}/5 • {{ vote }} votants</span>
+        <span v-if="readonly && !wine">{{getScore}}/5 • {{ vote }} votants</span>
         <button @click="submit" v-if="!readonly">Envoyer la note ! </button>
     </div>
 </template>
@@ -49,7 +49,11 @@
             color: {
                 default: false,
                 type: Boolean
-            }, //true : white, false : black
+            },
+            wine:{
+                default:true,
+                type:Boolean
+            } //true : white, false : black
         },
         data: function() {
             return {
