@@ -95,7 +95,7 @@ export default {
             };
 
             HTTP.get('/opinions/', {params: json}).then(response=>{
-                this.wineGlobalScore = (response.data.length===0)?0:response.data;
+                this.makeScoreAvg(response.data);
             });
         },
         getUserScore() {
@@ -107,7 +107,15 @@ export default {
             HTTP.get('/opinions/', {params: json}).then(response=>{
                 this.wineUserScore = (response.data.length===0)?0:response.data;
             });
-        }
+        },
+        makeScoreAvg(scoreArray) {
+            if(scoreArray) {
+                console.log("score array : ", scoreArray);
+            }
+            else {
+                console.log("score array VIDE");
+            }
+        },
     },
     computed: {
         wineColor: function() {
