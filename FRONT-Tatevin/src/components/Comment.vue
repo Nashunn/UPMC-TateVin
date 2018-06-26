@@ -1,6 +1,6 @@
 <template>
     <div class="comment">
-        <p>Ecrit par <router-link :to="'/user/'+getUser">{{ user }}</router-link> le {{ getDate}} </p>
+        <p>Ecrit par <router-link :to="{ name: 'otherUser', params: { username: user || 'unknown' } }">{{ user || 'unknown' }}</router-link> le {{ getDate}} </p>
         <div>
             <div>
             Note :
@@ -32,19 +32,13 @@ export default {
         }
     },
     created(){
+        this.getUser()
     },
     computed:{
         getDate(){
             return Utils.dateLocale(this.comment.date)
         },
-        getUser(){
-            if(typeof(this.comment.author)!=="undefined"){
-                HTTP.get('/user/'+this.comment.author).then(response=>{
-                    this.user=response.data.username;
-                    return response.data;
-                });
-            }
-        },getScore(){
+        getScore(){
             console.log("CALCUL", this.comment.like.score+" / "+this.comment.like.vote)
             var score= Math.round((this.comment.like.score/this.comment.like.vote));
             return score;
@@ -60,6 +54,14 @@ export default {
                 this.comment.like.score+=newScore;
 
             })
+        },
+        getUser(){
+            if(typeof(this.comment.author)!=="undefined"){
+                HTTP.get('/user/'+this.comment.author).then(response=>{
+                    this.user=response.data.username;
+                    return response.data.username;
+                });
+            }
         }
     }
 }
