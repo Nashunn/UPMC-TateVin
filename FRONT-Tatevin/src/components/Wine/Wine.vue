@@ -42,6 +42,20 @@
             <WineBlockProperty title="Vin gazeux" :desc="String(this.wine.gaz)" />
             <WineBlockProperty title="Décantation" :desc="String(this.wine.decantation)" />
         </b-row>
+
+        <b-row>
+            <b-col cols="4" class=""> 
+                <chart idChart="gouts" ></chart>
+            </b-col>
+            
+            <b-col cols="4" class=""> 
+                <chart idChart="gous2"></chart>
+            </b-col>
+            
+            <b-col cols="4" class=""> 
+                <chart idChart="gouts3"></chart>
+            </b-col>
+        </b-row>
     </section>
 </template>
 
@@ -51,6 +65,7 @@ import store from "./../../store";
 import WineScoreMedal from "./WineScoreMedal";
 import GlassScore from "./GlassScore";
 import WineBlockProperty from "./WineBlockProperty";
+import Chart from "./../Chart";
 
 export default {
     name: 'Wine',
@@ -58,6 +73,7 @@ export default {
         WineScoreMedal,
         GlassScore,
         WineBlockProperty,
+        Chart
     },
     data() {
         return {
@@ -96,13 +112,34 @@ export default {
             };
 
             HTTP.get('/opinions/', {params: json}).then(response=>{
-                this.wineGlobalScore = (response.data.length===0)?0:response.data;
+                this.makeScoreAvg(response.data);
             });
         },
+<<<<<<< HEAD
         setUserScore(newScore){
             this.wineUserScore=newScore;
             HTTP.put('/opinions/'+this.wine._id+'/'+store.state.usr._id, {score:newScore});
         }
+=======
+        getUserScore() {
+            let json = {
+                wine_id: this.wine._id,
+                user_id: store.state.usr._id,
+            };
+
+            HTTP.get('/opinions/', {params: json}).then(response=>{
+                this.wineUserScore = (response.data.length===0)?0:response.data;
+            });
+        },
+        makeScoreAvg(scoreArray) {
+            if(scoreArray) {
+                console.log("score array : ", scoreArray);
+            }
+            else {
+                console.log("score array VIDE");
+            }
+        },
+>>>>>>> 7f14b38c52cd3de39775fa9776c972a5ed3beade
     },
     computed: {
         wineColor: function() {
