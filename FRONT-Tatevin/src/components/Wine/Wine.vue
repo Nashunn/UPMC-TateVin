@@ -44,15 +44,15 @@
         </b-row>
 
         <b-row>
-            <b-col cols="4" class=""> 
+            <b-col cols="4" class="">
                 <chart idChart="gouts" ></chart>
             </b-col>
-            
-            <b-col cols="4" class=""> 
+
+            <b-col cols="4" class="">
                 <chart idChart="gous2"></chart>
             </b-col>
-            
-            <b-col cols="4" class=""> 
+
+            <b-col cols="4" class="">
                 <chart idChart="gouts3"></chart>
             </b-col>
         </b-row>
@@ -115,12 +115,10 @@ export default {
                 this.makeScoreAvg(response.data);
             });
         },
-<<<<<<< HEAD
         setUserScore(newScore){
             this.wineUserScore=newScore;
             HTTP.put('/opinions/'+this.wine._id+'/'+store.state.usr._id, {score:newScore});
-        }
-=======
+        },
         getUserScore() {
             let json = {
                 wine_id: this.wine._id,
@@ -139,7 +137,6 @@ export default {
                 console.log("score array VIDE");
             }
         },
->>>>>>> 7f14b38c52cd3de39775fa9776c972a5ed3beade
     },
     computed: {
         wineColor: function() {
