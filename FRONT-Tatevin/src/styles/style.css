@@ -2,7 +2,7 @@
 *                                 General                                   *
 *****************************************************************************/
 html #app{
-    font-family:'Roboto-Medium', Arial, sans-sans-serif;
+    font-family:'Roboto-light', Arial, sans-sans-serif;
     height: 100%;
 }
 
@@ -15,9 +15,12 @@ html #app{
 li{
     list-style-type: none;
 }
-
+h2{
+    font-family:'Lora-Bold', Arial, sans-sans-serif;
+}
 section {
     width: 98%;
+    padding-bottom: 100px;
 }
 
 .serif{
@@ -38,6 +41,9 @@ section {
 @media (max-width: 768px){
     .main-content{
         padding-top:65px;
+    }
+    section {
+        padding-bottom: 50px;
     }
 }
 
@@ -227,6 +233,24 @@ section {
     margin: 0 5px;
 }
 
+
+/********************************************************************
+*                           WineStory                                *
+**********************************************************************/
+.story{
+    width:90%;
+}
+.img-fluid{
+    width:80%;
+
+}
+.coverWineStory{
+    max-height:400px;
+    overflow:hidden;
+    text-align:center;
+    vertical-align:middle;
+    margin:0 auto;
+}
 /* Media queries */
 @media (max-width: 600px){
     .wine-title {
@@ -273,6 +297,10 @@ section {
     .wine-bar>* {
         height: 50px;
         vertical-align: middle;
+    }
+
+    .wine-bloc-property {
+        margin: 5px 0;
     }
 }
 

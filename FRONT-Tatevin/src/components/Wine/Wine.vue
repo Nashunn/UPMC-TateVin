@@ -12,7 +12,7 @@
         <b-row class="wine-bar width-98">
             <b-col class="score" md="6" sm="12">
                 <div class="d-inline">Ma note : </div>
-                <glass-score v-model="wineUserScore" class="d-inline top-5-child" :score="wineUserScore" :readonly="false" :color="true"/>
+                <glass-score  class="d-inline top-5-child" :score="wineUserScore" :readonly="false" :color="true" v-on:newVote="setUserScore($event)"/>
             </b-col>
             <b-col class="cave text-center" md="3" sm="12">
                 <span class="hover-underline" @click="addCave()">+ Ajouter à ma cave</span>
@@ -34,13 +34,13 @@
         <p>{{this.wine.terroir}}</p>
 
         <b-row class="wine-properties width-98 mt-3">
-            <WineBlockProperty title="Terroir" :desc=String(this.wine.terroir) />
-            <WineBlockProperty title="Millésime" :desc=String(this.wine.millesime) />
-            <WineBlockProperty title="Classification" :desc=String(this.wine.classification) />
-            <WineBlockProperty title="Cépages" :desc=String(this.wine.grape) />
-            <WineBlockProperty title="Conservation" :desc=String(this.wine.keep_in_cave) />
-            <WineBlockProperty title="Vin gazeux" :desc=String(this.wine.gaz) />
-            <WineBlockProperty title="Décantation" :desc=String(this.wine.decantation) />
+            <WineBlockProperty title="Terroir" :desc="String(this.wine.terroir)" />
+            <WineBlockProperty title="Millésime" :desc="String(this.wine.millesime)"/>
+            <WineBlockProperty title="Classification" :desc="String(this.wine.classification)" />
+            <WineBlockProperty title="Cépages" :desc="String(this.wine.grape)" />
+            <WineBlockProperty title="Conservation" :desc="String(this.wine.keep_in_cave)" />
+            <WineBlockProperty title="Vin gazeux" :desc="String(this.wine.gaz)" />
+            <WineBlockProperty title="Décantation" :desc="String(this.wine.decantation)" />
         </b-row>
 
         <b-row>
@@ -50,12 +50,12 @@
                 <p>Ajouter un tag :  <Autocomplete :items="tagList" ref="newTag"/> <b-button v-on:click="addTag">+</b-button></p>
                 <chart idChart="gouts" ></chart>
             </b-col>
-            
-            <b-col cols="4" class=""> 
+
+            <b-col cols="4" class="">
                 <chart idChart="gous2"></chart>
             </b-col>
-            
-            <b-col cols="4" class=""> 
+
+            <b-col cols="4" class="">
                 <chart idChart="gouts3"></chart>
             </b-col>
         </b-row>
@@ -90,7 +90,8 @@ export default {
             tagExists:false,
             indexTag:-1,
             tagList:[],
-            tags:[]
+            tags:[],
+            opinion:{}
         }
     },
     mounted() {
@@ -122,8 +123,12 @@ export default {
             };
 
             HTTP.get('/opinions/', {params: json}).then(response=>{
-                this.wineGlobalScore = (response.data.length===0)?0:response.data;
+                this.makeScoreAvg(response.data);
             });
+        },
+        setUserScore(newScore){
+            this.wineUserScore=newScore;
+            HTTP.put('/opinions/'+this.wine._id+'/'+store.state.usr._id, {score:newScore});
         },
         getUserScore() {
             let json = {
@@ -134,7 +139,15 @@ export default {
             HTTP.get('/opinions/', {params: json}).then(response=>{
                 this.wineUserScore = (response.data.length===0)?0:response.data;
             });
-        }
+        },
+        makeScoreAvg(scoreArray) {
+            if(scoreArray) {
+                console.log("score array : ", scoreArray);
+            }
+            else {
+                console.log("score array VIDE");
+            }
+        },
     },
     computed: {
         wineColor: function() {
@@ -153,6 +166,9 @@ export default {
                     break;
             }
         }
+    },
+    created(){
+
     }
 }
 </script>
