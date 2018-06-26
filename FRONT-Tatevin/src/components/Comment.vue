@@ -4,12 +4,11 @@
         <div>
             <div>
             Note :
-                <GlassScore v-if="comment.like.vote>0" :score="getScore" :vote="comment.like.vote" :maxScore="comment.like.maxScore" />
+                <GlassScore v-if="comment.like.vote>0" :score="getScore" :vote="comment.like.vote" :maxScore="comment.like.maxScore"  />
                 <span v-else>Ce commentaire n'a pas encore été noté.{{ comment.like.vote }} </span>
             </div>
             <div>
-                <span>Noter ce commentaire : </span>
-                <GlassVote :maxScore="comment.like.maxScore" v-on:newVote="addVote($event)"/>
+                <GlassVote :maxScore="comment.like.maxScore" v-on:newVote="addVote($event)" :id_comment="comment._id"/>
             </div>
         </div>
         <p v-html="comment.message"></p>
@@ -20,6 +19,7 @@ import {HTTP} from "../HTTP/http";
 import Utils from "./../utils/";
 import GlassScore from "./Wine/GlassScore";
 import GlassVote from "./Wine/GlassVote";
+import store from "./../store/"
 export default {
     name: "comment",
     components:{GlassScore, GlassVote},
@@ -52,7 +52,7 @@ export default {
             }).then(response=>{
                 this.comment.like.vote=this.comment.like.vote+1;
                 this.comment.like.score+=newScore;
-
+                store.commit("aVote", this.comment._id);
             })
         },
         getUser(){

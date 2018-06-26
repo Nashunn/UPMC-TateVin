@@ -45,7 +45,7 @@
                 this.score=newScore;
 
             },submit(){
-                if(typeof(store.state.usr.username)!=="undefined"){
+                if(store.state.usr.username){
                     this.$emit('newVote', this.score)
                 }else{
                     EventBusModal.$emit('neadConnect', true)
