@@ -278,6 +278,8 @@ section {
 *                                 Minimal                                   *
 *****************************************************************************/
 .margin-bottom-25 { margin-bottom: 25px!important; }
+.margin-top-10 { margin-top: 10px!important; }
+.top-5-child>* { position:relative; top: 5px!important; }
 .width-98 { width: 98% }
 .hover-underline:hover { text-decoration: underline; cursor: pointer }
 .text-wrap { word-wrap: break-word }
