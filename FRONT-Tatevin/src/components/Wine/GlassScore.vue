@@ -1,5 +1,5 @@
 <template>
-    <div class="score-bar" v-if="readonly || (!readonly && isVisible && !aVote)">
+    <div class="score-bar">
 
         <span v-if="!readonly && !wine">Noter ce commentaire : </span>
 
@@ -12,9 +12,10 @@
             :read-only="readonly"
             :show-rating="false"
             :item-size="size"
+            @rating-selected="submit"
         />
         <span v-if="readonly && !wine">{{getScore}}/5 • {{ vote }} votants</span>
-    <button @click="submit" v-if="!readonly">Envoyer la note ! </button>
+    <!--<button @click="submit" v-if="!readonly">Envoyer la note ! </button>-->
     </div>
 </template>
 
@@ -72,18 +73,8 @@
                     return ImgRatingB;
                 else
                     return ImgRatingW;
-            },isVisible(){
-
-                if(store.state.usr.username){
-
-                    if(store.state.usr.aVote.find(id_comment=>id_comment===this.id_comment)){
-                        this.aVote=true
-                    }
-                    return !this.aVote;
-                }else{
-                    return true;
-                }
-            },getScore:{
+            },
+            getScore:{
                 get:function(){
                     if(this.score==0) return Number(this.scoreD);
                     return Number(this.score);
@@ -100,7 +91,7 @@
 
             },submit(){
                 if(store.state.usr.username){
-                    this.$emit('newVote', this.scoreD)
+                    this.$emit('newVote', this.scoreD);
                 }else{
                     EventBusModal.$emit('neadConnect', true)
                 }
