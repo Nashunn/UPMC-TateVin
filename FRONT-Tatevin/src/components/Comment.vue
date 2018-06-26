@@ -4,11 +4,12 @@
         <div>
             <div>
             Note :
-                <GlassScore v-if="comment.like.vote>0" :score="getScore" :vote="comment.like.vote" :maxScore="comment.like.maxScore"  />
+                <GlassScore v-if="comment.like.vote>0" :score="getScore" :vote="comment.like.vote" :maxScore="comment.like.maxScore"  :color="true"/>
                 <span v-else>Ce commentaire n'a pas encore été noté.{{ comment.like.vote }} </span>
             </div>
             <div>
-                <GlassVote :maxScore="comment.like.maxScore" v-on:newVote="addVote($event)" :id_comment="comment._id"/>
+                <GlassScore  :maxScore="comment.like.maxScore"  :color="true" :readonly="false" v-on:newVote="addVote($event)" :id_comment="comment._id" :wine="false"/>
+                <!--<GlassVote :maxScore="comment.like.maxScore" v-on:newVote="addVote($event)" :id_comment="comment._id"/>-->
             </div>
         </div>
         <p v-html="comment.message"></p>
@@ -40,18 +41,20 @@ export default {
         },
         getScore(){
             console.log("CALCUL", this.comment.like.score+" / "+this.comment.like.vote)
-            var score= Math.round((this.comment.like.score/this.comment.like.vote));
+            var score= (this.comment.like.score/this.comment.like.vote).toFixed(1);
             return score;
         }
 
     },
     methods:{
         addVote( newScore ){
+
             HTTP.put('comment/'+this.comment._id,{
                 score:newScore
             }).then(response=>{
                 this.comment.like.vote=this.comment.like.vote+1;
                 this.comment.like.score+=newScore;
+                alert(this.comment.like.score)
                 store.commit("aVote", this.comment._id);
             })
         },

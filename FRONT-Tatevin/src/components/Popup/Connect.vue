@@ -15,7 +15,10 @@
                         <!-- end of modal header -->
                         <!-- modal body -->
                         <div class="modal-body">
-                            <Login />
+                            <button @click="connect">
+                                Se connecter
+                            </button>
+                            <!--<Login />-->
                         </div>
                         <!-- end of modal body -->
                     </div>
@@ -51,7 +54,7 @@
     import Login from "../Login";
 
     export default {
-        name: "modalWine",
+        name: "connectPopUP",
         components:{Login},
         data() {
             return {
@@ -61,35 +64,10 @@
         methods: {
             close() {
                 EventBusModal.$emit("neadConnect", false);
-            },
-            checkBeforeSubmit() {
-                this.error = "";
+            }, connect(){
 
-                if(
-                    this.credentials.name ==="" ||
-                    this.credentials.millesime === "" ||
-                    this.credentials.type === ""
-                )
-                    this.error = "Veuillez remplir l'ensemble des champs pour créer un vin.";
-                else
-                    this.submit();
-            },
-            submit() {
-                console.log(this.credentials);
-                //Create wine back
-                HTTP.post(
-                    "/wine",
-                    {
-                        name: this.credentials.name,
-                        type: this.credentials.type,
-                        millesime: this.credentials.millesime,
-                    },
-                    {}
-                ).then(response => {
-                    console.log(response.data);
-                    this.close();
-                    this.$router.push("/wine/"+response.data.wine.id);
-                });
+                this.$router.push('/login');
+                this.close();
             }
         },
     };

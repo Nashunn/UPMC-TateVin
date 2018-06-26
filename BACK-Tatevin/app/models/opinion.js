@@ -21,8 +21,6 @@ var OpinionSchema = mongoose.Schema({
   moment: [{ type: Schema.Types.ObjectId, ref:"Tag" }],
   heat: [{ type: Schema.Types.ObjectId, ref:"Tag" }],
   food: [{ type: Schema.Types.ObjectId, ref:"Tag" }],
-
-
 });
 
 var Opinion = mongoose.model("Opinion", OpinionSchema);

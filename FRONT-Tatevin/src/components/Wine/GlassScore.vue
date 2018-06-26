@@ -1,7 +1,10 @@
 <template>
-    <div class="score-bar">
+    <div class="score-bar" v-if="readonly || (!readonly && isVisible && !aVote)">
+
+        <span v-if="!readonly && !wine">Noter ce commentaire : </span>
+
         <image-rating
-            v-model="score"
+            v-model="getScore"
             :src="imgPath"
             :increment="0.5"
             :spacing="2"
@@ -10,15 +13,17 @@
             :show-rating="false"
             :item-size="size"
         />
+        <span v-if="readonly && !wine">{{getScore}}/5 • {{ vote }} votants</span>
+        <button @click="submit" v-if="!readonly">Envoyer la note ! </button>
     </div>
 </template>
 
 <script>
     import VueRateIt from 'vue-rate-it';
-    import ImgRating from './../../assets/wine-glass.png';
     import ImgRatingW from './../../assets/glassW.png';
     import ImgRatingB from './../../assets/glassB.png';
-
+    import store from "./../../store/";
+    import {EventBusModal} from "../../events/";
     export default {
         name: 'GlassScore',
         components: {
@@ -44,11 +49,18 @@
             color: {
                 default: false,
                 type: Boolean
-            }, //true : white, false : black
+            },
+            wine:{
+                default:true,
+                type:Boolean
+            } //true : white, false : black
         },
         data: function() {
             return {
                 rating: 3,
+                aVote:false,
+                exist:false,
+                scoreD:0
             }
         },
         mounted(){
@@ -60,6 +72,38 @@
                     return ImgRatingB;
                 else
                     return ImgRatingW;
+            },isVisible(){
+
+                if(store.state.usr.username){
+
+                    if(store.state.usr.aVote.find(id_comment=>id_comment===this.id_comment)){
+                        this.aVote=true
+                    }
+                    return !this.aVote;
+                }else{
+                    return true;
+                }
+            },getScore:{
+                get:function(){
+                    if(this.score==0) return this.scoreD;
+                    return this.score;
+                },
+                set:function( newScore ){
+                    this.scoreD=newScore;
+
+                }
+            }
+        },
+        methods:{
+            changeScore( newScore ){
+                if(!this.readonly) this.scoreD=newScore;
+
+            },submit(){
+                if(store.state.usr.username){
+                    this.$emit('newVote', this.scoreD)
+                }else{
+                    EventBusModal.$emit('neadConnect', true)
+                }
             }
         }
     }
