@@ -172,9 +172,38 @@ exports.addSub = function (req, res) {
         //retrieve user
         var user_add;
         console.log("params  :" ,req.params.idMongo);
-        User.findOneAndUpdate({username: req.params.user_id}, {$addToSet: {subscription: req.params.idMongo}},
+        User.findOneAndUpdate({username: req.params.user_id},
+            {$addToSet: {subscription: req.params.idMongo}}, {new: true},
             (err, user) => {
-                console.log(user);
+                console.log(user.subscription);
+                if (err) return res.status(500).send(err);
+                return res.send(user);
+            }
+        )
+    })
+};
+
+
+exports.removeSub = function (req, res) {
+    var token = req.headers["x-access-token"];
+    console.log(req.headers)
+    console.log(req.body)
+    //Deal if not found
+    if (!token)
+        return res.status(499).send({auth: false, message: "No token."});
+    jwt.verify(token, config.secret, function (err, decoded) {
+        //or found but not correct
+        if (err)
+            return res
+                .status(498)
+                .send({auth: false, message: "Failed to authenticate token.", error: err});
+        //retrieve user
+        var user_add;
+        console.log("params  :" ,req.params.idMongo);
+        User.findOneAndUpdate({username: req.params.user_id},
+            {$pull: {subscription: req.params.idMongo}}, {new: true},
+            (err, user) => {
+                console.log(user.subscription);
                 if (err) return res.status(500).send(err);
                 return res.send(user);
             }

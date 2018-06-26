@@ -57,7 +57,7 @@
                 <b-img center :src="oUser.avatar" alt="center image"></b-img>
 
                 <p v-if="isCurrentUser()" @click="isEdit=true">mod</p>
-                <p v-else @click="add"> add </p>
+                <p v-else @click="add(oUser._id)"> add </p>
 
                 <b-row class="text-center">
                     <b-col cols="12" class="ink text-center">
@@ -82,15 +82,14 @@
                                     <b-row>
                                         <b-col cols="2">
                                             <b-img :src="us.avatar" rounded="circle"  width="34" height="34" alt="img"/>
-                                            </b-col>
-                                            <b-col cols="8">  <router-link :to="'/user/'+us.username">{{us.username}}</router-link> </b-col>
-                                            <b-col v-if="isCurrentUser" cols="2">
-                                                <b-button @click="remove" class="right">-</b-button>
-                                            </b-col>
-                                            <b-col v-else>
-                                                <b-button disabled v-if="isInSubs(us.username)" class="right">Déjà ajouté</b-button>
-                                                <b-button @click="add" v-else class="right">+</b-button>
-
+                                        </b-col>
+                                        <b-col cols="8">  <router-link :to="'/user/'+us.username">{{us.username}}</router-link> </b-col>
+                                        <b-col v-if="isCurrentUser()" cols="2">
+                                            <b-button @click="remove(us._id)" class="right">-</b-button>
+                                        </b-col>
+                                        <b-col v-else>
+                                            <b-button disabled v-if="isInSubs(us.username)" class="right">Déjà ajouté</b-button>
+                                            <b-button @click="add(us._id)" v-else class="right">+</b-button>
                                         </b-col>
                                     </b-row>
 
@@ -184,16 +183,18 @@
                 EventBusModal.$emit("loading-loader", true);
                 HTTP.get(`users/` + path).then(response => {
                     this.oUser = response.data[0];
-                    console.log(this.oUser.subscription);
                     if (this.oUser.subscription.length !== 0)
                         HTTP.get(`usersByIds/`, { params: {subs: this.oUser.subscription} } ).then(response => {
                             this.subsDetails = response.data
+                            store.commit("updateSubs", response.data);
+
                         })
                     EventBusModal.$emit("loading-loader", false);
                 });
             },
             isInSubs(username) {
-                return typeof (this.oUser.subscription.find(usr => usr.title === username)) !== 'undefined';
+                console.log(store.state.usr.subscription)
+                return typeof (store.state.usr.subscription.find(usr => usr.username === username)) !== 'undefined';
             },
             afterComplete(file) {
                 console.log(file);
@@ -211,15 +212,18 @@
 
                 });
             },
-            add() {
+            add(idUserToAdd) {
                 EventBusModal.$emit("loading-loader", true);
-                HTTP.put(`users/` + this.$route.params.username + '/' + this.oUser._id, {subs: this.oUser._id}).then(response => {
+                HTTP.put(`users/` + store.state.usr.username + '/' + idUserToAdd).then(response => {
                     EventBusModal.$emit("loading-loader", false);
                 })
             },
-            remove() {
+            remove(idUserToRm) {
                 EventBusModal.$emit("loading-loader", true);
-                HTTP.delete(`users/` + this.$route.params.username + '/' + this.oUser.username).then(response => {
+
+                HTTP.delete(`users/` + store.state.usr.username + '/' + idUserToRm).then(response => {
+                    this.subsDetails = this.subsDetails.filter( ids => ids._id !== idUserToRm);
+                    store.commit("updateSubs", response.data);
                     EventBusModal.$emit("loading-loader", false);
                 });
             }

@@ -66,6 +66,7 @@ router
     .get("/users/:user_id", userController.findOneUser) //need to remove password
     .put("/users/:user_id", userController.updateUser)
     .put("/users/:user_id/:idMongo", userController.addSub)
+    .delete("/users/:user_id/:idMongo", userController.removeSub)
     .delete("/users/:user_id", userController.deleteUser);
 
 /**~~~~~~~~~~~~~~~~~END USER~~~~~~~~~~~~~~~~~**/

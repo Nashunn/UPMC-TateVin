@@ -13,6 +13,9 @@ const store = new Vuex.Store({
         instanceUser: (state, usr) => {
             state.usr = usr;
         },
+        updateSubs: (state, subs) => {
+            state.usr.subscription = subs;
+        },
         destroyUser: (state) => {
             state.usr = {};
         }
