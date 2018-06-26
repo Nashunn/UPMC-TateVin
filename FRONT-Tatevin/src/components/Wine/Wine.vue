@@ -101,6 +101,22 @@ export default {
         getWineById() {
             HTTP.get('/wine/'+this.$route.params.id).then(response=>{
                 this.wine=response.data;
+
+                this.getUserScore();
+            });
+        },
+        setUserScore(newScore){
+            this.wineUserScore=newScore;
+            HTTP.put('/opinions/'+this.wine._id+'/'+store.state.usr._id, {score:newScore});
+        },
+        getUserScore() {
+            let json = {
+                wineid: this.wine._id,
+                userid: store.state.usr._id,
+            };
+
+            HTTP.get('/opinions/', {params: json}).then(response=>{
+                this.wineUserScore = (typeof response.data[0].score==="undefined")?0:response.data[0].score;
             });
         },
     },

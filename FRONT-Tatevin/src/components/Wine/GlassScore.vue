@@ -93,7 +93,7 @@
                 if(store.state.usr.username){
                     this.$emit('newVote', this.scoreD);
                 }else{
-                    EventBusModal.$emit('neadConnect', true)
+                    EventBusModal.$emit('needConnect', true)
                 }
             }
         }
