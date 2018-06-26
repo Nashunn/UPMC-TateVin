@@ -14,7 +14,9 @@
         <WineBloc v-for="(wine,index) in story.wines" :key="index" :wine="wine"  />
         <div>
             <button type="button" @click="comment">Ajouter un commentaire</button>
-            <Comment v-for="comment in story.comments" :key="comment._id"  :comment="comment" />
+            <div v-if="commentsHere">
+                <Comment v-for="(comment, index) in story.comments" :key="comment._id"  :comment="comment" />
+            </div>
         </div>
   </div>
 </template>
@@ -33,11 +35,10 @@
     components:{Delete, Tag, WineBloc, Comment},
     data () {
       return {
-          story:{
-              comment:{}
-          },
+          story:{},
           userStory:false,
-          toDelete:true
+          toDelete:true,
+          commentsHere:false
       }
     },
     props:{
@@ -50,12 +51,12 @@
             this.userStory=(this.story.author==store.state.usr.username);
 
         }).then(res=>{
-            HTTP.get("/wineStoryGetComments",{params:{comments:this.story.comments}}, function(err, res){
-                if(err) console.log(err);
-            } ).then(response=>{
-                this.story.comments=response.data;
+            HTTP.get("/wineStoryGetComments",{params:{comments:this.story.comments}} ).then( response=>{
+                this.story.comments= response.data;
+                console.log("Comments from Story",this.story.comments);
+                this.commentsHere=true;
             })
-            console.log(this.story.comments);
+
         });
 
 

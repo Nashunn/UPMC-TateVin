@@ -13,7 +13,7 @@ let Schema = mongoose.Schema;
 var CommentSchema = mongoose.Schema({
   id: { type: String, require: true },
   message: String,
-  like: { type: Number, default: 0 },
+  like: { type: Object, default: {score:0, maxScore:5, vote:0 } },
   author: { type: Schema.Types.ObjectId, ref:"User" },
   date: { type: Date, default: Date.now },
   is_signaled: {type:Boolean, default:false}

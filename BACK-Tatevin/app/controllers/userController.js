@@ -24,7 +24,6 @@ exports.findOneUser = function (req, res) {
 exports.findByIdUser = function(req,res){
     console.log("IIIIIIII",req.params.idMongo)
     User.findOne ({_id: req.params.idMongo}, function(err,user){
-        console.log(user)
         if (err) res.send(err);
         res.json(user);
     })

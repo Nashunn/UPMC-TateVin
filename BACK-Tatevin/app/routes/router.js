@@ -122,7 +122,8 @@ router
 **********************************************************/
 router
     .post("/comment", commentController.createComment)
-    .get("/comments", commentController.findAll);
+    .get("/comments", commentController.findAll)
+    .put("/comment/:id_comment", commentController.addVote);
 /**~~~~~~~~~~~~~~~END Comments~~~~~~~~~~~~~~**/
 
 /*********************************************************
