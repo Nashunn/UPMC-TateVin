@@ -6,13 +6,13 @@
                 <h2 class="d-inline mob-not-inline text-wrap">{{ this.wine.name }}, {{ this.wine.millesime }}</h2>
             </div>
 
-            <WineScoreMedal :score="3" :vote="42"/>
+            <WineScoreMedal :score="wineGlobalScore" :vote="(wineGlobalScore===0)?wineGlobalScore:wineGlobalScore.length"/>
         </b-row>
 
         <b-row class="wine-bar width-98">
             <b-col class="score" md="6" sm="12">
-                <div class="d-inline">Ma note : </div> {{this.wine.score}}
-                <glass-score class="d-inline top-5-child" :score="3" :color="true"/>
+                <div class="d-inline">Ma note : </div>
+                <glass-score v-model="wineUserScore" class="d-inline top-5-child" :score="wineUserScore" :readonly="false" :color="true"/>
             </b-col>
             <b-col class="cave text-center" md="3" sm="12">
                 <span class="hover-underline" @click="addCave()">+ Ajouter à ma cave</span>
@@ -47,6 +47,7 @@
 
 <script>
 import {HTTP} from "../../HTTP/http";
+import store from "./../../store";
 import WineScoreMedal from "./WineScoreMedal";
 import GlassScore from "./GlassScore";
 import WineBlockProperty from "./WineBlockProperty";
@@ -61,12 +62,13 @@ export default {
     data() {
         return {
             wine: [],
+            wineGlobalScore: [],
+            wineUserScore: 0,
         }
     },
     mounted() {
         // Get wine information
         this.getWineById();
-        this.getScores();
     },
     methods: {
         addCave() {
@@ -81,13 +83,31 @@ export default {
         getWineById() {
             HTTP.get('/wine/'+this.$route.params.id).then(response=>{
                 this.wine=response.data;
+
+                //get scores
+                this.getScores();
+                this.getUserScore();
             });
         },
         getScores() {
-            HTTP.get('/wine/'+this.$route.params.id).then(response=>{
+            let json = {
+                wine_id: this.wine._id,
+            };
 
+            HTTP.get('/opinions/', {params: json}).then(response=>{
+                this.wineGlobalScore = (response.data.length===0)?0:response.data;
             });
         },
+        getUserScore() {
+            let json = {
+                wine_id: this.wine._id,
+                user_id: store.state.usr._id,
+            };
+
+            HTTP.get('/opinions/', {params: json}).then(response=>{
+                this.wineUserScore = (response.data.length===0)?0:response.data;
+            });
+        }
     },
     computed: {
         wineColor: function() {

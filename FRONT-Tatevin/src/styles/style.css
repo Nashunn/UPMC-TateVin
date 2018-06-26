@@ -54,6 +54,8 @@ section {
 #userProfile .profile-img {
     width: 150px;
     height: 150px;
+    border-radius: 100%;
+    padding: 2px;
     box-shadow: 0 0 15px 1px rgba(0,0,0,0.3);
 }
 

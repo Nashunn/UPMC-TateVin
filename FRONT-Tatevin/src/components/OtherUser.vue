@@ -3,37 +3,43 @@
     <section id="userProfile">
         <b-container v-if="oUser.username.length > 0" class="bv-example-row">
 
-            <div v-if="isEdit  "> <!-- && oUser.username === store.usr.username-->
-                <p>
-                    <vue-dropzone
-                        ref="userAvatar"
-                        id="dropzone"
-                        :options="dropzoneOptions"
-                        @vdropzone-complete="afterComplete"
-                    />
-                </p>
-                <b-row>
+            <div v-if="isEdit"> <!-- && oUser.username === store.usr.username-->
+                <h2 class="margin-bottom-25">Modification du profil</h2>
+                <b-row class="margin-top-10 margin-bottom-25">
+                    <b-col sm="3">
+                        <label for="dropzone"> Nouvelle image </label>
+                    </b-col>
+                    <b-col sm="9">
+                        <vue-dropzone
+                            ref="userAvatar"
+                            id="dropzone"
+                            :options="dropzoneOptions"
+                            @vdropzone-complete="afterComplete"
+                        />
+                    </b-col>
+                </b-row>
+                <b-row class="margin-bottom-25">
                     <b-col sm="3"><label> Username </label></b-col>
                     <b-col sm="9">
                         <b-form-input v-model="uUser.username" type="text"></b-form-input>
                     </b-col>
                 </b-row>
 
-                <b-row>
+                <b-row class="margin-bottom-25">
                     <b-col sm="3"><label> Email </label></b-col>
                     <b-col sm="9">
                         <b-form-input v-model="uUser.email" type="email"></b-form-input>
                     </b-col>
                 </b-row>
 
-                <b-row>
+                <b-row class="margin-bottom-25">
                     <b-col sm="3"><label> Date de naissance </label></b-col>
                     <b-col sm="9">
                         <b-form-input v-model="uUser.birthday" type="date"></b-form-input>
                     </b-col>
                 </b-row>
 
-                <b-row>
+                <b-row class="margin-bottom-25">
                     <b-col sm="3"><label> Description </label></b-col><!-- wysiwyg-->
                     <b-col sm="9">
                         <b-form-input v-model="uUser.description" type="text"></b-form-input>
@@ -49,12 +55,12 @@
                      <b-col sm="3"><label> Nouveau mot de passe </label></b-col>
                      <b-col sm="9"><b-form-input v-model="uUser.mdpNew" type="password"></b-form-input></b-col>
                  </b-row>-->
-                <button class="text-center" @click="update()">Mettre à jour</button>
-                <button class="text-center" @click="isEdit=false">Cancel</button>
+                <button class="text-center wine-btn btn-purple" @click="update()" >Mettre à jour</button>
+                <button class="text-center wine-btn btn-purple" @click="isEdit=false">Cancel</button>
             </div>
 
             <div v-else>
-                <b-img rounded="circle" center :src="oUser.avatar" class="profile-img" alt="profile image"></b-img>
+                <b-img center :src="oUser.avatar" class="profile-img text-center" alt="profile image"></b-img>
 
                 <div class="text-center mt-4 mb-4">
                     <button v-if="isCurrentUser()" @click="isEdit=true" class="wine-btn btn-purple">Modifier</button>
