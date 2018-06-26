@@ -44,7 +44,10 @@
         </b-row>
 
         <b-row>
-            <b-col cols="4" class=""> 
+            <b-col cols="4" class="">
+                <Tag v-for="(tag,index) in tags" :label="tag" v-on:deleteTag="deleteTag(index)" :canBeDelete="true" :key="index"/>
+                <p v-show="tagExists">Le tag {{tagToAdd }} est déjà enregistré.</p>
+                <p>Ajouter un tag :  <Autocomplete :items="tagList" ref="newTag"/> <b-button v-on:click="addTag">+</b-button></p>
                 <chart idChart="gouts" ></chart>
             </b-col>
             
@@ -66,20 +69,28 @@ import WineScoreMedal from "./WineScoreMedal";
 import GlassScore from "./GlassScore";
 import WineBlockProperty from "./WineBlockProperty";
 import Chart from "./../Chart";
-
+import Tag from './../Tag';
+import Autocomplete from './../Autocomplete';
 export default {
     name: 'Wine',
     components: {
         WineScoreMedal,
         GlassScore,
         WineBlockProperty,
-        Chart
+        Chart,
+        Tag, 
+        Autocomplete
     },
     data() {
         return {
             wine: [],
             wineGlobalScore: [],
             wineUserScore: 0,
+            tagToAdd:"test",
+            tagExists:false,
+            indexTag:-1,
+            tagList:[],
+            tags:[]
         }
     },
     mounted() {

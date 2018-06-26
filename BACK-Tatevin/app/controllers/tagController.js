@@ -1,6 +1,6 @@
 const Tag = require("../models/tag");
 
-exports.TAGS_TYPE = Object.freeze({CEPAGE: "cépage", DIVERS: "divers"})
+exports.TAGS_TYPE = Object.freeze({CEPAGE: "cépage", DIVERS: "divers", SMELL:'smell'})
 
 exports.findAll = function (req, res) {
   Tag.find(function (err, tags) {
