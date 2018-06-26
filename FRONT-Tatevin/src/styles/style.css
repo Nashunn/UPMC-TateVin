@@ -18,6 +18,7 @@ li{
 
 section {
     width: 98%;
+    padding-bottom: 100px;
 }
 
 .serif{
@@ -38,6 +39,9 @@ section {
 @media (max-width: 768px){
     .main-content{
         padding-top:65px;
+    }
+    section {
+        padding-bottom: 50px;
     }
 }
 
@@ -273,6 +277,10 @@ section {
     .wine-bar>* {
         height: 50px;
         vertical-align: middle;
+    }
+
+    .wine-bloc-property {
+        margin: 5px 0;
     }
 }
 
