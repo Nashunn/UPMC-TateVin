@@ -34,3 +34,12 @@ exports.createComment = function (req, res) {
     }
   );
 }
+exports.addVote=function(req,res){
+    console.log(req.params.id_comment);
+    Comment.findOneAndUpdate({_id:req.params.id_comment},
+        { $inc :{"like.score": Number(req.body.score) , "like.vote":1} },{new:true}
+        ,function(err, ws){
+        if (err) return res.status(500).send(err);
+        return res.status(200).send({msg: "WS commented! ", ws:ws});
+    });
+}
