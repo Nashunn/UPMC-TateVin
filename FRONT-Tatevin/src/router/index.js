@@ -17,7 +17,7 @@ import OtherUser from '@/components/OtherUser'
 import Wine from '@/components/Wine/Wine'
 import WineModification from '@/components/Wine/WineModification'
 import WineStoryCreation from '@/components/WineStoryCreation'
-
+import Chart from '@/components/Chart'
 Vue.use(Router);
 
 export default new Router({
@@ -111,6 +111,9 @@ export default new Router({
             component: OtherUser,
             name: "otherUser"
         },
-
+        {
+            path: "/chart",
+            component: Chart
+        },
     ]
 })
