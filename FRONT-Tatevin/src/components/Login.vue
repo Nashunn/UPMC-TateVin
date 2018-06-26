@@ -37,7 +37,9 @@
             submit() {
                 new Promise( (resolve, reject) => {
                     resolve(Auth.login(this, this.credentials, "secretquote"));
-                }).then(() => this.$router.push('/'))
+                }).then(() => {
+                    this.$router.push('/');
+                });
             }
         }
     }
