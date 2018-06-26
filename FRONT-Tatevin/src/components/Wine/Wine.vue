@@ -35,6 +35,7 @@
 
         <b-row class="wine-properties width-98 mt-3">
             <WineBlockProperty title="Terroir" :desc="String(this.wine.terroir)" />
+            <WineBlockProperty title="Domaine" :desc="String(this.wine.domain)" />
             <WineBlockProperty title="Millésime" :desc="String(this.wine.millesime)"/>
             <WineBlockProperty title="Classification" :desc="String(this.wine.classification)" />
             <WineBlockProperty title="Cépages" :desc="String(this.wine.grape)" />
@@ -78,7 +79,7 @@ export default {
     data() {
         return {
             wine: [],
-            wineGlobalScore: [],
+            wineGlobalScore: 0,
             wineUserScore: 0,
             opinion:{}
         }
@@ -100,42 +101,7 @@ export default {
         getWineById() {
             HTTP.get('/wine/'+this.$route.params.id).then(response=>{
                 this.wine=response.data;
-
-                //get scores
-                this.getScores();
-                this.getUserScore();
             });
-        },
-        getScores() {
-            let json = {
-                wine_id: this.wine._id,
-            };
-
-            HTTP.get('/opinions/', {params: json}).then(response=>{
-                this.makeScoreAvg(response.data);
-            });
-        },
-        setUserScore(newScore){
-            this.wineUserScore=newScore;
-            HTTP.put('/opinions/'+this.wine._id+'/'+store.state.usr._id, {score:newScore});
-        },
-        getUserScore() {
-            let json = {
-                wine_id: this.wine._id,
-                user_id: store.state.usr._id,
-            };
-
-            HTTP.get('/opinions/', {params: json}).then(response=>{
-                this.wineUserScore = (response.data.length===0)?0:response.data;
-            });
-        },
-        makeScoreAvg(scoreArray) {
-            if(scoreArray) {
-                console.log("score array : ", scoreArray);
-            }
-            else {
-                console.log("score array VIDE");
-            }
         },
     },
     computed: {

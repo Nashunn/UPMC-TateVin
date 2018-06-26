@@ -214,6 +214,7 @@ section {
     height: 150px;
     box-shadow: 0 0 4px 2px #cccccc;
     text-align: center;
+    margin: 5px 0;
 }
 .wine-bloc-property>.title {
     font-size: 20px;
