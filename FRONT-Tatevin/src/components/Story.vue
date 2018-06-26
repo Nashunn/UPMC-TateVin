@@ -1,7 +1,7 @@
 <template>
-  <div class="hello">
-      <p v-if="userStory"><button v-on:click="deleteStory">Supprimer cette histoire</button>
-          <button v-on:click="updateStory">Modifier cette histoire</button>
+  <div class="story">
+      <p v-if="userStory"><button class="btn-purple"  v-on:click="deleteStory">Supprimer cette histoire</button>
+          <button class="btn-purple" v-on:click="updateStory">Modifier cette histoire</button>
       </p>
       <p>Créée par <router-link :to="{ name: 'otherUser', params: { username:story.author} }">{{ story.author }}</router-link> le {{ story.date}} </p>
       <div v-if="story.image" class="coverWineStory">
@@ -13,7 +13,7 @@
         <h3>Vins associés</h3>
         <WineBloc v-for="(wine,index) in story.wines" :key="index" :wine="wine"  />
         <div>
-            <button type="button" @click="comment">Ajouter un commentaire</button>
+            <button type="button" class="btn-purple"  @click="comment">Ajouter un commentaire</button>
             <div v-if="commentsHere">
                 <Comment v-for="(comment, index) in story.comments" :key="comment._id"  :comment="comment" />
             </div>
@@ -63,7 +63,7 @@
     },
     mounted(){
       EventBusModal.$on('loading', loading => {
-        alert("coucou")
+         
     });
         EventBusModal.$on('updateComments', comment=>{
             this.story.comments.push(comment);

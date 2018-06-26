@@ -14,7 +14,7 @@
     },
     mounted(){
       EventBusModal.$on('loading', loading => {
-        alert("coucou")
+         
       })
     },
     methods:{

@@ -12,7 +12,7 @@
         <b-row class="wine-bar width-98">
             <b-col class="score" md="6" sm="12">
                 <div class="d-inline">Ma note : </div>
-                <glass-score v-model="wineUserScore" class="d-inline top-5-child" :score="wineUserScore" :readonly="false" :color="true"/>
+                <glass-score  class="d-inline top-5-child" :score="wineUserScore" :readonly="false" :color="true" v-on:newVote="setUserScore($event)"/>
             </b-col>
             <b-col class="cave text-center" md="3" sm="12">
                 <span class="hover-underline" @click="addCave()">+ Ajouter à ma cave</span>
@@ -34,13 +34,13 @@
         <p>{{this.wine.terroir}}</p>
 
         <b-row class="wine-properties width-98 mt-3">
-            <WineBlockProperty title="Terroir" :desc=String(this.wine.terroir) />
-            <WineBlockProperty title="Millésime" :desc=String(this.wine.millesime) />
-            <WineBlockProperty title="Classification" :desc=String(this.wine.classification) />
-            <WineBlockProperty title="Cépages" :desc=String(this.wine.grape) />
-            <WineBlockProperty title="Conservation" :desc=String(this.wine.keep_in_cave) />
-            <WineBlockProperty title="Vin gazeux" :desc=String(this.wine.gaz) />
-            <WineBlockProperty title="Décantation" :desc=String(this.wine.decantation) />
+            <WineBlockProperty title="Terroir" :desc="String(this.wine.terroir)" />
+            <WineBlockProperty title="Millésime" :desc="String(this.wine.millesime)"/>
+            <WineBlockProperty title="Classification" :desc="String(this.wine.classification)" />
+            <WineBlockProperty title="Cépages" :desc="String(this.wine.grape)" />
+            <WineBlockProperty title="Conservation" :desc="String(this.wine.keep_in_cave)" />
+            <WineBlockProperty title="Vin gazeux" :desc="String(this.wine.gaz)" />
+            <WineBlockProperty title="Décantation" :desc="String(this.wine.decantation)" />
         </b-row>
     </section>
 </template>
@@ -64,6 +64,7 @@ export default {
             wine: [],
             wineGlobalScore: [],
             wineUserScore: 0,
+            opinion:{}
         }
     },
     mounted() {
@@ -98,15 +99,9 @@ export default {
                 this.wineGlobalScore = (response.data.length===0)?0:response.data;
             });
         },
-        getUserScore() {
-            let json = {
-                wine_id: this.wine._id,
-                user_id: store.state.usr._id,
-            };
-
-            HTTP.get('/opinions/', {params: json}).then(response=>{
-                this.wineUserScore = (response.data.length===0)?0:response.data;
-            });
+        setUserScore(newScore){
+            this.wineUserScore=newScore;
+            HTTP.put('/opinions/'+this.wine._id+'/'+store.state.usr._id, {score:newScore});
         }
     },
     computed: {
@@ -126,6 +121,9 @@ export default {
                     break;
             }
         }
+    },
+    created(){
+
     }
 }
 </script>
