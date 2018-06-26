@@ -140,7 +140,7 @@
     import store from './../store';
     import Vue from 'vue';
     import moment from 'moment-timezone'
-
+    
     Vue.use(require('vue-moment'));
     export default {
         data() {
