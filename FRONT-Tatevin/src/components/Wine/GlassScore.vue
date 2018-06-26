@@ -1,9 +1,12 @@
 <template>
     <div class="score-bar">
-        <!--span v-for="i in score"><icon name="glass"></icon></span>
-        <span v-for="o in emptyGlass">V</span-->
-
-        <image-rating :src="imgPath" :increment="0.5" :inline="true" :item-size="20"></image-rating>
+        <image-rating
+            v-model="score"
+            :src="imgPath"
+            :increment="0.5"
+            :inline="true"
+            :item-size="20"
+        />
     </div>
 </template>
 
@@ -28,12 +31,8 @@
         props: {
             score: Number,
             vote: Number,
-            maxScore: Number,
         },
         computed: {
-            emptyGlass: function() {
-                return (this.maxScore - this.score);
-            }
         }
     }
 </script>
