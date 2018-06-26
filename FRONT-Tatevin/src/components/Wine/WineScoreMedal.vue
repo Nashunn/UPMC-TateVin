@@ -1,6 +1,6 @@
 <template>
     <div class="wine-score-medal">
-        <glass-score :score="score" :maxScore="maxScore"/>
+        <glass-score :score="score" :size="13"/>
 
         <div class="score">{{ score+"/"+maxScore || "Not noted" }}</div>
         <div class="nb-vote">{{ vote }} votant{{ vote>=1?"s":"" }}</div>

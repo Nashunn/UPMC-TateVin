@@ -6,10 +6,10 @@
             <div v-if="isEdit  "> <!-- && oUser.username === store.usr.username-->
                 <p>
                     <vue-dropzone
-                            ref="userAvatar"
-                            id="dropzone"
-                            :options="dropzoneOptions"
-                            @vdropzone-complete="afterComplete"
+                        ref="userAvatar"
+                        id="dropzone"
+                        :options="dropzoneOptions"
+                        @vdropzone-complete="afterComplete"
                     />
                 </p>
                 <b-row>
@@ -54,19 +54,22 @@
             </div>
 
             <div v-else>
-                <b-img center :src="oUser.avatar" alt="center image"></b-img>
+                <b-img rounded="circle" center :src="oUser.avatar" class="profile-img" alt="profile image"></b-img>
 
-                <p v-if="isCurrentUser()" @click="isEdit=true">mod</p>
-                <p v-else @click="add(oUser._id)"> add </p>
+                <div class="text-center mt-4 mb-4">
+                    <button v-if="isCurrentUser()" @click="isEdit=true" class="wine-btn btn-purple">Modifier</button>
+                    <button v-else @click="add(oUser._id)" class="wine-btn btn-purple">Ajouter</button>
+                </div>
 
                 <b-row class="text-center">
                     <b-col cols="12" class="ink text-center">
                         {{oUser.username}}
                     </b-col>
                     <b-col cols="12" class="text-center">{{age}} ans</b-col>
-                    <b-col class="text-center">{{oUser.description || 'Unknown description'}}</b-col>
+                    <b-col class="text-center mt-2">{{oUser.description || 'Pas de description'}}</b-col>
                 </b-row>
-                <b-card no-body>
+
+                <b-card no-body class="mt-3">
                     <b-tabs card>
                         <b-tab title="Dernières activités" active>
                             <!--v-if="!activite.length"-->
@@ -88,8 +91,8 @@
                                             <b-button @click="remove(us._id)" class="right">-</b-button>
                                         </b-col>
                                         <b-col v-else>
-                                            <b-button disabled v-if="isInSubs(us.username)" class="right">Déjà ajouté</b-button>
-                                            <b-button @click="add(us._id)" v-else class="right">+</b-button>
+                                            <b-button disabled v-if="isInSubs(us._id)" class="right">Déjà ajouté</b-button>
+                                            <b-button v-else @click="add(us._id)"  class="right">+ {{us._id}}</b-button>
                                         </b-col>
                                     </b-row>
 
@@ -183,21 +186,19 @@
                 EventBusModal.$emit("loading-loader", true);
                 HTTP.get(`users/` + path).then(response => {
                     this.oUser = response.data[0];
+                    if (this.isCurrentUser())
+                        store.commit("updateSubs", response.data[0].subscription);
                     if (this.oUser.subscription.length !== 0)
                         HTTP.get(`usersByIds/`, { params: {subs: this.oUser.subscription} } ).then(response => {
                             this.subsDetails = response.data
-                            store.commit("updateSubs", response.data);
-
-                        })
+                        });
                     EventBusModal.$emit("loading-loader", false);
                 });
             },
             isInSubs(username) {
-                console.log(store.state.usr.subscription)
-                return typeof (store.state.usr.subscription.find(usr => usr.username === username)) !== 'undefined';
+                return typeof (store.state.usr.subscription.find(usr => usr === username)) !== 'undefined';
             },
             afterComplete(file) {
-                console.log(file);
                 this.uUser.avatar = file.dataURL;
             },
             isCurrentUser() {
@@ -209,18 +210,17 @@
                     store.commit("instanceUser", response.data);
                     EventBusModal.$emit("loading-loader", false);
                     this.$router.push('/user')
-
                 });
             },
             add(idUserToAdd) {
                 EventBusModal.$emit("loading-loader", true);
                 HTTP.put(`users/` + store.state.usr.username + '/' + idUserToAdd).then(response => {
+                    store.commit("incrementSubs", idUserToAdd);
                     EventBusModal.$emit("loading-loader", false);
                 })
             },
             remove(idUserToRm) {
                 EventBusModal.$emit("loading-loader", true);
-
                 HTTP.delete(`users/` + store.state.usr.username + '/' + idUserToRm).then(response => {
                     this.subsDetails = this.subsDetails.filter( ids => ids._id !== idUserToRm);
                     store.commit("updateSubs", response.data);

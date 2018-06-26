@@ -17,6 +17,9 @@ const store = new Vuex.Store({
         updateSubs: (state, subs) => {
             state.usr.subscription = subs;
         },
+        incrementSubs:(state, subToAdd) => {
+            state.usr.subscription.push(subToAdd);
+        },
         destroyUser: (state) => {
             state.usr = {};
         },
