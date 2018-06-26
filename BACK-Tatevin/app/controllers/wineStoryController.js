@@ -26,7 +26,7 @@ exports.createWS = function (req, res) {
         for(var i=0; i<winesId.length; i++){
             winesId[i]=winesId[i].id;
         }
-        console.log(winesId);
+
     }
   WineStory.create(
     {
@@ -65,15 +65,13 @@ exports.deleteWS = function (req, res) {
   });*/
 }
 exports.addComment=function (req, res){
-    console.log(req.body.id_ws);
-    console.log(req.body.id_comment);
     WineStory.findOneAndUpdate({id:req.body.id_ws},
         { $addToSet: { comments: req.body.id_comment } }
         ,function(err, ws){
         if (err) return res.status(500).send(err);
         return res.status(200).send({msg: "WS commented! "});
     });
-    ;
+
 }
 
 /************************SEARCH**********************************/
