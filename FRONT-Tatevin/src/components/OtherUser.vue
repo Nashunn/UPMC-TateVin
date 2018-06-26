@@ -88,8 +88,8 @@
                                             <b-button @click="remove(us._id)" class="right">-</b-button>
                                         </b-col>
                                         <b-col v-else>
-                                            <b-button disabled v-if="isInSubs(us.username)" class="right">Déjà ajouté</b-button>
-                                            <b-button @click="add(us._id)" v-else class="right">+</b-button>
+                                            <b-button disabled v-if="isInSubs(us._id)" class="right">Déjà ajouté</b-button>
+                                            <b-button v-else @click="add(us._id)"  class="right">+ {{us._id}}</b-button>
                                         </b-col>
                                     </b-row>
 
@@ -183,21 +183,19 @@
                 EventBusModal.$emit("loading-loader", true);
                 HTTP.get(`users/` + path).then(response => {
                     this.oUser = response.data[0];
+                    if (this.isCurrentUser())
+                        store.commit("updateSubs", response.data[0].subscription);
                     if (this.oUser.subscription.length !== 0)
                         HTTP.get(`usersByIds/`, { params: {subs: this.oUser.subscription} } ).then(response => {
                             this.subsDetails = response.data
-                            store.commit("updateSubs", response.data);
-
-                        })
+                        });
                     EventBusModal.$emit("loading-loader", false);
                 });
             },
             isInSubs(username) {
-                console.log(store.state.usr.subscription)
-                return typeof (store.state.usr.subscription.find(usr => usr.username === username)) !== 'undefined';
+                return typeof (store.state.usr.subscription.find(usr => usr === username)) !== 'undefined';
             },
             afterComplete(file) {
-                console.log(file);
                 this.uUser.avatar = file.dataURL;
             },
             isCurrentUser() {
@@ -209,18 +207,17 @@
                     store.commit("instanceUser", response.data);
                     EventBusModal.$emit("loading-loader", false);
                     this.$router.push('/user')
-
                 });
             },
             add(idUserToAdd) {
                 EventBusModal.$emit("loading-loader", true);
                 HTTP.put(`users/` + store.state.usr.username + '/' + idUserToAdd).then(response => {
+                    store.commit("incrementSubs", idUserToAdd);
                     EventBusModal.$emit("loading-loader", false);
                 })
             },
             remove(idUserToRm) {
                 EventBusModal.$emit("loading-loader", true);
-
                 HTTP.delete(`users/` + store.state.usr.username + '/' + idUserToRm).then(response => {
                     this.subsDetails = this.subsDetails.filter( ids => ids._id !== idUserToRm);
                     store.commit("updateSubs", response.data);
