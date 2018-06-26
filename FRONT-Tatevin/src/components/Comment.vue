@@ -1,18 +1,25 @@
 <template>
     <div class="comment">
-        <p>Ecrit par <router-link :to="{ name: 'otherUser', params: { username: user || 'unknown' } }">{{ user || 'unknown' }}</router-link> le {{ getDate}} </p>
-        <div>
-            <div>
-            Note :
-                <GlassScore v-if="comment.like.vote>0" :score="getScore" :vote="comment.like.vote" :maxScore="comment.like.maxScore"  :color="true"/>
-                <span v-else>Ce commentaire n'a pas encore été noté.{{ comment.like.vote }} </span>
-            </div>
-            <div>
-                <GlassScore  :maxScore="comment.like.maxScore"  :color="true" :readonly="false" v-on:newVote="addVote($event)" :id_comment="comment._id" :wine="false"/>
+        <div class="signature">
+            <p class="fleft">Ecrit par
+                <router-link :to="{ name: 'otherUser', params: { username: user || 'unknown' } }">{{ user || 'unknown' }}</router-link>
+                le {{ getDate}}
+
+            </p>
+            <p class="">
+                    <GlassScore v-if="comment.like.vote>0" :score="getScore" :vote="comment.like.vote" :maxScore="comment.like.maxScore"  :color="true"/>
+                    <span v-else>Ce commentaire n'a pas encore été noté. </span>
+            </p>
+
+
+
                 <!--<GlassVote :maxScore="comment.like.maxScore" v-on:newVote="addVote($event)" :id_comment="comment._id"/>-->
-            </div>
         </div>
-        <p v-html="comment.message"></p>
+        <div class="message">
+                    <p v-html="comment.message"></p>
+        </div>
+        <GlassScore v-if="isVisible" class="fright" :maxScore="comment.like.maxScore"  :color="true" :readonly="false" v-on:newVote="addVote($event)" :id_comment="comment._id" :wine="false"/>
+        <p v-else>Vous avez déjà noté ce commentaire</p>
     </div>
 </template>
 <script>
@@ -29,7 +36,8 @@ export default {
     },
     data(){
         return{
-            user:""
+            user:"",
+            aVote:false
         }
     },
     created(){
@@ -40,21 +48,33 @@ export default {
             return Utils.dateLocale(this.comment.date)
         },
         getScore(){
-            console.log("CALCUL", this.comment.like.score+" / "+this.comment.like.vote)
             var score= Number((this.comment.like.score/this.comment.like.vote).toFixed(1));
             return score;
+        },
+        isVisible(){
+
+            if(store.state.usr.username){
+
+                if(store.state.usr.aVote.find(id_comment=>id_comment===this.comment._id)){
+                    this.aVote=true
+                }
+
+                return !this.aVote;
+            }else{
+                return true;
+            }
         }
 
     },
     methods:{
         addVote( newScore ){
-
             HTTP.put('comment/'+this.comment._id,{
                 score:newScore
             }).then(response=>{
                 this.comment.like.vote=this.comment.like.vote+1;
                 this.comment.like.score+=newScore;
                 store.commit("aVote", this.comment._id);
+                this.aVote=true;
             })
         },
         getUser(){

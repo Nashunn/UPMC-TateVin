@@ -34,7 +34,7 @@ exports.createOpinion = function (req, res) {
 exports.updateOpinion=function(req, res){
     console.log("ETAPE 1")
 
-    let query = {}
+    let query = {};
     if (req.body.price) query.price = req.body.price;
     if (req.body.score) query.score = req.body.score;
     if (req.body.smell) query.smell = req.body.smell;

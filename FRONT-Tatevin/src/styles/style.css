@@ -17,6 +17,7 @@ li{
 }
 h2{
     font-family:'Lora-Bold', Arial, sans-sans-serif;
+    margin-top:20px;
 }
 section {
     width: 98%;
@@ -26,6 +27,11 @@ section {
 .serif{
     font-family:'Lora-Bold', serif;
 }
+.signature{
+    font-family:'Roboto-Bold', arial;
+    font-size:0.9em
+}
+
 
 .error-text {
     color: rgb(128,0,43);
@@ -54,6 +60,19 @@ section {
     }
 }
 
+
+/****************************************************************************
+*                                   Bloc                                    *
+*****************************************************************************/
+.wineBloc svg{
+    width:30px;
+    height:30px
+}
+.wineBloc .wineName{
+    font-family:'Lora-Bold';
+    font-size:1em;
+
+}
 /****************************************************************************
 *                                   User                                    *
 *****************************************************************************/
@@ -103,6 +122,7 @@ section {
     border: 1px groove transparent;
     background-color: rgb(105,0,41);
     color: #fff;
+    cursor:pointer;
 }
 
 .btn-purple:hover {
@@ -110,7 +130,22 @@ section {
     background-color: #fff;
     color: rgb(105,0,41);
 }
-
+.btn-delete{
+    background-color:#fff;
+    color:#D30021;
+}
+.btn-delete:hover{
+    background-color:#fee;
+    color:#D30021;
+}
+.btn-modify{
+    background-color:#fff;
+    color:#857FAD;
+}
+.btn-modify:hover{
+    background-color:#eef;
+    color:#857FAD;
+}
 /****************************************************************************
 *                                  Tags                                   *
 *****************************************************************************/
@@ -239,12 +274,18 @@ section {
 *                           WineStory                                *
 **********************************************************************/
 .story{
-    width:90%;
+    width:80%;
+    margin:0 auto;
+}
+.story h2{
+    margin:30px 0;
+    text-align:center;
 }
 .img-fluid{
-    width:80%;
+    width:100%;
 
 }
+
 .coverWineStory{
     max-height:400px;
     overflow:hidden;
@@ -252,6 +293,40 @@ section {
     vertical-align:middle;
     margin:0 auto;
 }
+.story h3{
+    margin:20px 0;
+    border-top:1px solid rgb(128,0,43);
+    font-family: 'Lora-Bold', serif;
+}
+
+.allComments{
+    text-align:right;
+}
+.allComments button{
+    margin-bottom:20px;
+}
+.allComments .comment{
+    background-color:#cdcccc;
+    padding:5px;
+    margin:10px 0;
+}
+.comment .signature p {
+    display:inline-block;
+    width:49%;
+
+}
+.comment .signature p:first-child{
+    text-align:left;
+}
+.comment .message{
+    background-color: #fff;
+    padding:5px;
+    text-align:left;
+}
+/*****************************************************************************
+*                     GLASS COLOR
+***************************************************************************************/
+
 /* Media queries */
 @media (max-width: 600px){
     .wine-title {
