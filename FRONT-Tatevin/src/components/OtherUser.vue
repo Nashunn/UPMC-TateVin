@@ -6,10 +6,10 @@
             <div v-if="isEdit  "> <!-- && oUser.username === store.usr.username-->
                 <p>
                     <vue-dropzone
-                            ref="userAvatar"
-                            id="dropzone"
-                            :options="dropzoneOptions"
-                            @vdropzone-complete="afterComplete"
+                        ref="userAvatar"
+                        id="dropzone"
+                        :options="dropzoneOptions"
+                        @vdropzone-complete="afterComplete"
                     />
                 </p>
                 <b-row>
@@ -54,19 +54,22 @@
             </div>
 
             <div v-else>
-                <b-img center :src="oUser.avatar" alt="center image"></b-img>
+                <b-img rounded="circle" center :src="oUser.avatar" class="profile-img" alt="profile image"></b-img>
 
-                <p v-if="isCurrentUser()" @click="isEdit=true">mod</p>
-                <p v-else @click="add(oUser._id)"> add </p>
+                <div class="text-center mt-4 mb-4">
+                    <button v-if="isCurrentUser()" @click="isEdit=true" class="wine-btn btn-purple">Modifier</button>
+                    <button v-else @click="add(oUser._id)" class="wine-btn btn-purple">Ajouter</button>
+                </div>
 
                 <b-row class="text-center">
                     <b-col cols="12" class="ink text-center">
                         {{oUser.username}}
                     </b-col>
                     <b-col cols="12" class="text-center">{{age}} ans</b-col>
-                    <b-col class="text-center">{{oUser.description || 'Unknown description'}}</b-col>
+                    <b-col class="text-center mt-2">{{oUser.description || 'Pas de description'}}</b-col>
                 </b-row>
-                <b-card no-body>
+
+                <b-card no-body class="mt-3">
                     <b-tabs card>
                         <b-tab title="Dernières activités" active>
                             <!--v-if="!activite.length"-->

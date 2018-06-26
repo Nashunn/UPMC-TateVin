@@ -12,7 +12,7 @@
         <b-row class="wine-bar width-98">
             <b-col class="score" md="6" sm="12">
                 <div class="d-inline">Ma note : </div> {{this.wine.score}}
-                <glass-score class="d-inline" :score="3" :maxScore="5"/>
+                <glass-score class="d-inline" :score="3" :color="false"/>
             </b-col>
             <b-col class="cave text-center" md="3" sm="12">
                 <span class="hover-underline" @click="addCave()">+ Ajouter à ma cave</span>
