@@ -131,7 +131,8 @@ router
  *                    ROADS : Opinion                    *
  **********************************************************/
 router
-    .get("/opinions", opinionController.getOpinionBy);
+    .get("/opinions", opinionController.getOpinionBy)
+    .put("/opinions/:id_wine/:id_user", opinionController.updateOpinion)
 
 /**~~~~~~~~~~~~~~~END Opinion~~~~~~~~~~~~~~**/
 

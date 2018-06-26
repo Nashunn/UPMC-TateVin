@@ -133,7 +133,6 @@ export default {
             this.tagExists=false;
         },
         addWine( wine ){
-            alert("ajout");
             this.story.wines.push(wine);
             this.updateStore();
         },

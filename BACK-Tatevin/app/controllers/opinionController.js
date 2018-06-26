@@ -31,7 +31,26 @@ exports.createOpinion = function (req, res) {
         }
     );
 }
+exports.updateOpinion=function(req, res){
+    console.log("ETAPE 1")
 
+    let query = {}
+    if (req.body.price) query.price = req.body.price;
+    if (req.body.score) query.score = req.body.score;
+    if (req.body.smell) query.smell = req.body.smell;
+
+    Opinion.update(
+        {id_wine:req.params.id_wine, id_user:req.params.id_user},
+        query,
+        {upsert:true, new:true},
+        function(err, result){
+
+            if (err) return res.status(500).send("There was a problem registering the Opinion.");
+            res.status(200).send({msg: "Opinion created", op: result})
+            console.log(result)
+        }
+    );
+}
 exports.getOpinionBy = function (req, res) {
     let ret = [];
     let criterias = {};

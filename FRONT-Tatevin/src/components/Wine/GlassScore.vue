@@ -14,7 +14,7 @@
             :item-size="size"
         />
         <span v-if="readonly && !wine">{{getScore}}/5 • {{ vote }} votants</span>
-        <button @click="submit" v-if="!readonly">Envoyer la note ! </button>
+    <button @click="submit" v-if="!readonly">Envoyer la note ! </button>
     </div>
 </template>
 
@@ -85,8 +85,8 @@
                 }
             },getScore:{
                 get:function(){
-                    if(this.score==0) return this.scoreD;
-                    return this.score;
+                    if(this.score==0) return Number(this.scoreD);
+                    return Number(this.score);
                 },
                 set:function( newScore ){
                     this.scoreD=newScore;

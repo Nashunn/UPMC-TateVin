@@ -41,7 +41,7 @@ export default {
         },
         getScore(){
             console.log("CALCUL", this.comment.like.score+" / "+this.comment.like.vote)
-            var score= (this.comment.like.score/this.comment.like.vote).toFixed(1);
+            var score= Number((this.comment.like.score/this.comment.like.vote).toFixed(1));
             return score;
         }
 
@@ -54,7 +54,6 @@ export default {
             }).then(response=>{
                 this.comment.like.vote=this.comment.like.vote+1;
                 this.comment.like.score+=newScore;
-                alert(this.comment.like.score)
                 store.commit("aVote", this.comment._id);
             })
         },
