@@ -12,12 +12,16 @@ const store = new Vuex.Store({
     mutations: {
         instanceUser: (state, usr) => {
             state.usr = usr;
+            state.usr.aVote=[];
         },
         updateSubs: (state, subs) => {
             state.usr.subscription = subs;
         },
         destroyUser: (state) => {
             state.usr = {};
+        },
+        aVote:(state, id_comment)=>{
+            state.usr.aVote.push(id_comment);
         }
 
     }
