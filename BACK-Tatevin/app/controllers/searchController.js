@@ -26,7 +26,5 @@ exports.search = async function (req, res) {
                 console.log("default")
         }
     }
-    console.log("Buuuuuuuuuuuuuuuuuuuuuuuuuuuuuuttttttttt", ret);
-    res.send(ret)
-
+    res.send(ret);
 }

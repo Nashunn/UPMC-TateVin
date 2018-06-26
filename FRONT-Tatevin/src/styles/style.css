@@ -208,14 +208,14 @@ section {
 }
 .wine-score-medal>.score {
     position: relative;
-    top: 20px;
+    top: 18px;
     font-size: 1.7em;
     font-family: 'Lora-Bold', serif;
 }
 .wine-score-medal>.nb-vote {
     position: relative;
-    top: 25px;
-    font-size: 0.8em;
+    top: 18px;
+    font-size: 0.9em;
 }
 
 .wine-bar {

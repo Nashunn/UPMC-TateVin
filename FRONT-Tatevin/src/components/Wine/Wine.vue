@@ -6,7 +6,7 @@
                 <h2 class="d-inline mob-not-inline text-wrap">{{ this.wine.name }}, {{ this.wine.millesime }}</h2>
             </div>
 
-            <WineScoreMedal :score="wineGlobalScore" :vote="(wineGlobalScore===0)?wineGlobalScore:wineGlobalScore.length"/>
+            <WineScoreMedal :score="wineGlobalScore.score" :vote="wineGlobalScore.nbVote"/>
         </b-row>
 
         <b-row class="wine-bar width-98">
@@ -100,24 +100,27 @@ export default {
         },
         getWineById() {
             HTTP.get('/wine/'+this.$route.params.id).then(response=>{
-                this.wine=response.data;
+                this.wine=response.data[0];
+                this.wineGlobalScore=response.data[1];
 
                 this.getUserScore();
             });
         },
-        setUserScore(newScore){
-            this.wineUserScore=newScore;
-            HTTP.put('/opinions/'+this.wine._id+'/'+store.state.usr._id, {score:newScore});
-        },
         getUserScore() {
             let json = {
-                wineid: this.wine._id,
-                userid: store.state.usr._id,
+                wine_id: this.wine._id,
+                user_id: store.state.usr._id,
             };
 
             HTTP.get('/opinions/', {params: json}).then(response=>{
                 this.wineUserScore = (typeof response.data[0].score==="undefined")?0:response.data[0].score;
             });
+        },
+        setUserScore(newScore){
+            this.wineUserScore=newScore;
+            HTTP.put('/opinions/'+this.wine._id+'/'+store.state.usr._id, {score:newScore});
+
+            this.getWineById();
         },
     },
     computed: {
