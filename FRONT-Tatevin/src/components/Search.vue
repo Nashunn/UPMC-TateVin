@@ -12,15 +12,6 @@
 
         <b-card class="search-wrapper">
             <b-form-group label="Catégories : " v-if='!wineStory'>
-<<<<<<< HEAD
-                <b-form-checkbox-group v-model="search.categories" name="category" :options="optionsCat" @change="checkIfWine">
-                </b-form-checkbox-group>
-            </b-form-group>
-
-            <b-row>
-                <b-col md="3" sm="12"><label for="tags">Mots clé (nom du vin, tags associés à une histoire de vin séparés par une virgule)</span></label></b-col>
-                <b-col md="6" sm="12"><input v-model="search.tags" id="tags" type="text" placeholder="web,noel"/></b-col>
-=======
                 <b-form-checkbox-group v-model="search.categories" name="category">
                     <b-form-checkbox value="vin" @change="selection('wine')">Vin</b-form-checkbox>
                     <b-form-checkbox value="user" @change="selection('user')">Utilisateur</b-form-checkbox>
@@ -32,7 +23,6 @@
             </b-form-group>
             <b-row v-if="wineSelected || wineStory">
                 <button type="button"  @click="addBarCode()">Rechercher par scan du code-barre</button>
->>>>>>> b082b1e714fd208eb066fc1b06ddb6f11f0eaa61
             </b-row>
             <b-row >
                 <b-col md="3" sm="12"><label for="tags">
