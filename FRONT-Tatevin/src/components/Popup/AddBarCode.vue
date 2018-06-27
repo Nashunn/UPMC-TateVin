@@ -15,10 +15,7 @@
                         <!-- end of modal header -->
                         <!-- modal body -->
                         <div class="modal-body">
-                            <Tag v-for="(tag,index) in tags" :label="tag" v-on:deleteTag="deleteTag(index)" :canBeDelete="true" :key="index"/>
-                            <p v-show="tagExists">Le tag {{tagToAdd }} est déjà enregistré.</p>
-                            <p>Ajouter un tag :  <Autocomplete :items="tagList" ref="newTag"/> <b-button v-on:click="addTag">+</b-button></p>
-
+                            <BarcodeScan />
                             <div class="btn-wrapper">
                                  <b-button v-on:click="validateTags">Valider les tags</b-button>
                             </div>
@@ -55,12 +52,11 @@
     import {EventBusModal} from "../../events/";
     import {HTTP} from "../../HTTP/http";
     import store from "../../store";
-    import Autocomplete from "../Autocomplete";
-    import Tag from "../Tag";
+    import BarcodeScan from "../Scanner/BarcodeScan"
 
     export default {
         name: "modalWine",
-        components:{Autocomplete, Tag},
+        components:{BarcodeScan},
         props:{
             type:String
         },
@@ -90,12 +86,10 @@
             validateTags(){
                 var query={};
                 if (this.type==="visual") query.visual = this.tags;
-                if (this.type==="smell") query.smell = this.tags;
-                if (this.type==="taste") query.taste = this.tags;
 
                 HTTP.put('/opinions/'+this.$route.params.id+'/'+store.state.usr._id, query).then(response=>{
                     console.log("RES",response)
-                    //EventBusModal.$emit("tagAdded", this.type);
+                    EventBusModal.$emit("tagAdded", this.type);
                 });
                 this.close();
             },

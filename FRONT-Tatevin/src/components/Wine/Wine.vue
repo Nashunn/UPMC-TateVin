@@ -46,10 +46,22 @@
         </b-row>
 
         <b-row>
+
+                <b-col cols="4" class="">
+                    <h4>Au regard</h4>
+                    <a @click="addTagChart('visual')">Donnez votre avis</a>
+                    <chart :iData="opinion.visual" idChart="visual" ></chart>
+                </b-col>
+                    <b-col cols="4" class="">
+                <h4>Au nez</h4>
+                <a @click="addTagChart('smell')">Donnez votre avis</a>
+                <chart :iData="opinion.smell" idChart="smell" ></chart>
+            </b-col>
+
             <b-col cols="4" class="">
-                <h4>Sensations visuelles</h4>
-                <a @click="addTagChart('visual')">Que voyez vous ?</a>
-                <chart :iData="opinion.visual" idChart="visual" ></chart>
+                <h4>En bouche</h4>
+                <a @click="addTagChart('taste')">Donnez votre avis</a>
+                <chart :iData="opinion.taste" idChart="taste" ></chart>
             </b-col>
 
         </b-row>
@@ -60,6 +72,7 @@
             </div>
         </div>
         <AddTag v-show="showTagPopUp" :type="tagType"/>
+        <AddBarCode v-show="showScanPopUp" :type="tagType"/>
     </section>
 
 </template>
@@ -75,6 +88,7 @@ import WineColor from "./WineColor";
 import Chart from "./../Chart";
 import Tag from './../Tag';
 import AddTag from './../Popup/AddTag';
+import AddBarCode from './../Popup/AddBarCode';
 import Autocomplete from './../Autocomplete';
 import _ from 'lodash';
  import { EventBusModal } from "./../../events/";
@@ -90,16 +104,16 @@ export default {
         Autocomplete,
         WineColor,
         Comment,
-        AddTag
+        AddTag,
+        AddBarCode
     },
     data() {
         return {
             wine: [],
             wineGlobalScore: 0,
             wineUserScore: 0,
-<<<<<<< HEAD
             opinion:{
-                smells:{
+                smell:{
                     datas:[],
                     labels:[]
                 },
@@ -111,22 +125,12 @@ export default {
                     datas:[],
                     labels:[]
                 },
-=======
-            tagToAdd:"test",
-            tagExists:false,
-            firstPageLoad: true,
-            indexTag:-1,
-            tagList:[],
-            tags:[],
-            opinion:{},
-            smells:{
-                datas:[],
-                labels:[]
->>>>>>> 36b8cc4f5c9d9933f1767595b549bf500dca724b
             },
             commentsHere:false,
             showTagPopUp:false,
-            tagType:""
+            showScanPopUp:false,
+            tagType:"",
+            firstPageLoad:true
         }
     },
     mounted() {
@@ -134,7 +138,7 @@ export default {
         this.getWineById();
         //Get other informations
         this.getUserScore();
-        this.getOpinion();
+        this.getOpinion("all");
 
         //Get comments
         EventBusModal.$on('updateComments', comment=>{
@@ -166,22 +170,57 @@ export default {
                     });
                     this.firstPageLoad = false;
                 }
+                EventBusModal.$emit("loading-loader", false)
             });
         },
-        getOpinion() {
-            HTTP.get('/opinions/'+this.$route.params.id).then( response => {
-                var s = _.map(response.data, 'smell');
-                var z = _.reduceRight( s , function(flattened, other) {
-                      return flattened.concat(other);
-                }, [])
-                var x = _.groupBy(z)
-                console.log(x)
-                for (const [key, val] of Object.entries(x)) {
-                    this.opinion.visual.labels.push(x[key][0])
-                    this.opinion.visual.datas.push(x[key].length)
-                    console.log(x[key][0] + " -> "+ x[key].length);
-                }
-            })
+        getOpinion( type ) {
+            if(type==="all" || type==="visual"){
+                HTTP.get('/opinions/'+this.$route.params.id).then( response => {
+                    var s = _.map(response.data, 'visual');
+                    var z = _.reduceRight( s , function(flattened, other) {
+                          return flattened.concat(other);
+                    }, [])
+                    var x = _.groupBy(z)
+                    console.log(x)
+                    for (const [key, val] of Object.entries(x)) {
+                        this.opinion.visual.labels.push(x[key][0])
+                        this.opinion.visual.datas.push(x[key].length)
+                        console.log(x[key][0] + " -> "+ x[key].length);
+                    }
+                })
+            }
+            if(type==="all" || type==="smell"){
+                HTTP.get('/opinions/'+this.$route.params.id).then( response => {
+                    var s = _.map(response.data, 'smell');
+                    var z = _.reduceRight( s , function(flattened, other) {
+                          return flattened.concat(other);
+                    }, [])
+                    var x = _.groupBy(z)
+                    console.log(x)
+                    for (const [key, val] of Object.entries(x)) {
+                        this.opinion.smell.labels.push(x[key][0])
+                        this.opinion.smell.datas.push(x[key].length)
+                        console.log(x[key][0] + " -> "+ x[key].length);
+                    }
+                        console.log("VISUAL FINAL",this.opinion.smell.labels);
+                })
+            }
+            if(type==="all" || type==="taste"){
+                HTTP.get('/opinions/'+this.$route.params.id).then( response => {
+                    var s = _.map(response.data, 'taste');
+                    var z = _.reduceRight( s , function(flattened, other) {
+                          return flattened.concat(other);
+                    }, [])
+                    var x = _.groupBy(z)
+                    console.log(x)
+                    for (const [key, val] of Object.entries(x)) {
+                        this.opinion.taste.labels.push(x[key][0])
+                        this.opinion.taste.datas.push(x[key].length)
+                        console.log(x[key][0] + " -> "+ x[key].length);
+                    }
+                })
+            }
+
 
 
         },
@@ -204,8 +243,19 @@ export default {
         comment(){
             EventBusModal.$emit("Comment", {showModal:true, from:"wine"});
         },addTagChart( type ){
-            this.showTagPopUp=true;
-            this.tagType=type;
+            if(store.state.usr.username){
+                this.showTagPopUp=true;
+                this.tagType=type;
+            }else{
+                EventBusModal.$emit("neadConnect",true)
+            }
+        },addBarCode( ){
+            if(store.state.usr.username){
+                this.showScanPopUp=true;
+            }else{
+                EventBusModal.$emit("neadConnect",true)
+            }
+
         }
     },
     computed: {
@@ -227,8 +277,12 @@ export default {
         }*/
     },
     created(){
+        EventBusModal.$emit("loading-loader", true);
         EventBusModal.$on("addTag", showTagPopUp=>{
             this.showTagPopUp=showTagPopUp;
+        })
+        EventBusModal.$on("tagAdded", type=>{
+            this.getOpinion(type);
         })
     }
 }
