@@ -14,8 +14,9 @@ exports.getArray = function(req, res){
     Comment.find({ '_id' : { $in: req.query.comments } }, function(err, comments){
         if (err) {
           res.send(err);
-      }
-      res.json(comments);
+        }
+
+        res.json(comments);
     });
 };
 
