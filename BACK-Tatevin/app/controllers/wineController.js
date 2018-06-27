@@ -64,9 +64,11 @@ exports.createWine = function (req, res) {
 
 
 exports.modifyWine = function (req, res) {
+    console.log("COUCOU MODIFY")
+    console.log(req.body.params)
     Wine.findByIdAndUpdate(
-        req.idWine,
-        req.body,
+        req.params.wine_id,
+        req.body.params,
         {new: true},
         (err, newWine) => {
             if (err) return res.status(500).send(err);

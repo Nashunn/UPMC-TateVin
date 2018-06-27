@@ -6,13 +6,10 @@
                 <WineColor :color="wine.type" class="icon wine-color-bloc mr-3"/>
                 <h2 class="d-inline mob-not-inline text-wrap">{{ this.wine.name }}, {{ this.wine.millesime }}</h2>
             </div>
-
-
-
             <WineScoreMedal :score="wineGlobalScore.score" :vote="wineGlobalScore.nbVote"/>
         </b-row>
 
-        <b-row class="mt-3 width-98"><button>Participer à la fiche</button></b-row>
+        <b-row class="mt-3 width-98"><button @click="goModify()">Editer la fiche</button></b-row>
 
         <b-row class="wine-bar width-98">
             <b-col class="score" md="6" sm="12">
@@ -46,7 +43,7 @@
             <WineBlockProperty title="Cépages" :desc="String(this.wine.grape)" />
             <WineBlockProperty title="Conservation" :desc="String(this.wine.keep_in_cave)" />
             <WineBlockProperty title="Vin gazeux" :desc="String(this.wine.gaz)" />
-            <WineBlockProperty title="Décantation" :desc="String(this.wine.decantation)" />
+            <WineBlockProperty title="Carrafage" :desc="String(this.wine.decantation)" />
         </b-row>
 
         <b-row>
@@ -189,7 +186,6 @@ export default {
                     console.log(x[key][0] + " -> "+ x[key].length);
                 }
             })
-          
         },
         getUserScore() {
             let json = {
