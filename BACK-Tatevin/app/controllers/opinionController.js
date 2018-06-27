@@ -35,14 +35,10 @@ exports.createOpinion = function (req, res) {
 exports.updateOpinion=function(req, res){
     console.log("ETAPE 1");
 
-<<<<<<< HEAD
     console.log(req.body.smell);
     let query = {}
     let Tags = {};
     let isTaggable= false;
-=======
-    let query = {};
->>>>>>> 6f1fd54dc074bc96a8707737114ada18aaf0e60f
     if (req.body.price) query.price = req.body.price;
     if (req.body.score) query.score = req.body.score;
     if (req.body.smell) 

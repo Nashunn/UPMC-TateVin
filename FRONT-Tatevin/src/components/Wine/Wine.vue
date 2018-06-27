@@ -165,11 +165,9 @@ export default {
         getOpinion() {
             console.log(this.wine._id)
             HTTP.get('/opinions/'+this.wine._id).then( response => {
-                var s = _.map(response.data, 'smell')
-                var z = _.reduceRight( s , function(flattened, other) {
+                var x = _.groupBy(_.reduceRight( _.map(response.data, 'smell') , function(flattened, other) {
                       return flattened.concat(other);
-                }, [])
-                var x = _.groupBy(z)
+                }, []))
                 console.log(x)
                 for (const [key, val] of Object.entries(x)) {
                     this.smells.labels.push(x[key][0])
