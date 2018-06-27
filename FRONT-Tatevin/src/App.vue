@@ -10,7 +10,7 @@
                     <!-- Popups -->
                     <wine-popup v-show="showWinePopup"></wine-popup>
                     <Delete v-show="showDeletePopup"/>
-                    <Comment v-show="showCommentPopup"/>
+                    <Comment v-show="showCommentPopup" :from="commentFrom"/>
                     <Connect v-show="showConnectPopup"/>
                     <!-- End Popups -->
 
@@ -43,6 +43,7 @@
                 showDeletePopup:false,
                 showCommentPopup:false,
                 showConnectPopup:false,
+                commentFrom:"",
                 isLoading: false,
             }
         },
@@ -61,8 +62,9 @@
             EventBusModal.$on("AddWine", showModal => {
                 this.showAddWinePopup = showModal;
             });
-            EventBusModal.$on("Comment", showModal => {
-                this.showCommentPopup = showModal;
+            EventBusModal.$on("Comment", comment => {
+                this.commentFrom=comment.from;
+                this.showCommentPopup = comment.showModal;
             });
             EventBusModal.$on("neadConnect", showModal => {
                 this.showConnectPopup = showModal;

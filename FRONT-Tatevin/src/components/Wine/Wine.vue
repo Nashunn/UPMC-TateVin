@@ -2,11 +2,12 @@
     <section class="wine">
         <b-row class="mt-3 width-98">
             <div class="wine-title">
-                <div class="wine-color-bloc mr-3" v-bind:style="{ backgroundColor: wineColor }"></div>
+                <!--<div class="wine-color-bloc mr-3" v-bind:style="{ backgroundColor: wineColor }"></div>-->
+                <WineColor :color="wine.type" class="icon wine-color-bloc mr-3"/>
                 <h2 class="d-inline mob-not-inline text-wrap">{{ this.wine.name }}, {{ this.wine.millesime }}</h2>
             </div>
 
-            <WineScoreMedal :score="wineGlobalScore" :vote="(wineGlobalScore===0)?wineGlobalScore:wineGlobalScore.length"/>
+            <WineScoreMedal :score="wineGlobalScore.score" :vote="wineGlobalScore.nbVote"/>
         </b-row>
 
         <b-row class="wine-bar width-98">
@@ -35,6 +36,7 @@
 
         <b-row class="wine-properties width-98 mt-3">
             <WineBlockProperty title="Terroir" :desc="String(this.wine.terroir)" />
+            <WineBlockProperty title="Domaine" :desc="String(this.wine.domain)" />
             <WineBlockProperty title="Millésime" :desc="String(this.wine.millesime)"/>
             <WineBlockProperty title="Classification" :desc="String(this.wine.classification)" />
             <WineBlockProperty title="Cépages" :desc="String(this.wine.grape)" />
@@ -59,7 +61,14 @@
                 <chart :iData="smells" idChart="gouts3"></chart>
             </b-col>
         </b-row>
+        <div class="allComments">
+            <button type="button" class="btn-purple"  @click="comment">Ajouter un commentaire</button>
+            <div v-if="commentsHere">
+                <Comment v-for="(comment, index) in wine.comments" :key="comment._id"  :comment="comment" />
+            </div>
+        </div>
     </section>
+
 </template>
 
 <script>
@@ -67,11 +76,15 @@ import {HTTP} from "../../HTTP/http";
 import store from "./../../store";
 import WineScoreMedal from "./WineScoreMedal";
 import GlassScore from "./GlassScore";
+import Comment from "./../Comment";
 import WineBlockProperty from "./WineBlockProperty";
+import WineColor from "./WineColor";
 import Chart from "./../Chart";
 import Tag from './../Tag';
 import Autocomplete from './../Autocomplete';
 import _ from 'lodash';
+ import { EventBusModal } from "./../../events/";
+
 export default {
     name: 'Wine',
     components: {
@@ -80,12 +93,14 @@ export default {
         WineBlockProperty,
         Chart,
         Tag, 
-        Autocomplete
+        Autocomplete,
+        WineColor,
+        Comment
     },
     data() {
         return {
             wine: [],
-            wineGlobalScore: [],
+            wineGlobalScore: 0,
             wineUserScore: 0,
             tagToAdd:"test",
             tagExists:false,
@@ -96,7 +111,9 @@ export default {
             smells:{
                 datas:[],
                 labels:[]
-            }
+            },
+            opinion:{},
+            commentsHere:false
         }
     },
     mounted() {
@@ -130,13 +147,20 @@ export default {
         },
         getWineById() {
             HTTP.get('/wine/'+this.$route.params.id).then(response=>{
-                this.wine=response.data;
+                this.wine=response.data[0];
+                this.wineGlobalScore=response.data[1];
 
-                //get scores
-                this.getScores();
                 this.getUserScore();
                 this.getOpinion();
+            }).then(res=>{
+                HTTP.get("/wineGetComments",{params:{comments:this.wine.comments}} ).then( response=>{
+                    this.wine.comments= response.data;
+                    console.log("Comments from wine",this.wine.comments);
+                    this.commentsHere=true;
+                })
+
             });
+;
         },
         getOpinion() {
             console.log(this.wine._id)
@@ -155,19 +179,6 @@ export default {
             })
           
         },
-        getScores() {
-            let json = {
-                wine_id: this.wine._id,
-            };
-
-            HTTP.get('/opinions/', {params: json}).then(response=>{
-                this.makeScoreAvg(response.data);
-            });
-        },
-        setUserScore(newScore){
-            this.wineUserScore=newScore;
-            HTTP.put('/opinions/'+this.wine._id+'/'+store.state.usr._id, {score:newScore});
-        },
         getUserScore() {
             let json = {
                 wine_id: this.wine._id,
@@ -175,20 +186,21 @@ export default {
             };
 
             HTTP.get('/opinions/', {params: json}).then(response=>{
-                this.wineUserScore = (response.data.length===0)?0:response.data;
+                this.wineUserScore = (typeof response.data[0].score==="undefined")?0:response.data[0].score;
             });
         },
-        makeScoreAvg(scoreArray) {
-            if(scoreArray) {
-                console.log("score array : ", scoreArray);
-            }
-            else {
-                console.log("score array VIDE");
-            }
+        setUserScore(newScore){
+            this.wineUserScore=newScore;
+            HTTP.put('/opinions/'+this.wine._id+'/'+store.state.usr._id, {score:newScore});
+
+            this.getWineById();
         },
+        comment(){
+            EventBusModal.$emit("Comment", {showModal:true, from:"wine"});
+        }
     },
     computed: {
-        wineColor: function() {
+        /*wineColor: function() {
             switch (this.wine.type) {
                 case "rouge":
                     return "#91141c";
@@ -203,7 +215,7 @@ export default {
                     return "#a2a2a2";
                     break;
             }
-        }
+        }*/
     },
     created(){
     }

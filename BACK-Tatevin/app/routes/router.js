@@ -84,7 +84,9 @@ router
     .get("/wines", wineController.findAll)
 
 router
-    .post("/wine", wineController.createWine);
+    .post("/wine", wineController.createWine)
+    .put("/wineAddComment", wineController.addComment)
+    .get("/wineGetComments", commentController.getArray)
 
 /*===========*
  * Instance  *

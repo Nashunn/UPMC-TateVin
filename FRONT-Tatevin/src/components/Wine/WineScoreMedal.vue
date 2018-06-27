@@ -3,7 +3,7 @@
         <glass-score :score="score" :size="13"/>
 
         <div class="score">{{ score+"/"+maxScore || "Not noted" }}</div>
-        <div class="nb-vote">{{ vote }} votant{{ vote>=1?"s":"" }}</div>
+        <div class="nb-vote">{{ vote }} votant{{ vote>1?"s":"" }}</div>
     </div>
 </template>
 
