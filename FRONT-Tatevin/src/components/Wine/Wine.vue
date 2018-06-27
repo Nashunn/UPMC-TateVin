@@ -7,8 +7,12 @@
                 <h2 class="d-inline mob-not-inline text-wrap">{{ this.wine.name }}, {{ this.wine.millesime }}</h2>
             </div>
 
+
+
             <WineScoreMedal :score="wineGlobalScore.score" :vote="wineGlobalScore.nbVote"/>
         </b-row>
+
+        <b-row class="mt-3 width-98"><button>Participer à la fiche</button></b-row>
 
         <b-row class="wine-bar width-98">
             <b-col class="score" md="6" sm="12">
@@ -194,7 +198,10 @@ export default {
             };
 
             HTTP.get('/opinions/', {params: json}).then(response=>{
-                this.wineUserScore = (typeof response.data[0].score==="undefined")?0:response.data[0].score;
+                if(response.data.length === 0)
+                    this.wineUserScore = 0;
+                else
+                    this.wineUserScore = (typeof response.data[0].score==="undefined")?0:response.data[0].score;
             });
         },
         setUserScore(newScore){
@@ -205,6 +212,9 @@ export default {
         },
         comment(){
             EventBusModal.$emit("Comment", {showModal:true, from:"wine"});
+        },
+        goModify() {
+            this.$router.push('/wine/m/'+this.$route.params.id);
         }
     },
     computed: {

@@ -6,8 +6,22 @@
             <button @click="SaveandGoToWine()" class="wine-btn btn-purple">Sauvegarder et revenir à la page de vin</button>
         </div>
 
-        <p>Todo</p>
-        <p>Vin actuel : {{ this.wine.name}}, {{this.wine.millesime}}</p>
+        <div class="">
+            <b-row>
+                <b-col md="3"sm="12">
+                    <label></label>
+                </b-col>
+                <b-col md="9" sm="9">
+                    <b-form-input
+                        type="text"
+                        id="name"
+                        placeholder="Entrez le nom"
+                        disabled="disabled"
+                        v-model="credentials.name"
+                    />
+                </b-col>
+            </b-row>
+        </div>
     </section>
 </template>
 
