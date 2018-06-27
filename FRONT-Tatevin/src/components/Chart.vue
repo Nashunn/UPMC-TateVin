@@ -2,7 +2,7 @@
     <div>
         <canvas :ref="idChart" ></canvas>
         <p>{{tst}}</p>
-        
+
     </div>
 </template>
 <script>
@@ -14,7 +14,7 @@ export default {
   components: {},
   props: {
     idChart: String,
-    iData: Object
+    iData: String
   },
    watch: {
   	'iData.datas': function(newVal, oldVal) {
@@ -64,7 +64,7 @@ export default {
                 fontColor: ['green', 'white', 'red'],
                 precision: 2
 }
-        },         
+        },
         }
       }
     };

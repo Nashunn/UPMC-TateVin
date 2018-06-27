@@ -47,19 +47,11 @@
 
         <b-row>
             <b-col cols="4" class="">
-                <Tag v-for="(tag,index) in tags" :label="tag" v-on:deleteTag="deleteTag(index)" :canBeDelete="true" :key="index"/>
-                <p v-show="tagExists">Le tag {{tagToAdd }} est déjà enregistré.</p>
-                <p>Ajouter un tag :  <Autocomplete :items="tagList" ref="newTag"/> <b-button v-on:click="addTag">+</b-button> <b-button v-on:click="validateTags">Valider les tags</b-button></p>
-                <chart :iData="smells" idChart="gouts" ></chart>
+                <h4>Sensations visuelles</h4>
+                <a @click="addTagChart('visual')">Que voyez vous ?</a>
+                <chart :iData="'visual'" idChart="gouts" ></chart>
             </b-col>
 
-            <b-col cols="4" class="">
-                <chart :iData="smells" idChart="gous2"></chart>
-            </b-col>
-
-            <b-col cols="4" class="">
-                <chart :iData="smells" idChart="gouts3"></chart>
-            </b-col>
         </b-row>
         <div class="allComments">
             <button type="button" class="btn-purple"  @click="comment">Ajouter un commentaire</button>
@@ -67,6 +59,7 @@
                 <Comment v-for="(comment, index) in wine.comments" :key="comment._id"  :comment="comment" />
             </div>
         </div>
+        <AddTag v-show="showTagPopUp" :type="tagType"/>
     </section>
 
 </template>
@@ -81,6 +74,7 @@ import WineBlockProperty from "./WineBlockProperty";
 import WineColor from "./WineColor";
 import Chart from "./../Chart";
 import Tag from './../Tag';
+import AddTag from './../Popup/AddTag';
 import Autocomplete from './../Autocomplete';
 import _ from 'lodash';
  import { EventBusModal } from "./../../events/";
@@ -92,28 +86,26 @@ export default {
         GlassScore,
         WineBlockProperty,
         Chart,
-        Tag, 
+        Tag,
         Autocomplete,
         WineColor,
-        Comment
+        Comment,
+        AddTag
     },
     data() {
         return {
             wine: [],
             wineGlobalScore: 0,
             wineUserScore: 0,
-            tagToAdd:"test",
-            tagExists:false,
-            indexTag:-1,
-            tagList:[],
-            tags:[],
             opinion:{},
             smells:{
                 datas:[],
                 labels:[]
             },
             opinion:{},
-            commentsHere:false
+            commentsHere:false,
+            showTagPopUp:false,
+            tagType:""
         }
     },
     mounted() {
@@ -158,7 +150,6 @@ export default {
             }).then(res=>{
                 HTTP.get("/wineGetComments",{params:{comments:this.wine.comments}} ).then( response=>{
                     this.wine.comments= response.data;
-                    console.log("Comments from wine",this.wine.comments);
                     this.commentsHere=true;
                 })
 
@@ -180,7 +171,7 @@ export default {
                     console.log(x[key][0] + " -> "+ x[key].length);
                 }
             })
-          
+
         },
         getUserScore() {
             let json = {
@@ -200,6 +191,9 @@ export default {
         },
         comment(){
             EventBusModal.$emit("Comment", {showModal:true, from:"wine"});
+        },addTagChart( type ){
+            this.showTagPopUp=true;
+            this.tagType=type;
         }
     },
     computed: {
@@ -221,6 +215,9 @@ export default {
         }*/
     },
     created(){
+        EventBusModal.$on("addTag", showTagPopUp=>{
+            this.showTagPopUp=showTagPopUp;
+        })
     }
 }
 </script>
