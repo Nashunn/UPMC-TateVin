@@ -8,7 +8,7 @@ let Schema = mongoose.Schema;
 
 //Describe the schema (model)
 var WineSchema = mongoose.Schema({
-    id: {type: String, require: true},
+    id: {type: String, unique:true},
     date: {type: Date, default: Date.now},
     name: String,
     terroir: String,

@@ -38,12 +38,13 @@
                 <button @click="doSearch()" type="button" class="wine-btn btn-purple">Rechercher</button>
             </div>
         </b-card>
-
-        <div class="" v-if="!wineStory"> 
+        <span v-model="stopload"></span>
+        <div class="" v-if="!wineStory">
             <button @click="displayCreateWine()" class="wine-btn btn-purple">Nouveau vin</button>
         </div>
-        <div>
-            <WineBloc v-for="(wine, index) in results" :key="index" :wine="wine.id" :wineStory="wineStory" value="+" v-on:addWine="$emit('addWine', wine)"/>
+        <div v-for="(result, index) in results">
+            <WineBloc v-if="result.terroir" :key="index" :wineObP="result" :wineStory="wineStory" value="+" v-on:addWine="$emit('addWine', result)"/>
+            <p v-if="result.email"><router-link :to="{ name: 'otherUser', params: { username:result.username} }">{{ result.username }}</router-link></p>
         </div>
     </section>
 </template>
@@ -81,13 +82,17 @@
                 EventBusModal.$emit("loading", true);
             },
             doSearch() {
+                alert("search")
                 if(this.wineStory) this.search.categories=["vin"];
                 HTTP.get('/search',{  params: this.search }).then(response=>{
                     this.results=response.data[0];
+                    console.log(this.results);
                 });
             },
             displayCreateWine() {
                 EventBusModal.$emit("winePopup", true);
+            },stopload(){
+                EventBusModal.$emit("loading-loader", false);
             }
         }
     }

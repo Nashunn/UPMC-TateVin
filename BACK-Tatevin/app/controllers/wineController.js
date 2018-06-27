@@ -39,7 +39,6 @@ exports.createWine = function (req, res) {
     //TagController.createTagIfNotCreated(grapes, TagController.TAGS_TYPE.CEPAGE)
     Wine.create(
         {
-            id: shortid.generate(),
             name: req.body.name,
             millesime: req.body.millesime, //Millesime
             terroir: null,
@@ -61,7 +60,17 @@ exports.createWine = function (req, res) {
         }
     );
 }
-
+exports.addCB=function(req, res){
+    Wine.findByIdAndUpdate(
+        req.params.id_wine,
+        {id:req.body.barcode},
+        {new: true},
+        (err, newWine) => {
+            if (err) return res.status(500).send(err);
+            return res.send(newWine);
+        }
+    )
+}
 
 exports.modifyWine = function (req, res) {
     Wine.findByIdAndUpdate(
@@ -78,6 +87,7 @@ exports.modifyWine = function (req, res) {
 /************************SEARCH**********************************/
 
 exports.searchWine = async function (query) {
+    console.log(query)
     return await Wine.find(query, async function (err, ws) {
         console.log(ws);
         return await ws;
