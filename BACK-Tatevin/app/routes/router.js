@@ -94,7 +94,8 @@ router
  *===========*/
 router
     .get("/wine/:wine_id", wineController.findOneWine)
-    .put("/wineBarCode/:id_wine", wineController.addCB);
+    .put("/wineBarCode/:id_wine", wineController.addCB)
+    .put("/wine/:wine_id", wineController.modifyWine)
 
 /**~~~~~~~~~~~~~~~END Wine~~~~~~~~~~~~~~~~~**/
 
