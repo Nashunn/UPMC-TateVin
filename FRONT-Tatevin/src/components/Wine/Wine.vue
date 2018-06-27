@@ -47,15 +47,18 @@
 
         <b-row>
             <b-col cols="4" class="">
-                <chart idChart="gouts" ></chart>
+                <Tag v-for="(tag,index) in tags" :label="tag" v-on:deleteTag="deleteTag(index)" :canBeDelete="true" :key="index"/>
+                <p v-show="tagExists">Le tag {{tagToAdd }} est déjà enregistré.</p>
+                <p>Ajouter un tag :  <Autocomplete :items="tagList" ref="newTag"/> <b-button v-on:click="addTag">+</b-button> <b-button v-on:click="validateTags">Valider les tags</b-button></p>
+                <chart :iData="smells" idChart="gouts" ></chart>
             </b-col>
 
             <b-col cols="4" class="">
-                <chart idChart="gous2"></chart>
+                <chart :iData="smells" idChart="gous2"></chart>
             </b-col>
 
             <b-col cols="4" class="">
-                <chart idChart="gouts3"></chart>
+                <chart :iData="smells" idChart="gouts3"></chart>
             </b-col>
         </b-row>
         <div class="allComments">
@@ -77,6 +80,9 @@ import Comment from "./../Comment";
 import WineBlockProperty from "./WineBlockProperty";
 import WineColor from "./WineColor";
 import Chart from "./../Chart";
+import Tag from './../Tag';
+import Autocomplete from './../Autocomplete';
+import _ from 'lodash';
  import { EventBusModal } from "./../../events/";
 
 export default {
@@ -86,6 +92,8 @@ export default {
         GlassScore,
         WineBlockProperty,
         Chart,
+        Tag, 
+        Autocomplete,
         WineColor,
         Comment
     },
@@ -94,6 +102,16 @@ export default {
             wine: [],
             wineGlobalScore: 0,
             wineUserScore: 0,
+            tagToAdd:"test",
+            tagExists:false,
+            indexTag:-1,
+            tagList:[],
+            tags:[],
+            opinion:{},
+            smells:{
+                datas:[],
+                labels:[]
+            },
             opinion:{},
             commentsHere:false
         }
@@ -112,6 +130,21 @@ export default {
         addWishes() {
             console.log("todo");
         },
+        addTag(){
+             if(typeof(this.tags.find(tag=>tag===this.$refs.newTag.search))==="undefined"){
+                this.tags.push(this.$refs.newTag.search);
+            }else{
+                this.tagExists=true;
+            }
+        },
+        deleteTag( index ){
+            this.tags.splice(index,1);
+        },
+        validateTags(){
+            HTTP.put('/opinions/'+this.wine._id+'/'+store.state.usr._id, {smell:this.tags}).then(response=>{
+                console.log(response)
+            });
+        },
         addBarcode() {
             console.log("todo");
         },
@@ -121,6 +154,7 @@ export default {
                 this.wineGlobalScore=response.data[1];
 
                 this.getUserScore();
+                this.getOpinion();
             }).then(res=>{
                 HTTP.get("/wineGetComments",{params:{comments:this.wine.comments}} ).then( response2=>{
                     this.wine.comments= response2.data;
@@ -129,6 +163,23 @@ export default {
 
             });
 ;
+        },
+        getOpinion() {
+            console.log(this.wine._id)
+            HTTP.get('/opinions/'+this.wine._id).then( response => {
+                var s = _.map(response.data, 'smell')
+                var z = _.reduceRight( s , function(flattened, other) {
+                      return flattened.concat(other);
+                }, [])
+                var x = _.groupBy(z)
+                console.log(x)
+                for (const [key, val] of Object.entries(x)) {
+                    this.smells.labels.push(x[key][0])
+                    this.smells.datas.push(x[key].length)
+                    console.log(x[key][0] + " -> "+ x[key].length);
+                }
+            })
+          
         },
         getUserScore() {
             let json = {
@@ -169,7 +220,6 @@ export default {
         }*/
     },
     created(){
-
     }
 }
 </script>

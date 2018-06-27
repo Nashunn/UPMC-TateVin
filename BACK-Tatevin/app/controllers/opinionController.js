@@ -1,4 +1,5 @@
 const Opinion = require("../models/opinion");
+const TagController = require("./tagController");
 
 let shortid = require("shortid");
 
@@ -34,10 +35,22 @@ exports.createOpinion = function (req, res) {
 exports.updateOpinion=function(req, res){
     console.log("ETAPE 1");
 
+<<<<<<< HEAD
+    console.log(req.body.smell);
+    let query = {}
+    let Tags = {};
+    let isTaggable= false;
+=======
     let query = {};
+>>>>>>> 6f1fd54dc074bc96a8707737114ada18aaf0e60f
     if (req.body.price) query.price = req.body.price;
     if (req.body.score) query.score = req.body.score;
-    if (req.body.smell) query.smell = req.body.smell;
+    if (req.body.smell) 
+    {
+        isTaggable = true;
+        TagController.createTagIfNotCreated(req.body.smell, TagController.TAGS_TYPE.SMELL);
+        query = { $addToSet: { smell:  req.body.smell}};
+    }
 
     Opinion.update(
         {id_wine:req.params.id_wine, id_user:req.params.id_user},
@@ -51,6 +64,19 @@ exports.updateOpinion=function(req, res){
         }
     );
 }
+
+exports.getOpinionForWine = function (req,res){
+    console.log("fiesta")
+    Opinion.find({id_wine: req.params.id_wine}, function(err, result) {
+        //Error dealing
+        console.log(result)
+        if (err) return res.status(500).send("Error on the server.");
+        if (!result) return res.status(404).send("No Opinion found.");
+
+        res.status(200).send(result);
+    });
+}
+
 exports.getOpinionBy = function (req, res) {
     let ret = [];
     let criterias = {};
