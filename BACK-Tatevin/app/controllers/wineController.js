@@ -27,8 +27,10 @@ exports.findOneWine = function (req, res) {
         let jsonOpinion = { wine_id: result._id };
         let opinions = await OpinionController.getScoreByWine(jsonOpinion);
         let score = await this.getAvgScore(opinions);
+        let price = await this.getAvgPrice(opinions);
 
         ret.push(await score);
+        ret.push(await price);
 
         // if all ok
         res.status(200).send(ret);
@@ -130,6 +132,23 @@ getAvgScore = async function (scoreArray) {
     }
 
     ret = await {score: Number((sumScore/nbVote).toFixed(2)), nbVote: nbVote};
+
+    return await ret;
+}
+
+getAvgPrice = async function (priceArray) {
+    let nb = 0;
+    let sumPrice = 0;
+    let ret;
+
+    for(let i=0; i<priceArray.length; i++) {
+        if(priceArray[i].price) {
+            nb++;
+            sumPrice += priceArray[i].price;
+        }
+    }
+
+    ret = await {price: Number((sumScore/nbVote).toFixed(2)), nb: nb};
 
     return await ret;
 }
