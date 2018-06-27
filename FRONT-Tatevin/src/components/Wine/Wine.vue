@@ -223,6 +223,9 @@ export default {
                 })
             }
         },
+        getPrice() {
+
+        },
         getUserScore() {
             let json = {
                 wine_id: this.$route.params.id,
