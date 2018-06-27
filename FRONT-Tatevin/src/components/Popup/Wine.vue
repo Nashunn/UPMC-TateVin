@@ -131,7 +131,7 @@
                 ).then(response => {
                     console.log(response.data);
                     this.close();
-                    this.$router.push("/wine/"+response.data.wine.id);
+                    this.$router.push("/wine/"+response.data.wine._id);
                 });
             }
         },

@@ -55,6 +55,7 @@
         title:{type:String}
     },
     created(){
+        EventBusModal.$emit("loading-loader", true);
         HTTP.get('/wineStory/'+ this.$route.params.id).then(response=>{
             this.story=response.data[0];
             this.story.date=Utils.dateLocale(this.story.date);
@@ -65,6 +66,7 @@
                 this.story.comments= response.data;
                 console.log("Comments from Story",this.story.comments);
                 this.commentsHere=true;
+                EventBusModal.$emit("loading-loader", false);
             })
 
         });

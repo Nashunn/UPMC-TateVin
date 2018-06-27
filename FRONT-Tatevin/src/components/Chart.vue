@@ -2,7 +2,7 @@
     <div>
         <canvas :ref="idChart" ></canvas>
         <p>{{tst}}</p>
-        
+
     </div>
 </template>
 <script>
@@ -64,7 +64,7 @@ export default {
                 fontColor: ['green', 'white', 'red'],
                 precision: 2
 }
-        },         
+        },
         }
       }
     };

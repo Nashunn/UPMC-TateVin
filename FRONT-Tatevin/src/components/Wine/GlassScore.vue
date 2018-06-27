@@ -6,7 +6,7 @@
         <image-rating
             v-model="getScore"
             :src="imgPath"
-            :increment="0.5"
+            :increment="increment"
             :spacing="2"
             :inline="true"
             :read-only="readonly"
@@ -33,6 +33,10 @@
         props: {
             score: {
                 default: 0,
+                type: Number
+            },
+            increment: {
+                default: 0.5,
                 type: Number
             },
             vote: {
@@ -93,7 +97,7 @@
                 if(store.state.usr.username){
                     this.$emit('newVote', this.scoreD);
                 }else{
-                    EventBusModal.$emit('needConnect', true)
+                    EventBusModal.$emit('neadConnect', true)
                 }
             }
         }

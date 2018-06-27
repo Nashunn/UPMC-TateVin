@@ -24,10 +24,10 @@ exports.createOpinion = function (req, res) {
         },
         function (err, user) {
             // Check if corrects
-            console.log(err);
+
             if (err) return res.status(500).send("There was a problem registering the Opinion.");
 
-            console.log(user);
+
             // create a token
             res.status(200).send({msg: "Opinion created", wine: user})
         }
@@ -43,13 +43,25 @@ exports.updateOpinion=function(req, res){
     let isTaggable= false;
     if (req.body.price) query.price = req.body.price;
     if (req.body.score) query.score = req.body.score;
-    if (req.body.smell) 
+    if (req.body.smell)
     {
         isTaggable = true;
         TagController.createTagIfNotCreated(req.body.smell, TagController.TAGS_TYPE.SMELL);
         query = { $addToSet: { smell:  req.body.smell}};
     }
-
+    if (req.body.visual)
+    {
+        isTaggable = true;
+        TagController.createTagIfNotCreated(req.body.visual, TagController.TAGS_TYPE.VISUAL);
+        query = { $addToSet: { visual:  req.body.visual}};
+    }
+    if (req.body.taste)
+    {
+        isTaggable = true;
+        TagController.createTagIfNotCreated(req.body.taste, TagController.TAGS_TYPE.TASTE);
+        query = { $addToSet: { smell:  req.body.taste}};
+    }
+    console.log(query)
     Opinion.update(
         {id_wine:req.params.id_wine, id_user:req.params.id_user},
         query,
@@ -58,16 +70,15 @@ exports.updateOpinion=function(req, res){
 
             if (err) return res.status(500).send("There was a problem registering the Opinion.");
             res.status(200).send({msg: "Opinion created", op: result});
-            console.log(result);
         }
     );
 }
 
 exports.getOpinionForWine = function (req,res){
-    console.log("fiesta")
+
     Opinion.find({id_wine: req.params.id_wine}, function(err, result) {
         //Error dealing
-        console.log(result)
+
         if (err) return res.status(500).send("Error on the server.");
         if (!result) return res.status(404).send("No Opinion found.");
 

@@ -15,7 +15,7 @@ exports.findAll = function (req, res) {
 
 
 exports.findOneWine = function (req, res) {
-    Wine.findOne({id: req.params.wine_id}, async function(error, result) {
+    Wine.findOne({_id: req.params.wine_id}, async function(error, result) {
         let ret = [];
 
         if(error)
@@ -44,6 +44,7 @@ exports.createWine = function (req, res) {
             name: req.body.name,
             millesime: req.body.millesime, //Millesime
             terroir: null,
+            domain: null,
             type: req.body.type,
             classification: null,
             gaz: null,
@@ -108,7 +109,7 @@ getAvgScore = async function (scoreArray) {
         }
     }
 
-    ret = await {score: (sumScore/nbVote), nbVote: nbVote};
+    ret = await {score: Number((sumScore/nbVote).toFixed(2)), nbVote: nbVote};
 
     return await ret;
 }

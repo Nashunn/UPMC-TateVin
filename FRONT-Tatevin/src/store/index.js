@@ -12,7 +12,7 @@ const store = new Vuex.Store({
     mutations: {
         instanceUser: (state, usr) => {
             state.usr = usr;
-            state.usr.Prototype.aVote=[];
+            state.usr.aVote=[];
         },
         updateSubs: (state, subs) => {
             state.usr.subscription = subs;

@@ -1,6 +1,6 @@
 const Tag = require("../models/tag");
 
-exports.TAGS_TYPE = Object.freeze({CEPAGE: "cépage", DIVERS: "divers", SMELL:'smell'})
+exports.TAGS_TYPE = Object.freeze({CEPAGE: "cépage", DIVERS: "divers", SMELL:'smell', VISUAL:'visual', TASTE:'taste'})
 
 exports.findAll = function (req, res) {
   Tag.find(function (err, tags) {
@@ -20,14 +20,14 @@ exports.findByType = function (req, res) {
 };
 
 exports.createTagIfNotCreated = function (label, type) {
-    console.log(label);
+    console.log("CREATE IF NOT CREATED");
     let tags=[];
     for (let i = 0; i < label.length; i++) {
     Tag.find({label: label[i], type: type}, (err, results) => {
       if (!results.length)
       {
         this.createTag(label[i], type)
-      } 
+      }
 
     });
 
@@ -35,7 +35,7 @@ exports.createTagIfNotCreated = function (label, type) {
 }
 
 exports.createTag = function (name, type) {
-  console.log("creating tag");
+  console.log("creating tag"+type);
   Tag.create(
     {
       type: type.toUpperCase(),

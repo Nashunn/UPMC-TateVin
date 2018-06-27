@@ -24,7 +24,7 @@ exports.createWS = function (req, res) {
     if(req.body.wines){
         var winesId=req.body.wines;
         for(var i=0; i<winesId.length; i++){
-            winesId[i]=winesId[i].id;
+            winesId[i]=winesId[i]._id;
         }
 
     }
