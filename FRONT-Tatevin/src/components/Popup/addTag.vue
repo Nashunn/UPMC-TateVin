@@ -54,6 +54,7 @@
 <script>
     import {EventBusModal} from "../../events/";
     import {HTTP} from "../../HTTP/http";
+    import store from "../../store";
     import Autocomplete from "../Autocomplete";
     import Tag from "../Tag";
 
@@ -87,7 +88,10 @@
                 this.tags.splice(index,1);
             },
             validateTags(){
-                HTTP.put('/opinions/'+this.wine._id+'/'+store.state.usr._id, {visual:this.tags}).then(response=>{
+                var query={};
+                if (this.type==="visual") query.visual = this.tags;
+
+                HTTP.put('/opinions/'+this.$route.params.id+'/'+store.state.usr._id, query).then(response=>{
                     console.log("RES",response)
                 });
                 this.close();

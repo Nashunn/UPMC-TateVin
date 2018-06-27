@@ -5,8 +5,7 @@
         </div>
 
         <h2>Vins</h2>
-        <WineBloc v-for="(wine,index) in wines" :wine="wine.id" :key="index"/>
-
+        <WineBloc v-for="(wine,index) in wines" :wine="wine._id" :key="index"/>
     </section>
 </template>
 

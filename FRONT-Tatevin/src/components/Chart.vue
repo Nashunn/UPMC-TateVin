@@ -14,7 +14,7 @@ export default {
   components: {},
   props: {
     idChart: String,
-    iData: String
+    iData: Object
   },
    watch: {
   	'iData.datas': function(newVal, oldVal) {

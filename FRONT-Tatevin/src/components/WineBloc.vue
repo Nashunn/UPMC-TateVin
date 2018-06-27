@@ -4,7 +4,7 @@
 
         <WineColor :color="wineOb.type" class="icon"/>
         <!--<GlassScore v-if="wine.like.vote>0" :score="getScore" :vote="comment.like.vote" :maxScore="comment.like.maxScore"  :color="true"/>-->
-        <router-link :to="{ name: 'Wine', params: {id: wineOb.id } }">
+        <router-link :to="{ name: 'Wine', params: {id: wineOb._id } }">
             <span class="wineName">{{ wineOb.name }} ({{ wineOb.millesime }})</span>
         </router-link>
         <button v-if="wineStory" v-on:click="$emit('addWine', wine)" type="button">{{ value }}</button>

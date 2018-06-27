@@ -49,7 +49,7 @@
             <b-col cols="4" class="">
                 <h4>Sensations visuelles</h4>
                 <a @click="addTagChart('visual')">Que voyez vous ?</a>
-                <chart :iData="'visual'" idChart="gouts" ></chart>
+                <chart :iData="opinion.visual" idChart="visual" ></chart>
             </b-col>
 
         </b-row>
@@ -97,12 +97,20 @@ export default {
             wine: [],
             wineGlobalScore: 0,
             wineUserScore: 0,
-            opinion:{},
-            smells:{
-                datas:[],
-                labels:[]
+            opinion:{
+                smells:{
+                    datas:[],
+                    labels:[]
+                },
+                taste:{
+                    datas:[],
+                    labels:[]
+                },
+                visual:{
+                    datas:[],
+                    labels:[]
+                },
             },
-            opinion:{},
             commentsHere:false,
             showTagPopUp:false,
             tagType:""
@@ -122,21 +130,6 @@ export default {
         addWishes() {
             console.log("todo");
         },
-        addTag(){
-             if(typeof(this.tags.find(tag=>tag===this.$refs.newTag.search))==="undefined"){
-                this.tags.push(this.$refs.newTag.search);
-            }else{
-                this.tagExists=true;
-            }
-        },
-        deleteTag( index ){
-            this.tags.splice(index,1);
-        },
-        validateTags(){
-            HTTP.put('/opinions/'+this.wine._id+'/'+store.state.usr._id, {smell:this.tags}).then(response=>{
-                console.log(response)
-            });
-        },
         addBarcode() {
             console.log("todo");
         },
@@ -146,31 +139,32 @@ export default {
                 this.wineGlobalScore=response.data[1];
 
                 this.getUserScore();
-                this.getOpinion();
+                this.getOpinion( "all" );
             }).then(res=>{
-                HTTP.get("/wineGetComments",{params:{comments:this.wine.comments}} ).then( response=>{
-                    this.wine.comments= response.data;
+                HTTP.get("/wineGetComments",{params:{comments:this.wine.comments}} ).then( response2=>{
+                    this.wine.comments= response2.data;
                     this.commentsHere=true;
                 })
 
             });
 ;
         },
-        getOpinion() {
-            console.log(this.wine._id)
+        getOpinion( ) {
+            console.log("FFF",this.wine._id)
             HTTP.get('/opinions/'+this.wine._id).then( response => {
-                var s = _.map(response.data, 'smell')
+                var s = _.map(response.data, "visual")
                 var z = _.reduceRight( s , function(flattened, other) {
                       return flattened.concat(other);
                 }, [])
                 var x = _.groupBy(z)
                 console.log(x)
                 for (const [key, val] of Object.entries(x)) {
-                    this.smells.labels.push(x[key][0])
-                    this.smells.datas.push(x[key].length)
+                    this.opinion.visual.labels.push(x[key][0])
+                    this.opinion.visual.datas.push(x[key].length)
                     console.log(x[key][0] + " -> "+ x[key].length);
                 }
             })
+
 
         },
         getUserScore() {
