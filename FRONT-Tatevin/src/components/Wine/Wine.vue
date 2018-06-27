@@ -49,25 +49,23 @@
             <WineBlockProperty title="Décantation" :desc="String(this.wine.decantation)" />
         </b-row>
 
-        <b-row>
-
-                <b-col cols="4" class="">
-                    <h4>Au regard</h4>
-                    <a @click="addTagChart('visual')">Donnez votre avis</a>
-                    <chart :iData="opinion.visual" idChart="visual" ></chart>
-                </b-col>
-                    <b-col cols="4" class="">
+        <b-row class="text-center">
+            <b-col cols="4" class="">
+                <h4 >Au regard</h4>
+                <a @click="addTagChart('visual')">Donnez votre avis</a>
+                <chart :iData="opinion.visual" idChart="visual"></chart>
+            </b-col>
+            <b-col cols="4" class="">
                 <h4>Au nez</h4>
                 <a @click="addTagChart('smell')">Donnez votre avis</a>
-                <chart :iData="opinion.smell" idChart="smell" ></chart>
+                <chart :iData="opinion.smell" idChart="smell"></chart>
             </b-col>
 
             <b-col cols="4" class="">
                 <h4>En bouche</h4>
                 <a @click="addTagChart('taste')">Donnez votre avis</a>
-                <chart :iData="opinion.taste" idChart="taste" ></chart>
+                <chart :iData="opinion.taste" idChart="taste"></chart>
             </b-col>
-
         </b-row>
         <div class="allComments">
             <button type="button" class="btn-purple"  @click="comment">Ajouter un commentaire</button>
