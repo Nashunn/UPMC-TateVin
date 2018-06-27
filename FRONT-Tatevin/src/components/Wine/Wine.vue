@@ -96,6 +96,9 @@ export default {
     mounted() {
         // Get wine information
         this.getWineById();
+        EventBusModal.$on('updateComments', comment=>{
+            this.wine.comments.push(comment);
+        });
     },
     methods: {
         addCave() {
