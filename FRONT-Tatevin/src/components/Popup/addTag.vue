@@ -76,6 +76,11 @@
         methods: {
             close() {
                 EventBusModal.$emit("addTag", false);
+                this.tagToAdd="test";
+                this.tagExists=false;
+                this.indexTag=-1;
+                this.tagList=[];
+                this.tags=[];
             },
             addTag(){
                  if(typeof(this.tags.find(tag=>tag===this.$refs.newTag.search))==="undefined"){

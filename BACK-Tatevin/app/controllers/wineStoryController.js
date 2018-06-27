@@ -87,7 +87,11 @@ exports.getWineByUser = function (username){
 /************************SEARCH**********************************/
 
 exports.findWSByTags = async function (tags) {
-    return await WineStory.find({tags:tags}, async function (err, ws) {
+    var tagsTab=tags.split(',');
+
+    return await WineStory.find({ tags: { $all: tagsTab}}, async function (err, ws) {
+        console.log("RESULT");
+        console.log(ws);
         return await ws;
     });
 }

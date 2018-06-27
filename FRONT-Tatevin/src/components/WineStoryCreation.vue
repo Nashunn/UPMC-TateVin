@@ -20,7 +20,7 @@
                 />
             </p>
             <h3>Vins associés</h3>
-            <WineBloc v-for="(wine, index) in story.wines" :key="index" :wine="wine.id" value="-" :wineStory="true" v-on:addWine="removeWine(index)"/>
+            <WineBloc v-for="(wine, index) in story.wines" :key="index" :wineObP="wine" value="-" :wineStory="true" v-on:addWine="removeWine(index)"/>
             <h3>Associer un nouveau vin</h3>
             <Search :wineStory="true" v-on:addWine="addWine($event)"/>
 

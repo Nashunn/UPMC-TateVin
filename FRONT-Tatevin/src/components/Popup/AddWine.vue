@@ -104,6 +104,17 @@
         methods: {
             close() {
                 EventBusModal.$emit("winePopup", false);
+                this.credentials={
+                    name:"",
+                    millesime:"",
+                    type:""
+                };
+                this.optionsType=[
+                    { value: "rouge", text:"Rouge" },
+                    { value: "rosee", text:"Rosée" },
+                    { value: "blanc", text:"Blanc" }
+                ];
+                this.error= "";
             },
             checkBeforeSubmit() {
                 this.error = "";
