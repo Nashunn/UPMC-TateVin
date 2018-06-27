@@ -108,6 +108,14 @@ exports.addComment=function (req, res){
 
 }
 
+exports.findOneWineByBarCode=function(req,res){
+    console.log(req.query)
+    Wine.findOne({id:req.query.barCode}, function(err, wine){
+        if (err) return res.status(500).send(err);
+        console.log(wine)
+        res.json(wine)
+    })
+}
 /********************GET WINE INFORMATION ***********************/
 getAvgScore = async function (scoreArray) {
     let nbVote = 0;
