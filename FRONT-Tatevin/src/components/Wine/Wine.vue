@@ -29,7 +29,7 @@
 
         <b-row class="width-98 mt-3">
             <b-col cols="6">
-                <span class="hover-underline ml-1"  @click="addBarcode()">Ajouter un code barre</span>
+                <a class="hover-underline ml-1"  @click="addBarCode()"><span v-if="typeof(wine.id)==='undefined'">Ajouter un code barre</span></a>
             </b-col>
             <b-col cols="6" class="text-right">
                 <span class="mr-1">Prix moyen : {{ "13" }} €</span>
@@ -146,15 +146,16 @@ export default {
         EventBusModal.$on('updateComments', comment=>{
             this.wine.comments.push(comment);
         });
+        EventBusModal.$on('addBarCode', showPopup=>{
+            this.showScanPopUp=false;
+        });
+
     },
     methods: {
         addCave() {
             console.log("todo");
         },
         addWishes() {
-            console.log("todo");
-        },
-        addBarcode() {
             console.log("todo");
         },
         getWineById() {
@@ -254,7 +255,8 @@ export default {
             }else{
                 EventBusModal.$emit("neadConnect",true)
             }
-        },addBarCode( ){
+        },
+        addBarCode(){
             if(store.state.usr.username){
                 this.showScanPopUp=true;
             }else{
@@ -290,7 +292,13 @@ export default {
             this.showTagPopUp=showTagPopUp;
         })
         EventBusModal.$on("tagAdded", type=>{
-            this.getOpinion(type);
+            this.$router.push("/wine/"+this.$route.params.id);
+        })
+        EventBusModal.$on("newBarCode", newBarCode=>{
+            HTTP.put('/wineBarCode/'+this.$route.params.id, {barcode:newBarCode}).then(()=>{
+                this.wine.id=newBarCode;
+                this.showScanPopUp=false;
+            })
         })
     }
 }

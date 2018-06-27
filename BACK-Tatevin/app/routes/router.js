@@ -93,7 +93,8 @@ router
  * Instance  *
  *===========*/
 router
-    .get("/wine/:wine_id", wineController.findOneWine);
+    .get("/wine/:wine_id", wineController.findOneWine)
+    .put("/wineBarCode/:id_wine", wineController.addCB);
 
 /**~~~~~~~~~~~~~~~END Wine~~~~~~~~~~~~~~~~~**/
 

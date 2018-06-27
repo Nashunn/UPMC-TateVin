@@ -2,12 +2,15 @@
   <div class="hello">
     <input type="file" accept="image/*" capture @change="setImg"/>
     <h1 v-if="msg !== 'None' "> CODE BARRE : <span style="color:deepskyblue">{{ msg }} </span> </h1>
+    <div class="btn-wrapper " v-if="msg !== 'None' ">
+         <b-button v-on:click="sendBarCode">Enregistrer le codebar</b-button>
+    </div>
   </div>
 </template>
 
 <script>
   import Quagga from 'quagga';
-
+ import {EventBusModal} from "../../events/"
   export default {
     data() {
       return {
@@ -64,7 +67,9 @@
             console.log("not detected");
           }
         });
-      }
+    },sendBarCode(){
+        EventBusModal.$emit("newBarCode", this.msg);
+    }
     }
   }
 </script>
