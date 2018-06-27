@@ -1,6 +1,6 @@
 const Tag = require("../models/tag");
 
-exports.TAGS_TYPE = Object.freeze({CEPAGE: "cépage", DIVERS: "divers"})
+exports.TAGS_TYPE = Object.freeze({CEPAGE: "cépage", DIVERS: "divers", SMELL:'smell'})
 
 exports.findAll = function (req, res) {
   Tag.find(function (err, tags) {
@@ -21,10 +21,16 @@ exports.findByType = function (req, res) {
 
 exports.createTagIfNotCreated = function (label, type) {
     console.log(label);
-  for (let i = 0; i < label.length; i++) {
+    let tags=[];
+    for (let i = 0; i < label.length; i++) {
     Tag.find({label: label[i], type: type}, (err, results) => {
-      if (!results.length) this.createTag(label[i], type)
+      if (!results.length)
+      {
+        this.createTag(label[i], type)
+      } 
+
     });
+
   }
 }
 

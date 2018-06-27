@@ -15,7 +15,7 @@ var OpinionSchema = mongoose.Schema({
   id_wine: { type: Schema.Types.ObjectId, ref:"Wine" },
   price: Number,
   score: Number,
-  smell: [{ type: Schema.Types.ObjectId, ref:"Tag" }],
+  smell: [{ type: Schema.Types.String, ref:"Tag" }],
   visual: [{ type: Schema.Types.ObjectId, ref:"Tag" }],
   taste: [{ type: Schema.Types.ObjectId, ref:"Tag" }],
   moment: [{ type: Schema.Types.ObjectId, ref:"Tag" }],
