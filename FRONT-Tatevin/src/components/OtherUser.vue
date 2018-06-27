@@ -78,11 +78,21 @@
                 <b-card no-body class="mt-3">
                     <b-tabs card>
                         <b-tab title="Dernières activités" active>
-                            <!--v-if="!activite.length"-->
-                            <h1 class="text-center">No activity 😭</h1>
-                            <!-- <b-list-group v-else v-for="us in oUser.subscription">
-                                <b-list-group-item ></b-list-group-item>
-                            </b-list-group> -->
+
+                            <p>{{activity.length}}</p>
+                            <h1 class="text-center" v-if="activity.length === 0">No activity 😭</h1>
+                            <b-list-group v-else v-for="ac in activity">
+                                <b-list-group-item >
+                                    <b-row>
+                                        <b-col cols="2">
+                                            <b-img :src="ac.type" rounded="circle"  width="34" height="34" alt="img"/>
+                                        </b-col>
+                                        <b-col cols="5">  <router-link :to="ac.road">{{ac.roadName}}</router-link> </b-col>
+                                        <b-col cols="5"> {{ac.date}} </b-col>
+                                    
+                                    </b-row>
+                                </b-list-group-item>
+                            </b-list-group>
                         </b-tab>
                         <b-tab  :title="'Abonnement (' + (this.subsDetails.length || '0') + ')'">
                             <h1 class="text-center" v-if=" subsDetails.length === 0">No subs 😭</h1>
@@ -139,6 +149,7 @@
     import "vue2-dropzone/dist/vue2Dropzone.css";
     import store from './../store';
     import Vue from 'vue';
+    import LLLL from './../assets/img/hdv.svg'
     import moment from 'moment-timezone'
     
     Vue.use(require('vue-moment'));
@@ -162,12 +173,13 @@
                     description: '',
                 },
                 subsDetails: [],
+                activity:{},
                 isEdit: false,
 
             }
         },
         components: {
-            vueDropzone: vue2Dropzone
+            vueDropzone: vue2Dropzone,
         },
         computed: {
             age: function () {
@@ -179,6 +191,7 @@
                 //clone.mdp = ''
                 return clone;
             },
+        
         },
         mounted() {
             this.loadUser(this.$route.params.username);
@@ -189,6 +202,7 @@
         },
         methods: {
             loadUser(path){
+                var that =this;
                 EventBusModal.$emit("loading-loader", true);
                 HTTP.get(`users/` + path).then(response => {
                     this.oUser = response.data[0];
@@ -198,6 +212,13 @@
                         HTTP.get(`usersByIds/`, { params: {subs: this.oUser.subscription} } ).then(response => {
                             this.subsDetails = response.data
                         });
+                    HTTP.get('users/'+path+'/activity').then(r => {
+                        this.activity = r.data;
+                        this.activity.forEach(element => {
+                            that.activityType(element)
+                        });
+                        console.log(this.activity);
+                    })
                     EventBusModal.$emit("loading-loader", false);
                 });
             },
@@ -209,6 +230,20 @@
             },
             isCurrentUser() {
                 return this.oUser.username === store.state.usr.username
+            },
+            activityType: async function (ac) {
+                if(ac.hasOwnProperty('food'))
+                {
+                    ac.type = "./../assets/img/pen.svg";
+                    ac.road = "/wine/"+ac.id_wine
+                    await HTTP.get("/wine/"+ac.id_wine).then(async  response =>{
+                        console.log("fffff",response)
+                        ac.roadName = await response
+                    })
+                    
+                    
+                }
+              
             },
             update() {
                 EventBusModal.$emit("loading-loader", true);
@@ -234,5 +269,8 @@
                 });
             }
         },
+        d(){
+            console.log(this.LLLL);
+        }
     }
 </script>

@@ -48,6 +48,7 @@
             }
         },
         created(){
+            this.isLoading = true;
         },
         mounted() {
             EventBusModal.$on('loading-loader', loading => {

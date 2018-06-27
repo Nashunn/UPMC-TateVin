@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-      <router-link :to="{ name: 'WineStoryCreation' }">Ecrire une nouvelle histoire</router-link>      
+      <router-link :to="{ name: 'WineStoryCreation' }">Ecrire une nouvelle histoire</router-link>
       <StoryBloc v-for="story in stories" :title="story.title" :id="story.id" :key="story.id" />
   </div>
 </template>
@@ -19,7 +19,7 @@
     },
     mounted(){
       EventBusModal.$on('loading', loading => {
-         
+
       })
     },
     methods:{
@@ -28,8 +28,10 @@
       }
   },
   created(){
+      EventBusModal.$emit("loading-loader", true);
       HTTP.get('/wineStory').then(response=>{
           this.stories=response.data;
+          EventBusModal.$emit("loading-loader", false);
       });
   }
   }

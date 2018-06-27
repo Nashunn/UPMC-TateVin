@@ -24,7 +24,8 @@ export default {
     props:{
         wine:{type:String, default:""},
         wineStory:{type:Boolean, default:false},
-        value:{type:String, default:""}
+        value:{type:String, default:""},
+        wineObP:{type:Object, default:{}}
     },
     data(){
         return {
@@ -33,10 +34,15 @@ export default {
         }
     },
     created(){
-        HTTP.get("wine/"+this.wine).then(response=>{
-            this.wineOb=response.data[0];
-            this.wineScore=response.data[1];
-        });
+        if(this.wine!==""){
+            HTTP.get("wine/"+this.wine).then(response=>{
+                this.wineOb=response.data[0];
+                this.wineScore=response.data[1];
+            });
+        }else{
+            this.wineOb=this.wineObP;
+        }
+
     }
 }
 </script>

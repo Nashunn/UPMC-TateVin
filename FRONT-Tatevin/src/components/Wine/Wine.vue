@@ -47,20 +47,24 @@
         </b-row>
 
         <b-row>
-            <b-col cols="4" class="">
-                <Tag v-for="(tag,index) in tags" :label="tag" v-on:deleteTag="deleteTag(index)" :canBeDelete="true" :key="index"/>
-                <p v-show="tagExists">Le tag {{tagToAdd }} est déjà enregistré.</p>
-                <p>Ajouter un tag :  <Autocomplete :items="tagList" ref="newTag"/> <b-button v-on:click="addTag">+</b-button> <b-button v-on:click="validateTags">Valider les tags</b-button></p>
-                <chart :iData="smells" idChart="gouts" ></chart>
+
+                <b-col cols="4" class="">
+                    <h4>Au regard</h4>
+                    <a @click="addTagChart('visual')">Donnez votre avis</a>
+                    <chart :iData="opinion.visual" idChart="visual" ></chart>
+                </b-col>
+                    <b-col cols="4" class="">
+                <h4>Au nez</h4>
+                <a @click="addTagChart('smell')">Donnez votre avis</a>
+                <chart :iData="opinion.smell" idChart="smell" ></chart>
             </b-col>
 
             <b-col cols="4" class="">
-                <chart :iData="smells" idChart="gous2"></chart>
+                <h4>En bouche</h4>
+                <a @click="addTagChart('taste')">Donnez votre avis</a>
+                <chart :iData="opinion.taste" idChart="taste" ></chart>
             </b-col>
 
-            <b-col cols="4" class="">
-                <chart :iData="smells" idChart="gouts3"></chart>
-            </b-col>
         </b-row>
         <div class="allComments">
             <button type="button" class="btn-purple"  @click="comment">Ajouter un commentaire</button>
@@ -68,6 +72,8 @@
                 <Comment v-for="(comment, index) in wine.comments" :key="comment._id"  :comment="comment" />
             </div>
         </div>
+        <AddTag v-show="showTagPopUp" :type="tagType"/>
+        <AddBarCode v-show="showScanPopUp" :type="tagType"/>
     </section>
 
 </template>
@@ -82,6 +88,8 @@ import WineBlockProperty from "./WineBlockProperty";
 import WineColor from "./WineColor";
 import Chart from "./../Chart";
 import Tag from './../Tag';
+import AddTag from './../Popup/AddTag';
+import AddBarCode from './../Popup/AddBarCode';
 import Autocomplete from './../Autocomplete';
 import _ from 'lodash';
  import { EventBusModal } from "./../../events/";
@@ -93,29 +101,37 @@ export default {
         GlassScore,
         WineBlockProperty,
         Chart,
-        Tag, 
+        Tag,
         Autocomplete,
         WineColor,
-        Comment
+        Comment,
+        AddTag,
+        AddBarCode
     },
     data() {
         return {
             wine: [],
             wineGlobalScore: 0,
             wineUserScore: 0,
-            tagToAdd:"test",
-            tagExists:false,
-            firstPageLoad: true,
-            indexTag:-1,
-            tagList:[],
-            tags:[],
-            opinion:{},
-            smells:{
-                datas:[],
-                labels:[]
+            opinion:{
+                smell:{
+                    datas:[],
+                    labels:[]
+                },
+                taste:{
+                    datas:[],
+                    labels:[]
+                },
+                visual:{
+                    datas:[],
+                    labels:[]
+                },
             },
-            opinion:{},
-            commentsHere:false
+            commentsHere:false,
+            showTagPopUp:false,
+            showScanPopUp:false,
+            tagType:"",
+            firstPageLoad:true
         }
     },
     mounted() {
@@ -123,7 +139,7 @@ export default {
         this.getWineById();
         //Get other informations
         this.getUserScore();
-        this.getOpinion();
+        this.getOpinion("all");
 
         //Get comments
         EventBusModal.$on('updateComments', comment=>{
@@ -136,21 +152,6 @@ export default {
         },
         addWishes() {
             console.log("todo");
-        },
-        addTag(){
-             if(typeof(this.tags.find(tag=>tag===this.$refs.newTag.search))==="undefined"){
-                this.tags.push(this.$refs.newTag.search);
-            }else{
-                this.tagExists=true;
-            }
-        },
-        deleteTag( index ){
-            this.tags.splice(index,1);
-        },
-        validateTags(){
-            HTTP.put('/opinions/'+this.$route.params.id+'/'+store.state.usr._id, {smell:this.tags}).then(response=>{
-                console.log(response)
-            });
         },
         addBarcode() {
             console.log("todo");
@@ -170,22 +171,56 @@ export default {
                     });
                     this.firstPageLoad = false;
                 }
+                EventBusModal.$emit("loading-loader", false)
             });
         },
-        getOpinion() {
-            HTTP.get('/opinions/'+this.$route.params.id).then( response => {
-                var s = _.map(response.data, 'smell');
-                var z = _.reduceRight( s , function(flattened, other) {
-                      return flattened.concat(other);
-                }, [])
-                var x = _.groupBy(z)
-                console.log(x)
-                for (const [key, val] of Object.entries(x)) {
-                    this.smells.labels.push(x[key][0])
-                    this.smells.datas.push(x[key].length)
-                    console.log(x[key][0] + " -> "+ x[key].length);
-                }
-            })
+        getOpinion( type ) {
+            if(type==="all" || type==="visual"){
+                HTTP.get('/opinions/'+this.$route.params.id).then( response => {
+                    var s = _.map(response.data, 'visual');
+                    var z = _.reduceRight( s , function(flattened, other) {
+                          return flattened.concat(other);
+                    }, [])
+                    var x = _.groupBy(z)
+                    console.log(x)
+                    for (const [key, val] of Object.entries(x)) {
+                        this.opinion.visual.labels.push(x[key][0])
+                        this.opinion.visual.datas.push(x[key].length)
+                        console.log(x[key][0] + " -> "+ x[key].length);
+                    }
+                })
+            }
+            if(type==="all" || type==="smell"){
+                HTTP.get('/opinions/'+this.$route.params.id).then( response => {
+                    var s = _.map(response.data, 'smell');
+                    var z = _.reduceRight( s , function(flattened, other) {
+                          return flattened.concat(other);
+                    }, [])
+                    var x = _.groupBy(z)
+                    console.log(x)
+                    for (const [key, val] of Object.entries(x)) {
+                        this.opinion.smell.labels.push(x[key][0])
+                        this.opinion.smell.datas.push(x[key].length)
+                        console.log(x[key][0] + " -> "+ x[key].length);
+                    }
+                        console.log("VISUAL FINAL",this.opinion.smell.labels);
+                })
+            }
+            if(type==="all" || type==="taste"){
+                HTTP.get('/opinions/'+this.$route.params.id).then( response => {
+                    var s = _.map(response.data, 'taste');
+                    var z = _.reduceRight( s , function(flattened, other) {
+                          return flattened.concat(other);
+                    }, [])
+                    var x = _.groupBy(z)
+                    console.log(x)
+                    for (const [key, val] of Object.entries(x)) {
+                        this.opinion.taste.labels.push(x[key][0])
+                        this.opinion.taste.datas.push(x[key].length)
+                        console.log(x[key][0] + " -> "+ x[key].length);
+                    }
+                })
+            }
         },
         getUserScore() {
             let json = {
@@ -208,10 +243,24 @@ export default {
         },
         comment(){
             EventBusModal.$emit("Comment", {showModal:true, from:"wine"});
+        },addTagChart( type ){
+            if(store.state.usr.username){
+                this.showTagPopUp=true;
+                this.tagType=type;
+            }else{
+                EventBusModal.$emit("neadConnect",true)
+            }
+        },addBarCode( ){
+            if(store.state.usr.username){
+                this.showScanPopUp=true;
+            }else{
+                EventBusModal.$emit("neadConnect",true)
+            }
+
         },
-        goModify() {
-            this.$router.push('/wine/m/'+this.$route.params.id);
-        }
+            goModify() {
+                this.$router.push('/wine/m/'+this.$route.params.id);
+            }
     },
     computed: {
         /*wineColor: function() {
@@ -232,6 +281,13 @@ export default {
         }*/
     },
     created(){
+        EventBusModal.$emit("loading-loader", true);
+        EventBusModal.$on("addTag", showTagPopUp=>{
+            this.showTagPopUp=showTagPopUp;
+        })
+        EventBusModal.$on("tagAdded", type=>{
+            this.getOpinion(type);
+        })
     }
 }
 </script>

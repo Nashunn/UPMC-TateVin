@@ -5,7 +5,7 @@
         </div>
 
         <h2>Vins</h2>
-        <WineBloc v-for="(wine,index) in wines" :wine="wine._id" :key="index"/>
+        <WineBloc v-for="(wine,index) in wines" :wineObP="wine" :key="index" />
     </section>
 </template>
 
@@ -26,7 +26,11 @@
             // Get all wines
             HTTP.get('/wines').then(response=>{
                 this.wines=response.data;
-            });
+
+            }).then(()=>EventBusModal.$emit("loading-loader", false));
+        },
+        created(){
+            EventBusModal.$emit("loading-loader", true);
         },
         methods:{
             displayCreateWine() {
