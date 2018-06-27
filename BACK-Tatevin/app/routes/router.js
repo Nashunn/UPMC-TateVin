@@ -132,6 +132,7 @@ router
  **********************************************************/
 router
     .get("/opinions", opinionController.getOpinionBy)
+    .get("/opinions/:id_wine", opinionController.getOpinionForWine)
     .put("/opinions/:id_wine/:id_user", opinionController.updateOpinion)
 
 /**~~~~~~~~~~~~~~~END Opinion~~~~~~~~~~~~~~**/
