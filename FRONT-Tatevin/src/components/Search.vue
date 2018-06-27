@@ -57,7 +57,7 @@
             <button @click="displayCreateWine()" class="wine-btn btn-purple">Nouveau vin</button>
         </div>-->
         <div v-for="(result, index) in results"  :key="index">
-            <WineBloc v-if="result.type" :wineObP="result" value="+" :wineStory="wineStory" v-on:addWine="$emit('addWine', result)"/>
+            <WineBloc v-if="result.type" :wineObP="result" value="+" :wineStory="wineStory" v-on:addWine="$emit('addWine', $event)"/>
             <p v-if="result.email"><router-link :to="{ name: 'otherUser', params: { username:result.username} }">{{ result.username }}</router-link></p>
             <p v-if="result.author"><router-link :to="{ name: 'Story', params: { id:result.id} }">{{ result.title }}</router-link></p>
         </div>

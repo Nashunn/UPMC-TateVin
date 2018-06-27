@@ -90,7 +90,6 @@
             EventBusModal.$emit("Delete", true);
         },
         updateStory(){
-            store.state.story=this.story;
             this.$router.push('/wineStories/creation');
         },
         comment(){
