@@ -122,9 +122,8 @@ export default {
 
                 this.getUserScore();
             }).then(res=>{
-                HTTP.get("/wineGetComments",{params:{comments:this.wine.comments}} ).then( response=>{
-                    this.wine.comments= response.data;
-                    console.log("Comments from wine",this.wine.comments);
+                HTTP.get("/wineGetComments",{params:{comments:this.wine.comments}} ).then( response2=>{
+                    this.wine.comments= response2.data;
                     this.commentsHere=true;
                 })
 
