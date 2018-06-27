@@ -1,8 +1,7 @@
 <template>
     <div>
         <canvas :ref="idChart" ></canvas>
-        <p>{{tst}}</p>
-
+        <p v-show="false">{{tst}}</p>
     </div>
 </template>
 <script>
@@ -23,7 +22,7 @@ export default {
     },
   data() {
     return {
-        tst: this.iData.datas,
+        tst: this.iData.datas.length===0?null:this.iData.datas,
         myChart:{},
       planetChartData: {
         type: "pie",
@@ -55,15 +54,15 @@ export default {
             }
           ]
         },
-        options: {
-            responsive: true,
-            legend: {
-            position: 'top',
-            pieceLabel: {
-      render: 'percentage',
-                fontColor: ['green', 'white', 'red'],
-                precision: 2
-}
+          options: {
+              responsive: true,
+              legend: {
+                  position: 'top',
+                  pieceLabel: {
+                      render: 'percentage',
+                      fontColor: ['green', 'white', 'red'],
+                      precision: 2
+                  }
         },
         }
       }
@@ -72,7 +71,6 @@ export default {
   mounted() {
       console.log(this.idChart)
       this.createChart(this.idChart,this.planetChartData)
-
   },
   methods: {
     createChart(idChart, chartData) {

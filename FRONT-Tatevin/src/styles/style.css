@@ -24,6 +24,13 @@ section {
     padding-bottom: 50px;
 }
 
+.line-deco {
+    border-top: 5px groove rgb(105,0,41);
+    height: 5px;
+    width: 92%;
+    margin: 0 4%;
+}
+
 .serif{
     font-family:'Lora-Bold', serif;
 }
@@ -266,6 +273,11 @@ section {
     font-size: 18px;
     line-height: 18px;
     margin: 0 5px;
+}
+
+.stats-graph>.graph-wrapper {
+
+    margin-top: 50px;
 }
 
 /* Media queries */

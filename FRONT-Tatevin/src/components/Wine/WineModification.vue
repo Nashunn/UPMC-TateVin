@@ -125,7 +125,7 @@
                     <b-form-input
                         type="text"
                         id="cepage"
-                        placeholder="Entrez les cépages"
+                        placeholder="Entrez les cépages (séparé par virgule)"
                         v-model="wine.grape"
                     />
                 </b-col>

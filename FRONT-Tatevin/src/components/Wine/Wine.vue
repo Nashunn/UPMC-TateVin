@@ -33,8 +33,6 @@
             </b-col>
         </b-row>
 
-        <p>{{this.wine.terroir}}</p>
-
         <b-row class="wine-properties width-98 mt-3">
             <WineBlockProperty title="Terroir" :desc="String(this.wine.terroir)" />
             <WineBlockProperty title="Domaine" :desc="String(this.wine.domain)" />
@@ -46,26 +44,30 @@
             <WineBlockProperty title="Carrafage" :desc="String(this.wine.decantation)" />
         </b-row>
 
-        <b-row class="text-center">
-            <b-col cols="4" class="">
+        <b-row class="stats-graph text-center">
+            <b-col md="4" sm="10" class="graph-wrapper">
+                <div class="line-deco"></div>
                 <h4 >Au regard</h4>
                 <a @click="addTagChart('visual')">Donnez votre avis</a>
                 <chart :iData="opinion.visual" idChart="visual"></chart>
             </b-col>
-            <b-col cols="4" class="">
+            <b-col md="4" sm="10" class="graph-wrapper">
+                <div class="line-deco"></div>
                 <h4>Au nez</h4>
                 <a @click="addTagChart('smell')">Donnez votre avis</a>
                 <chart :iData="opinion.smell" idChart="smell"></chart>
             </b-col>
 
-            <b-col cols="4" class="">
+            <b-col md="4" sm="10" class="graph-wrapper">
+                <div class="line-deco"></div>
                 <h4>En bouche</h4>
                 <a @click="addTagChart('taste')">Donnez votre avis</a>
                 <chart :iData="opinion.taste" idChart="taste"></chart>
             </b-col>
         </b-row>
-        <div class="allComments">
-            <button type="button" class="btn-purple"  @click="comment">Ajouter un commentaire</button>
+        <div class="allComments mt-5">
+            <div class="line-deco mb-3"></div>
+            <button type="button" class="btn-purple" @click="comment">Ajouter un commentaire</button>
             <div v-if="commentsHere">
                 <Comment v-for="(comment, index) in wine.comments" :key="comment._id"  :comment="comment" />
             </div>
