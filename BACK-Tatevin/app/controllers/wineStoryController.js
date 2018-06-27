@@ -71,7 +71,17 @@ exports.addComment=function (req, res){
         if (err) return res.status(500).send(err);
         return res.status(200).send({msg: "WS commented! "});
     });
+}
 
+
+exports.getWineByUser = function (username){
+  return WineStory.find({author: username} ).limit(10).
+  sort('-date').exec().then((result) => {
+      return result;
+    })
+    .catch((err) => {
+      return 'error occured';
+    });
 }
 
 /************************SEARCH**********************************/

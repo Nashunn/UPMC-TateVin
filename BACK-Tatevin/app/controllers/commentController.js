@@ -44,3 +44,13 @@ exports.addVote=function(req,res){
         return res.status(200).send({msg: "WS commented! ", ws:ws});
     });
 }
+
+exports.getCommentFromUser = function (idUser){
+  return Comment.find({author: idUser} ).limit(10).
+  sort('-date').exec().then((result) => {
+      return result;
+    })
+    .catch((err) => {
+      return 'error occured';
+    });
+}
