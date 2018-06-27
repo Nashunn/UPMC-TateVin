@@ -21,6 +21,22 @@ exports.findOneUser = function (req, res) {
 }
 
 
+exports.findByIdUser = function(req,res){
+    console.log("IIIIIIII",req.params.idMongo)
+    User.findOne ({_id: req.params.idMongo}, function(err,user){
+        if (err) res.send(err);
+        res.json(user);
+    })
+}
+
+exports.findByIds = function(req, res){
+    User.find( {'_id': { $in: req.query.subs}}   , function (err,users) {
+        if (err) res.send(err)
+        res.json(users)
+    })
+
+}
+
 exports.register = function (req, res) {
     let hashedPassword = bcrypt.hashSync(req.body.password, 8);
 
@@ -34,6 +50,7 @@ exports.register = function (req, res) {
             username: req.body.username,
             password: hashedPassword,
             birthday: req.body.birthday,
+            description : req.body.description,
             avatar: req.body.avatar
         },
         function (err, user) {
@@ -113,12 +130,11 @@ exports.account = function (req, res) {
 exports.updateUser = function (req, res) {
     var token = req.headers["x-access-token"];
     console.log(req.headers)
+    console.log(req.body)
     //Deal if not found
     if (!token)
         return res.status(499).send({auth: false, message: "No token."});
     jwt.verify(token, config.secret, function (err, decoded) {
-        console.log("id : ", decoded.id);
-        console.log(decoded);
         //or found but not correct
         if (err)
             return res
@@ -139,6 +155,61 @@ exports.updateUser = function (req, res) {
         )
     });
 }
+
+exports.addSub = function (req, res) {
+    var token = req.headers["x-access-token"];
+    console.log(req.headers)
+    console.log(req.body)
+    //Deal if not found
+    if (!token)
+        return res.status(499).send({auth: false, message: "No token."});
+    jwt.verify(token, config.secret, function (err, decoded) {
+        //or found but not correct
+        if (err)
+            return res
+                .status(498)
+                .send({auth: false, message: "Failed to authenticate token.", error: err});
+        //retrieve user
+        var user_add;
+        console.log("params  :" ,req.params.idMongo);
+        User.findOneAndUpdate({username: req.params.user_id},
+            {$addToSet: {subscription: req.params.idMongo}}, {new: true},
+            (err, user) => {
+                console.log(user.subscription);
+                if (err) return res.status(500).send(err);
+                return res.send(user);
+            }
+        )
+    })
+};
+
+
+exports.removeSub = function (req, res) {
+    var token = req.headers["x-access-token"];
+    console.log(req.headers)
+    console.log(req.body)
+    //Deal if not found
+    if (!token)
+        return res.status(499).send({auth: false, message: "No token."});
+    jwt.verify(token, config.secret, function (err, decoded) {
+        //or found but not correct
+        if (err)
+            return res
+                .status(498)
+                .send({auth: false, message: "Failed to authenticate token.", error: err});
+        //retrieve user
+        var user_add;
+        console.log("params  :" ,req.params.idMongo);
+        User.findOneAndUpdate({username: req.params.user_id},
+            {$pull: {subscription: req.params.idMongo}}, {new: true},
+            (err, user) => {
+                console.log(user.subscription);
+                if (err) return res.status(500).send(err);
+                return res.send(user);
+            }
+        )
+    })
+};
 
 
 exports.deleteUser = function (req, res) {

@@ -7,7 +7,8 @@ const wineStoryController = require("./../controllers/wineStoryController");
 const wineController = require("./../controllers/wineController");
 const tagController = require("./../controllers/tagController");
 const searchController = require("./../controllers/searchController");
-
+const commentController = require("./../controllers/commentController");
+const opinionController = require("./../controllers/opinionController");
 
 //HOME
 router.route("/").all(function (req, res) {
@@ -55,14 +56,17 @@ router
     .get("/users", userController.findAllUser)
     .post("/register", userController.register)
     .post("/login", userController.login)
-    .get("/account", userController.account);
-
+    .get("/account", userController.account)
+    .get("/usersByIds/", userController.findByIds);
 /*===========*
  * Instance  *
  *===========*/
 router
+    .get("/user/:idMongo", userController.findByIdUser)
     .get("/users/:user_id", userController.findOneUser) //need to remove password
     .put("/users/:user_id", userController.updateUser)
+    .put("/users/:user_id/:idMongo", userController.addSub)
+    .delete("/users/:user_id/:idMongo", userController.removeSub)
     .delete("/users/:user_id", userController.deleteUser);
 
 /**~~~~~~~~~~~~~~~~~END USER~~~~~~~~~~~~~~~~~**/
@@ -80,7 +84,9 @@ router
     .get("/wines", wineController.findAll)
 
 router
-    .post("/wine", wineController.createWine);
+    .post("/wine", wineController.createWine)
+    .put("/wineAddComment", wineController.addComment)
+    .get("/wineGetComments", commentController.getArray)
 
 /*===========*
  * Instance  *
@@ -102,16 +108,34 @@ router
 /* fetch all the users */
 router
     .get("/wineStory/:id_wineStory", wineStoryController.findOneByIdd)
+    .get("/wineStoryGetComments", commentController.getArray)
     .get("/wineStory", wineStoryController.findAll)
-    .post("/wineStory", wineStoryController.createWS);
+    .post("/wineStory", wineStoryController.createWS)
+    .put("/wineStoryAddComment", wineStoryController.addComment)
 /*===========*
  * Instance  *
  *===========*/
 router
-    .delete("/wineStory/:ws_id", wineStoryController.deleteWS)
+    .delete("/wineStory/:ws_id", wineStoryController.deleteWS);
 
 /**~~~~~~~~~~~~~~~~~END WS~~~~~~~~~~~~~~~~~**/
 
+/*********************************************************
+*                        ROADS : Comments                *
+**********************************************************/
+router
+    .post("/comment", commentController.createComment)
+    .get("/comments", commentController.findAll)
+    .put("/comment/:id_comment", commentController.addVote);
+/**~~~~~~~~~~~~~~~END Comments~~~~~~~~~~~~~~**/
 
+/*********************************************************
+ *                    ROADS : Opinion                    *
+ **********************************************************/
+router
+    .get("/opinions", opinionController.getOpinionBy)
+    .put("/opinions/:id_wine/:id_user", opinionController.updateOpinion)
+
+/**~~~~~~~~~~~~~~~END Opinion~~~~~~~~~~~~~~**/
 
 module.exports = router;

@@ -1,5 +1,6 @@
 const Wine = require("../models/wine");
 const TagController = require("./tagController");
+const OpinionController = require("./opinionController");
 
 let shortid = require("shortid");
 
@@ -13,12 +14,23 @@ exports.findAll = function (req, res) {
 };
 
 exports.findOneWine = function (req, res) {
-    Wine.findOne({id: req.params.wine_id}, function(error, result) {
+    Wine.findOne({id: req.params.wine_id}, async function(error, result) {
+        let ret = [];
+
         if(error)
             res.status(500).send(error);
 
+        ret.push(result);
+
+        // Go get wine score
+        let jsonOpinion = { wine_id: result._id };
+        let opinions = await OpinionController.getScoreByWine(jsonOpinion);
+        let score = await this.getAvgScore(opinions);
+
+        ret.push(await score);
+
         // if all ok
-        res.status(200).send(result);
+        res.status(200).send(ret);
     })
 };
 
@@ -69,4 +81,32 @@ exports.searchWine = async function (query) {
         console.log(ws);
         return await ws;
     });
+}
+
+exports.addComment=function (req, res){
+    Wine.findOneAndUpdate({id:req.body.id_ws},
+        { $addToSet: { comments: req.body.id_comment } }
+        ,function(err, ws){
+        if (err) return res.status(500).send(err);
+        return res.status(200).send({msg: "WS commented! "});
+    });
+
+}
+
+/********************GET WINE INFORMATION ***********************/
+getAvgScore = async function (scoreArray) {
+    let nbVote = 0;
+    let sumScore = 0;
+    let ret;
+
+    for(let i=0; i<scoreArray.length; i++) {
+        if(scoreArray[i].score) {
+            nbVote++;
+            sumScore += scoreArray[i].score;
+        }
+    }
+
+    ret = await {score: (sumScore/nbVote), nbVote: nbVote};
+
+    return await ret;
 }

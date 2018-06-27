@@ -6,6 +6,11 @@ import App from './App'
 import router from './router'
 import wysiwyg from "vue-wysiwyg";
 
+import {FaRating} from 'vue-rate-it';
+import {ImageRating} from 'vue-rate-it';
+Vue.component('fa-rating', FaRating);
+Vue.component('image-rating', ImageRating);
+
 import 'vue-awesome/icons';
 import Icon from 'vue-awesome/components/Icon';
 Vue.component('icon', Icon);
@@ -34,6 +39,8 @@ Vue.use(wysiwyg, {
         "justifyRight":true
      },
 }); // config is optional. more below
+
+
 
 import vuexI18n from 'vuex-i18n';
 const storeTranslation = new Vuex.Store();

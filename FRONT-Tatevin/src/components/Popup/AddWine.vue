@@ -5,19 +5,54 @@
             <div class="modal-wrapper">
                 <div class="modal-dialog">
                     <div class="modal-content">
+                        <!-- modal header -->
                         <div class="modal-header">
-                            <h4 class="modal-title">La suppression est definitive !</h4>
+                            <h4 class="modal-title">Ajouter un vin</h4>
                             <button type="button" class="close" @click="close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
+                        <!-- end of modal header -->
+                        <!-- modal body -->
                         <div class="modal-body">
-                            <p>Êtes vous certain de vouloir suppremier cette histoire ?</p>
+                            <b-row class="ml-1 mb-1">
+                                <label class="w-25" for="name">Nom : </label>
+                                <b-form-input
+                                    type="text"
+                                    id="name"
+                                    class="w-50"
+                                    placeholder="Entrez le nom"
+                                    v-model="credentials.name"
+                                />
+                            </b-row>
+                            <b-row class="ml-1 mb-1">
+                                <label class="w-25" for="pwd">Millésime: </label>
+                                <b-form-input
+                                    type="number"
+                                    id="pwd"
+                                    class="w-50"
+                                    placeholder="Entrez le millésime"
+                                    v-model="credentials.millesime"
+                                    @keyup.enter="checkBeforeSubmit"
+                                />
+                            </b-row>
+
+                            <b-row class="ml-1 mb-1">
+                                <label class="w-25" for="type">Type : </label>
+                                <b-form-select
+                                    id="type"
+                                    class="w-50"
+                                    v-model="credentials.type"
+                                    :options="optionsType" />
+                            </b-row>
+
+                            <p class="error-text">{{ error }}</p>
+
                             <div class="btn-wrapper">
-                                <button type="submit" ref="btnSubmit" @click="submit">Oui ! </button>
-                                <button type="button" @click="close">Je vais réfléchir encore un peu </button>
+                                <button ref="btnSubmit" @click="checkBeforeSubmit" class="wine-btn btn-purple">Ajouter</button>
                             </div>
                         </div>
+                        <!-- end of modal body -->
                     </div>
                 </div>
             </div>
@@ -51,23 +86,54 @@
 
     export default {
         name: "modalWine",
-        methods: {
-            close() {
-                EventBusModal.$emit("Delete", false);
-            },
-            submit() {
-                //Create wine back
-                HTTP.delete(
-                    '/wineStory/'+ this.$route.params.id).then(response => {
-                    console.log(response);
-                    this.$router.push('/wineStories');
-                    EventBusModal.$emit("Delete", false);
-                });
-            }
-        },
         data() {
             return {
+                credentials:{
+                    name:"",
+                    millesime:"",
+                    type:""
+                },
+                optionsType:[
+                    { value: "rouge", text:"Rouge" },
+                    { value: "rosee", text:"Rosée" },
+                    { value: "blanc", text:"Blanc" }
+                ],
+                error: "",
             };
+        },
+        methods: {
+            close() {
+                EventBusModal.$emit("winePopup", false);
+            },
+            checkBeforeSubmit() {
+                this.error = "";
+
+                if(
+                    this.credentials.name ==="" ||
+                    this.credentials.millesime === "" ||
+                    this.credentials.type === ""
+                )
+                    this.error = "Veuillez remplir l'ensemble des champs pour créer un vin.";
+                else
+                    this.submit();
+            },
+            submit() {
+                console.log(this.credentials);
+                //Create wine back
+                HTTP.post(
+                    "/wine",
+                    {
+                        name: this.credentials.name,
+                        type: this.credentials.type,
+                        millesime: this.credentials.millesime,
+                    },
+                    {}
+                ).then(response => {
+                    console.log(response.data);
+                    this.close();
+                    this.$router.push("/wine/"+response.data.wine.id);
+                });
+            }
         },
     };
 </script>

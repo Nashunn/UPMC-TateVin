@@ -1,13 +1,33 @@
 <template>
-  <div class="hello">
-      <p v-if="userStory"><button v-on:click="deleteStory">Supprimer cette histoire</button></p>
-      <p>Créée par <router-link :to="{ name: 'otherUser', params: { username:story.author} }">{{ story.author }}</router-link> le {{ story.date}} </p>
-      <div v-if="story.image" class="coverWineStory">
-        <b-img :src="story.image" fluid :alt="story.title" />
-        </div>
+  <div class="story">
+        <p><span class="signature">Créée par
+            <router-link :to="{ name: 'otherUser', params: { username:story.author} }">
+                <span v-if="userStory">vous</span><span v-else>{{ story.author }}</span>
+            </router-link> le {{ story.date}}</span>
+            <span v-if="userStory">
+                <button class="btn-delete btn-purple"  v-on:click="deleteStory" >Supprimer cette histoire</button>
+                <button class="btn-modify btn-purple" v-on:click="updateStory">Modifier cette histoire</button>
+            </span>
+        </p>
+
         <h2>{{story.title}}</h2>
-        <p>Tags : <Tag v-for="tag in story.tags" :label="tag" /></p>
-        <p v-for="paragraphe in p">{{ paragraphe }}</p>
+
+        <p><span class="signature">Tags : </span><Tag v-for="tag in story.tags" :label="tag" /></p>
+
+        <div v-if="story.image" class="coverWineStory">
+            <b-img :src="story.image" fluid :alt="story.title" />
+         </div>
+
+        <div v-html="story.text"></div>
+        <h3>Vins associés</h3>
+        <WineBloc v-for="(wine,index) in story.wines" :key="index" :wine="wine"  />
+
+        <div class="allComments">
+            <button type="button" class="btn-purple"  @click="comment">Ajouter un commentaire</button>
+            <div v-if="commentsHere">
+                <Comment v-for="(comment, index) in story.comments" :key="comment._id"  :comment="comment" />
+            </div>
+        </div>
   </div>
 </template>
 
@@ -17,16 +37,18 @@
   import Utils from "./../utils/";
   import store from "./../store/"
   import Tag from './Tag';
+  import WineBloc from './WineBloc';
   import Delete from "./Popup/Delete"
+  import Comment from "./Comment"
   export default {
     name: 'hello',
-    components:{Delete, Tag},
+    components:{Delete, Tag, WineBloc, Comment},
     data () {
       return {
           story:{},
-          p:[],
           userStory:false,
-          toDelete:true
+          toDelete:true,
+          commentsHere:false
       }
     },
     props:{
@@ -36,19 +58,27 @@
         HTTP.get('/wineStory/'+ this.$route.params.id).then(response=>{
             this.story=response.data[0];
             this.story.date=Utils.dateLocale(this.story.date);
-
-
-            this.p=Utils.getParagraphe(this.story.text);
             this.userStory=(this.story.author==store.state.usr.username);
-            console.log(this.story);
+
+        }).then(res=>{
+            HTTP.get("/wineStoryGetComments",{params:{comments:this.story.comments}} ).then( response=>{
+                this.story.comments= response.data;
+                console.log("Comments from Story",this.story.comments);
+                this.commentsHere=true;
+            })
+
         });
 
 
     },
     mounted(){
       EventBusModal.$on('loading', loading => {
-        alert("coucou")
-      })
+
+    });
+        EventBusModal.$on('updateComments', comment=>{
+            this.story.comments.push(comment);
+        });
+
     },
     methods:{
       test() {
@@ -56,12 +86,18 @@
         },
         deleteStory(){
             EventBusModal.$emit("Delete", true);
+        },
+        updateStory(){
+            store.state.story=this.story;
+            this.$router.push('/wineStories/creation');
+        },
+        comment(){
+            EventBusModal.$emit("Comment", {showModal:true, from:"wineStory"});
         }
+
   },
   computed:{
-      getHTML:function(){
 
-      }
   }
   }
 </script>

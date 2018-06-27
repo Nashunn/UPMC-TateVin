@@ -10,6 +10,8 @@
                     <!-- Popups -->
                     <wine-popup v-show="showWinePopup"></wine-popup>
                     <Delete v-show="showDeletePopup"/>
+                    <Comment v-show="showCommentPopup" :from="commentFrom"/>
+                    <Connect v-show="showConnectPopup"/>
                     <!-- End Popups -->
 
                     <router-view></router-view>
@@ -27,16 +29,21 @@
     import WinePopup from "./components/Popup/Wine";
     import AddWine from "./components/Popup/AddWine";
     import Delete from "./components/Popup/Delete";
+    import Comment from "./components/Popup/Comment";
+    import Connect from "./components/Popup/Connect";
     import Loader from "./components/Loader";
     import {EventBusModal} from "./events/";
 
     export default {
-        components: {WineHeader, MenuLeft, WinePopup, Delete, Loader},
+        components: {WineHeader, MenuLeft, WinePopup, Delete, Loader, Comment, Connect},
         name: 'app',
         data() {
             return {
                 showWinePopup: false,
                 showDeletePopup:false,
+                showCommentPopup:false,
+                showConnectPopup:false,
+                commentFrom:"",
                 isLoading: false,
             }
         },
@@ -54,6 +61,13 @@
             });
             EventBusModal.$on("AddWine", showModal => {
                 this.showAddWinePopup = showModal;
+            });
+            EventBusModal.$on("Comment", comment => {
+                this.commentFrom=comment.from;
+                this.showCommentPopup = comment.showModal;
+            });
+            EventBusModal.$on("neadConnect", showModal => {
+                this.showConnectPopup = showModal;
             });
         }
     }

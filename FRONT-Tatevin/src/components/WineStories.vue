@@ -7,7 +7,7 @@
 
 <script>
   import { EventBusModal } from "./../events/";
-  import StoryBloc from './StoryBloc'
+  import StoryBloc from './StoryBloc';
   import {HTTP} from "../HTTP/http";
   export default {
     name: 'WineStories',
@@ -19,7 +19,7 @@
     },
     mounted(){
       EventBusModal.$on('loading', loading => {
-        alert("coucou")
+         
       })
     },
     methods:{
