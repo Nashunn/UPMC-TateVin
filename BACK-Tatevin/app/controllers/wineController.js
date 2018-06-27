@@ -13,6 +13,7 @@ exports.findAll = function (req, res) {
     });
 };
 
+
 exports.findOneWine = function (req, res) {
     Wine.findOne({id: req.params.wine_id}, async function(error, result) {
         let ret = [];
@@ -73,6 +74,7 @@ exports.modifyWine = function (req, res) {
         }
     )
 }
+
 
 /************************SEARCH**********************************/
 

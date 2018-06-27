@@ -2,7 +2,9 @@ var User = require("../models/user");
 var jwt = require("jsonwebtoken");
 var config = require("./../../config/config");
 var bcrypt = require("bcryptjs");
-
+const OpinionController = require("./opinionController");
+const WineStoryController = require("./wineStoryController");
+const CommentController = require("./commentController")
 
 exports.findAllUser = function (req, res) {
     User.find(function (err, users) {
@@ -22,7 +24,6 @@ exports.findOneUser = function (req, res) {
 
 
 exports.findByIdUser = function(req,res){
-    console.log("IIIIIIII",req.params.idMongo)
     User.findOne ({_id: req.params.idMongo}, function(err,user){
         if (err) res.send(err);
         res.json(user);
@@ -228,6 +229,19 @@ exports.deleteUser = function (req, res) {
     });
 }
 
+
+exports.activity = function (req, res) {
+    User.findOne({username: req.params.user_id}, async function (err, user) {
+        if (err) res.send(err);
+        let ret = []
+        ret.push.apply(ret, await OpinionController.getOpinionForUser(user._id));
+        ret.push.apply(ret, await WineStoryController.getWineByUser(user.username));
+        ret.push.apply(ret, await await CommentController.getCommentFromUser(user._id));
+        console.log(ret);
+        res.json(ret);
+    });
+    
+}
 
 /************************SEARCH**********************************/
 

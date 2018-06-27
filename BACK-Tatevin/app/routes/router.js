@@ -64,6 +64,7 @@ router
 router
     .get("/user/:idMongo", userController.findByIdUser)
     .get("/users/:user_id", userController.findOneUser) //need to remove password
+    .get("/users/:user_id/activity", userController.activity)
     .put("/users/:user_id", userController.updateUser)
     .put("/users/:user_id/:idMongo", userController.addSub)
     .delete("/users/:user_id/:idMongo", userController.removeSub)

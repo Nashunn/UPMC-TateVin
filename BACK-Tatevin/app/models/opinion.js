@@ -10,7 +10,7 @@ let Tag = require("./tag"); //??
 //Describe the schema (model)
 var OpinionSchema = mongoose.Schema({
   id: {type: String, require: true},
-  date: { type: Date, default: Date.now },
+  date: { type: Date, default: Date.now() },
   id_user: { type: Schema.Types.ObjectId, ref:"User" },
   id_wine: { type: Schema.Types.ObjectId, ref:"Wine" },
   price: Number,

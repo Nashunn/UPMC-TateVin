@@ -9,6 +9,7 @@ exports.createOpinion = function (req, res) {
     //TagController.createTagIfNotCreated(grapes, TagController.TAGS_TYPE.CEPAGE)
     Opinion.create(
         {
+            date: Date.now(),
             id: shortid.generate(),
             id_user: req.body.id_user,
             id_wine: req.body.id_wine,
@@ -37,6 +38,7 @@ exports.updateOpinion=function(req, res){
 
     console.log(req.body.smell);
     let query = {}
+    query.date = Date.now();
     let Tags = {};
     let isTaggable= false;
     if (req.body.price) query.price = req.body.price;
@@ -105,4 +107,14 @@ exports.getScoreByWine = async function (query) {
     return await Opinion.find(criterias, async function(err, result) {
         return await result;
     });
+}
+
+exports.getOpinionForUser = async function(user_id){
+    return Opinion.find({id_user: user_id, score: { $ne: null } } ).limit(10).
+    sort('-date').exec().then((result) => {
+        return result;
+      })
+      .catch((err) => {
+        return 'error occured';
+      });
 }
