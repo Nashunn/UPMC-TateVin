@@ -32,9 +32,9 @@ exports.createOpinion = function (req, res) {
     );
 }
 exports.updateOpinion=function(req, res){
-    console.log("ETAPE 1")
+    console.log("ETAPE 1");
 
-    let query = {}
+    let query = {};
     if (req.body.price) query.price = req.body.price;
     if (req.body.score) query.score = req.body.score;
     if (req.body.smell) query.smell = req.body.smell;
@@ -46,8 +46,8 @@ exports.updateOpinion=function(req, res){
         function(err, result){
 
             if (err) return res.status(500).send("There was a problem registering the Opinion.");
-            res.status(200).send({msg: "Opinion created", op: result})
-            console.log(result)
+            res.status(200).send({msg: "Opinion created", op: result});
+            console.log(result);
         }
     );
 }
@@ -59,11 +59,11 @@ exports.getOpinionBy = function (req, res) {
     if(req.query.criteriaName && req.query.criteriaValue)
         criterias[req.query.criteriaName] = req.query.criteriaValue;
 
-    if(req.query.userid)
-        criterias['id_user'] = req.query.userid;
+    if(req.query.user_id)
+        criterias['id_user'] = req.query.user_id;
 
-    if(req.query.wineid)
-        criterias['id_wine'] = req.query.wineid;
+    if(req.query.wine_id)
+        criterias['id_wine'] = req.query.wine_id;
 
     Opinion.find(criterias, function(err, result) {
         //Error dealing
@@ -71,5 +71,16 @@ exports.getOpinionBy = function (req, res) {
         if (!result) return res.status(404).send("No Opinion found.");
 
         res.status(200).send(result);
+    });
+}
+
+exports.getScoreByWine = async function (query) {
+    let criterias = {};
+
+    if(query.wine_id)
+        criterias['id_wine'] = query.wine_id;
+
+    return await Opinion.find(criterias, async function(err, result) {
+        return await result;
     });
 }

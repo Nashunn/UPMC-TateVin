@@ -12,6 +12,7 @@ var WineSchema = mongoose.Schema({
     date: {type: Date, default: Date.now},
     name: String,
     terroir: String,
+    domain: String,
     type: String,
     classification: String,
     gaz: Boolean,

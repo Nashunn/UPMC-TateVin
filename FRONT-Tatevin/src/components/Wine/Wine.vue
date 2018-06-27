@@ -2,11 +2,12 @@
     <section class="wine">
         <b-row class="mt-3 width-98">
             <div class="wine-title">
-                <div class="wine-color-bloc mr-3" v-bind:style="{ backgroundColor: wineColor }"></div>
+                <!--<div class="wine-color-bloc mr-3" v-bind:style="{ backgroundColor: wineColor }"></div>-->
+                <WineColor :color="wine.type" class="icon wine-color-bloc mr-3"/>
                 <h2 class="d-inline mob-not-inline text-wrap">{{ this.wine.name }}, {{ this.wine.millesime }}</h2>
             </div>
 
-            <WineScoreMedal :score="wineGlobalScore" :vote="(wineGlobalScore===0)?wineGlobalScore:wineGlobalScore.length"/>
+            <WineScoreMedal :score="wineGlobalScore.score" :vote="wineGlobalScore.nbVote"/>
         </b-row>
 
         <b-row class="wine-bar width-98">
@@ -35,6 +36,7 @@
 
         <b-row class="wine-properties width-98 mt-3">
             <WineBlockProperty title="Terroir" :desc="String(this.wine.terroir)" />
+            <WineBlockProperty title="Domaine" :desc="String(this.wine.domain)" />
             <WineBlockProperty title="Millésime" :desc="String(this.wine.millesime)"/>
             <WineBlockProperty title="Classification" :desc="String(this.wine.classification)" />
             <WineBlockProperty title="Cépages" :desc="String(this.wine.grape)" />
@@ -73,8 +75,10 @@ import WineScoreMedal from "./WineScoreMedal";
 import GlassScore from "./GlassScore";
 import Comment from "./../Comment";
 import WineBlockProperty from "./WineBlockProperty";
+import WineColor from "./WineColor";
 import Chart from "./../Chart";
  import { EventBusModal } from "./../../events/";
+
 export default {
     name: 'Wine',
     components: {
@@ -82,12 +86,13 @@ export default {
         GlassScore,
         WineBlockProperty,
         Chart,
+        WineColor,
         Comment
     },
     data() {
         return {
             wine: [],
-            wineGlobalScore: [],
+            wineGlobalScore: 0,
             wineUserScore: 0,
             opinion:{},
             commentsHere:false
@@ -112,10 +117,9 @@ export default {
         },
         getWineById() {
             HTTP.get('/wine/'+this.$route.params.id).then(response=>{
-                this.wine=response.data;
+                this.wine=response.data[0];
+                this.wineGlobalScore=response.data[1];
 
-                //get scores
-                this.getScores();
                 this.getUserScore();
             }).then(res=>{
                 HTTP.get("/wineGetComments",{params:{comments:this.wine.comments}} ).then( response=>{
@@ -127,19 +131,6 @@ export default {
             });
 ;
         },
-        getScores() {
-            let json = {
-                wine_id: this.wine._id,
-            };
-
-            HTTP.get('/opinions/', {params: json}).then(response=>{
-                this.makeScoreAvg(response.data);
-            });
-        },
-        setUserScore(newScore){
-            this.wineUserScore=newScore;
-            HTTP.put('/opinions/'+this.wine._id+'/'+store.state.usr._id, {score:newScore});
-        },
         getUserScore() {
             let json = {
                 wine_id: this.wine._id,
@@ -147,23 +138,21 @@ export default {
             };
 
             HTTP.get('/opinions/', {params: json}).then(response=>{
-                this.wineUserScore = (response.data.length===0)?0:response.data;
+                this.wineUserScore = (typeof response.data[0].score==="undefined")?0:response.data[0].score;
             });
         },
-        makeScoreAvg(scoreArray) {
-            if(scoreArray) {
-                console.log("score array : ", scoreArray);
-            }
-            else {
-                console.log("score array VIDE");
-            }
+        setUserScore(newScore){
+            this.wineUserScore=newScore;
+            HTTP.put('/opinions/'+this.wine._id+'/'+store.state.usr._id, {score:newScore});
+
+            this.getWineById();
         },
         comment(){
             EventBusModal.$emit("Comment", {showModal:true, from:"wine"});
         }
     },
     computed: {
-        wineColor: function() {
+        /*wineColor: function() {
             switch (this.wine.type) {
                 case "rouge":
                     return "#91141c";
@@ -178,7 +167,7 @@ export default {
                     return "#a2a2a2";
                     break;
             }
-        }
+        }*/
     },
     created(){
 

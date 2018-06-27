@@ -10,24 +10,32 @@
         <button v-if="wineStory" v-on:click="$emit('addWine', wine)" type="button">{{ value }}</button>
     </div>
     </template>
-    <script>
-    import {HTTP} from "../HTTP/http";
-    import WineColor from "./Wine/WineColor"
+<script>
+import {HTTP} from "../HTTP/http";
+import WineColor from "./Wine/WineColor"
+import GlassScore from "./Wine/GlassScore";
+
 export default {
     name: 'wineBloc',
-    components:{WineColor},
+    components:{
+        WineColor,
+        GlassScore,
+    },
     props:{
         wine:{type:String, default:""},
         wineStory:{type:Boolean, default:false},
         value:{type:String, default:""}
     },
     data(){
-        return {wineOb:{}}
+        return {
+            wineOb:{},
+            wineScore: {},
+        }
     },
     created(){
         HTTP.get("wine/"+this.wine).then(response=>{
-            this.wineOb=response.data;
-            console.log(this.wineOb)
+            this.wineOb=response.data[0];
+            this.wineScore=response.data[1];
         });
     }
 }
