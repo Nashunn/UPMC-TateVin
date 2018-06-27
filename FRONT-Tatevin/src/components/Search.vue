@@ -12,13 +12,13 @@
     </div>
         <b-card class="search-wrapper">
             <b-form-group label="Catégories : " v-if='!wineStory'>
-                <b-form-checkbox-group v-model="search.categories" name="category" :options="optionsCat">
+                <b-form-checkbox-group v-model="search.categories" name="category" :options="optionsCat" @change="checkIfWine">
                 </b-form-checkbox-group>
             </b-form-group>
 
             <b-row>
-                <b-col md="3" sm="12"><label for="tags">Mots clés : </label></b-col>
-                <b-col md="6" sm="12"><input v-model="search.tags" id="tags" type="text"/></b-col>
+                <b-col md="3" sm="12"><label for="tags">Mots clé (nom du vin, tags associés à une histoire de vin séparés par une virgule)</span></label></b-col>
+                <b-col md="6" sm="12"><input v-model="search.tags" id="tags" type="text" placeholder="web,noel"/></b-col>
             </b-row>
 
             <b-row>
@@ -45,6 +45,7 @@
         <div v-for="(result, index) in results">
             <WineBloc v-if="result.terroir" :key="index" :wineObP="result" :wineStory="wineStory" value="+" v-on:addWine="$emit('addWine', result)"/>
             <p v-if="result.email"><router-link :to="{ name: 'otherUser', params: { username:result.username} }">{{ result.username }}</router-link></p>
+            <p v-if="result.author"><router-link :to="{ name: 'story', params: { id:result.id} }">{{ result.title }}</router-link></p>
         </div>
     </section>
 </template>

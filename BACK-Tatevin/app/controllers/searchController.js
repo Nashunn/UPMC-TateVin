@@ -3,11 +3,15 @@ const wineStoryController = require("./../controllers/wineStoryController");
 const wineController = require("./../controllers/wineController");
 
 exports.search = async function (req, res) {
+    var cat=["vin", "hdv", "utilisateur"];
+    if(req.query.categories){
+        cat=req.query.categories;
+    }
     console.log("recherece");
     let ret = [];
-    for (let i = 0; i < req.query.categories.length; i++) {
-        console.log(req.query.categories);
-        switch (req.query.categories[i]) {
+    for (let i = 0; i <cat.length; i++) {
+        console.log(cat);
+        switch (cat[i]) {
             case 'vin':
                 let query = {}
                 if (req.query.terroir) query.terroir = req.query.terroir;
