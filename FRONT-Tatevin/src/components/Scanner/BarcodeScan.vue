@@ -1,21 +1,50 @@
 <template>
   <div class="hello">
     <input type="file" accept="image/*" capture @change="setImg"/>
-    <h1 v-if="msg !== 'None' "> CODE BARRE : <span style="color:deepskyblue">{{ msg }} </span> </h1>
+    <p v-if="msg !== 'None' "> CODE BARRE : <span style="color:deepskyblue">{{ msg }} </span> </p>
+    <div v-if="wineFound">
+        <p>Ce code barre est connu de la base</p>
+        <WineBloc  :wineObP="wine"  :wineStory="wineStory" value="+" v-on:addWine="$emit('addWine', $event)"/>
+    </div>
+    <p v-if="src!=='' && !wineFound">Ce code barre est inconnu, souhaitez vous <router-link :to="{ name: 'Search', params: {} }">rechercher le vin par son nom ?</router-link></p>
+    <div class="btn-wrapper " v-if="msg !== 'None' && addToWine && !wineFound">
+         <b-button v-on:click="sendBarCode">Enregistrer le codebar</b-button>
+    </div>
   </div>
 </template>
 
 <script>
   import Quagga from 'quagga';
-
+ import {EventBusModal} from "../../events/"
+ import {HTTP} from "./../../HTTP/http";
+ import WineBloc from "./../WineBloc";
   export default {
+      name:"BarcodeScan",
+      components:{WineBloc},
+      props:{
+          addToWine:{type:Boolean, default:true},
+          wineStory:{type:Boolean, default:false},
+      },
     data() {
       return {
         src: "",
-        msg: "None"
+        msg: "None",
+        wine:{},
+        wineFound:false
       }
-    },
-    methods: {
+  },
+  created(){
+      EventBusModal.$on("addBarCode", isOver=>{
+          if(!isOver){
+              this.src="";
+              this.msg="None";
+              this.wine={};
+              this.wineFound=false;
+              ev.target.files[0]=null;
+          }
+      });
+  },
+methods: {
       setImg(ev) {
         const file = ev.target.files[0];
         const reader = new FileReader();
@@ -60,11 +89,18 @@
           if (result.codeResult) {
             console.log("result", result.codeResult.code);
             this.msg = result.codeResult.code
+            HTTP.get("/wineBarCode",{params:{barCode:result.codeResult.code}} ).then(response=>{
+                console.log(response.data)
+                this.wine=response.data;
+                if(response.data!==null) this.wineFound=true;
+            })
           } else {
-            console.log("not detected");
+            this.msg="not detected";
           }
         });
-      }
+        },sendBarCode(){
+            EventBusModal.$emit("newBarCode", this.msg);
+        }
     }
   }
 </script>

@@ -64,6 +64,7 @@ router
 router
     .get("/user/:idMongo", userController.findByIdUser)
     .get("/users/:user_id", userController.findOneUser) //need to remove password
+    .get("/users/:user_id/activity", userController.activity)
     .put("/users/:user_id", userController.updateUser)
     .put("/users/:user_id/:idMongo", userController.addSub)
     .delete("/users/:user_id/:idMongo", userController.removeSub)
@@ -92,7 +93,10 @@ router
  * Instance  *
  *===========*/
 router
-    .get("/wine/:wine_id", wineController.findOneWine);
+    .get("/wine/:wine_id", wineController.findOneWine)
+    .get("/wineBarCode", wineController.findOneWineByBarCode)
+    .put("/wineBarCode/:id_wine", wineController.addCB)
+    .put("/wine/:wine_id", wineController.modifyWine)
 
 /**~~~~~~~~~~~~~~~END Wine~~~~~~~~~~~~~~~~~**/
 
@@ -134,6 +138,7 @@ router
  **********************************************************/
 router
     .get("/opinions", opinionController.getOpinionBy)
+    .get("/opinions/:id_wine", opinionController.getOpinionForWine)
     .put("/opinions/:id_wine/:id_user", opinionController.updateOpinion)
 
 /**~~~~~~~~~~~~~~~END Opinion~~~~~~~~~~~~~~**/

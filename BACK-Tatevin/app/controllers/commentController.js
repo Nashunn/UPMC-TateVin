@@ -14,8 +14,9 @@ exports.getArray = function(req, res){
     Comment.find({ '_id' : { $in: req.query.comments } }, function(err, comments){
         if (err) {
           res.send(err);
-      }
-      res.json(comments);
+        }
+
+        res.json(comments);
     });
 };
 
@@ -41,5 +42,15 @@ exports.addVote=function(req,res){
         ,function(err, ws){
         if (err) return res.status(500).send(err);
         return res.status(200).send({msg: "WS commented! ", ws:ws});
+    });
+}
+
+exports.getCommentFromUser = function (idUser){
+  return Comment.find({author: idUser} ).limit(10).
+  sort('-date').exec().then((result) => {
+      return result;
+    })
+    .catch((err) => {
+      return 'error occured';
     });
 }

@@ -24,7 +24,7 @@ exports.createWS = function (req, res) {
     if(req.body.wines){
         var winesId=req.body.wines;
         for(var i=0; i<winesId.length; i++){
-            winesId[i]=winesId[i].id;
+            winesId[i]=winesId[i]._id;
         }
 
     }
@@ -71,13 +71,27 @@ exports.addComment=function (req, res){
         if (err) return res.status(500).send(err);
         return res.status(200).send({msg: "WS commented! "});
     });
+}
 
+
+exports.getWineByUser = function (username){
+  return WineStory.find({author: username} ).limit(10).
+  sort('-date').exec().then((result) => {
+      return result;
+    })
+    .catch((err) => {
+      return 'error occured';
+    });
 }
 
 /************************SEARCH**********************************/
 
 exports.findWSByTags = async function (tags) {
-    return await WineStory.find({tags:tags}, async function (err, ws) {
+    var tagsTab=tags.split(',');
+
+    return await WineStory.find({ tags: { $all: tagsTab}}, async function (err, ws) {
+        console.log("RESULT");
+        console.log(ws);
         return await ws;
     });
 }

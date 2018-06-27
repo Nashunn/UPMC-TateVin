@@ -1,38 +1,38 @@
 <template>
     <div>
         <canvas :ref="idChart" ></canvas>
-        <p>{{idChart}}</p>
+        <p v-show="false">{{tst}}</p>
     </div>
 </template>
 <script>
 import Chart from "chart.js";
+import 'chart.piecelabel.js';
 
 export default {
   name: "chart",
   components: {},
   props: {
-    idChart: String
+    idChart: String,
+    iData: Object
   },
+   watch: {
+  	'iData.datas': function(newVal, oldVal) {
+          this.myChart.update()
+    }
+    },
   data() {
     return {
+        tst: this.iData.datas.length===0?null:this.iData.datas,
+        myChart:{},
       planetChartData: {
         type: "pie",
         data: {
-          labels: [
-            "Mercury",
-            "Venus",
-            "Earth",
-            "Mars",
-            "Jupiter",
-            "Saturn",
-            "Uranus",
-            "Neptune"
-          ],
+          labels: this.iData.labels,
           datasets: [
             {
               // one line graph
               label: "Number of Moons",
-              data: [0, 0, 1, 2, 67, 62, 27, 14],
+              data: this.iData.datas,// [1,2,1],
               backgroundColor: [
                 "#0074D9",
                 "#FF4136",
@@ -54,19 +54,16 @@ export default {
             }
           ]
         },
-        options: {
-          responsive: true,
-          lineTension: 1,
-          scales: {
-            yAxes: [
-              {
-                ticks: {
-                  beginAtZero: true,
-                  padding: 25
-                }
-              }
-            ]
-          }
+          options: {
+              responsive: true,
+              legend: {
+                  position: 'top',
+                  pieceLabel: {
+                      render: 'percentage',
+                      fontColor: ['green', 'white', 'red'],
+                      precision: 2
+                  }
+        },
         }
       }
     };
@@ -78,11 +75,12 @@ export default {
   methods: {
     createChart(idChart, chartData) {
         const ctx = this.$refs[idChart];
-        const myChart = new Chart(ctx, {
+        this.myChart = new Chart(ctx, {
             type: chartData.type,
             data: chartData.data,
             options: chartData.options
         });
+
     }
   }
 };

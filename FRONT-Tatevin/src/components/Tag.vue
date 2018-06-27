@@ -1,7 +1,7 @@
 <template>
 
         <div class="tag redGradient">{{ label }}
-            <button v-if="canBeDelete" v-on:click="$emit('deleteTag')">X</button>
+            <button type="button" v-if="canBeDelete" v-on:click="$emit('deleteTag')">X</button>
         </div>
     </template>
     <script>

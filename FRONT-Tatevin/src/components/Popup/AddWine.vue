@@ -104,6 +104,17 @@
         methods: {
             close() {
                 EventBusModal.$emit("winePopup", false);
+                this.credentials={
+                    name:"",
+                    millesime:"",
+                    type:""
+                };
+                this.optionsType=[
+                    { value: "rouge", text:"Rouge" },
+                    { value: "rosee", text:"Rosée" },
+                    { value: "blanc", text:"Blanc" }
+                ];
+                this.error= "";
             },
             checkBeforeSubmit() {
                 this.error = "";
@@ -131,7 +142,7 @@
                 ).then(response => {
                     console.log(response.data);
                     this.close();
-                    this.$router.push("/wine/"+response.data.wine.id);
+                    this.$router.push("/wine/"+response.data.wine._id);
                 });
             }
         },
