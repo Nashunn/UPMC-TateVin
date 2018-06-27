@@ -104,6 +104,7 @@ export default {
             wineUserScore: 0,
             tagToAdd:"test",
             tagExists:false,
+            firstPageLoad: true,
             indexTag:-1,
             tagList:[],
             tags:[],
@@ -119,6 +120,11 @@ export default {
     mounted() {
         // Get wine information
         this.getWineById();
+        //Get other informations
+        this.getUserScore();
+        this.getOpinion();
+
+        //Get comments
         EventBusModal.$on('updateComments', comment=>{
             this.wine.comments.push(comment);
         });
@@ -141,7 +147,7 @@ export default {
             this.tags.splice(index,1);
         },
         validateTags(){
-            HTTP.put('/opinions/'+this.wine._id+'/'+store.state.usr._id, {smell:this.tags}).then(response=>{
+            HTTP.put('/opinions/'+this.$route.params.id+'/'+store.state.usr._id, {smell:this.tags}).then(response=>{
                 console.log(response)
             });
         },
@@ -150,24 +156,24 @@ export default {
         },
         getWineById() {
             HTTP.get('/wine/'+this.$route.params.id).then(response=>{
-                this.wine=response.data[0];
+                if(this.firstPageLoad)
+                    this.wine=response.data[0];
+
                 this.wineGlobalScore=response.data[1];
+            }).then(response=>{
+                if(this.firstPageLoad) {
+                    HTTP.get("/wineGetComments", {params: {comments: this.wine.comments}}).then(response2 => {
 
-                this.getUserScore();
-                this.getOpinion();
-            }).then(res=>{
-                HTTP.get("/wineGetComments",{params:{comments:this.wine.comments}} ).then( response2=>{
-                    this.wine.comments= response2.data;
-                    this.commentsHere=true;
-                })
-
+                        this.wine.comments = response2.data;
+                        this.commentsHere = true;
+                    });
+                    this.firstPageLoad = false;
+                }
             });
-;
         },
         getOpinion() {
-            console.log(this.wine._id)
-            HTTP.get('/opinions/'+this.wine._id).then( response => {
-                var s = _.map(response.data, 'smell')
+            HTTP.get('/opinions/'+this.$route.params.id).then( response => {
+                var s = _.map(response.data, 'smell');
                 var z = _.reduceRight( s , function(flattened, other) {
                       return flattened.concat(other);
                 }, [])
@@ -183,7 +189,7 @@ export default {
         },
         getUserScore() {
             let json = {
-                wine_id: this.wine._id,
+                wine_id: this.$route.params.id,
                 user_id: store.state.usr._id,
             };
 
@@ -193,7 +199,7 @@ export default {
         },
         setUserScore(newScore){
             this.wineUserScore=newScore;
-            HTTP.put('/opinions/'+this.wine._id+'/'+store.state.usr._id, {score:newScore});
+            HTTP.put('/opinions/'+this.$route.params.id+'/'+store.state.usr._id, {score:newScore});
 
             this.getWineById();
         },

@@ -106,7 +106,7 @@ getAvgScore = async function (scoreArray) {
         }
     }
 
-    ret = await {score: (sumScore/nbVote), nbVote: nbVote};
+    ret = await {score: Number((sumScore/nbVote).toFixed(2)), nbVote: nbVote};
 
     return await ret;
 }
