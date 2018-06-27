@@ -185,9 +185,8 @@ section {
     position: relative;
     top: 10px;
     display: inline-block;
-    width: 50px;
-    height: 50px;
-    border: 1px solid #333;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
 }
 

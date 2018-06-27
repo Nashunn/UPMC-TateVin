@@ -2,7 +2,8 @@
     <section class="wine">
         <b-row class="mt-3 width-98">
             <div class="wine-title">
-                <div class="wine-color-bloc mr-3" v-bind:style="{ backgroundColor: wineColor }"></div>
+                <!--<div class="wine-color-bloc mr-3" v-bind:style="{ backgroundColor: wineColor }"></div>-->
+                <WineColor :color="wine.type" class="icon wine-color-bloc mr-3"/>
                 <h2 class="d-inline mob-not-inline text-wrap">{{ this.wine.name }}, {{ this.wine.millesime }}</h2>
             </div>
 
@@ -74,8 +75,10 @@ import WineScoreMedal from "./WineScoreMedal";
 import GlassScore from "./GlassScore";
 import Comment from "./../Comment";
 import WineBlockProperty from "./WineBlockProperty";
+import WineColor from "./WineColor";
 import Chart from "./../Chart";
  import { EventBusModal } from "./../../events/";
+
 export default {
     name: 'Wine',
     components: {
@@ -83,6 +86,7 @@ export default {
         GlassScore,
         WineBlockProperty,
         Chart,
+        WineColor,
         Comment
     },
     data() {
@@ -145,7 +149,7 @@ export default {
         }
     },
     computed: {
-        wineColor: function() {
+        /*wineColor: function() {
             switch (this.wine.type) {
                 case "rouge":
                     return "#91141c";
@@ -160,7 +164,7 @@ export default {
                     return "#a2a2a2";
                     break;
             }
-        }
+        }*/
     },
     created(){
 
