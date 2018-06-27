@@ -13,6 +13,7 @@ exports.search = async function (req, res) {
                 if (req.query.terroir) query.terroir = req.query.terroir;
                 if (req.query.domaine) query.domaine = req.query.domaine;
                 if (req.query.millesime) query.millesime = req.query.millesime;
+                if (req.query.type) query.type = req.query.type;
                 if (req.query.tags) query.name = req.query.tags;
                 ret.push(await wineController.searchWine(query));
                 break;

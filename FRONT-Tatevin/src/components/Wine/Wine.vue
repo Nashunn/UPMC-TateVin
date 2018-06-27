@@ -73,7 +73,7 @@
             </div>
         </div>
         <AddTag v-show="showTagPopUp" :type="tagType"/>
-        <AddBarCode v-show="showScanPopUp" :type="tagType"/>
+        <AddBarCode v-show="showScanPopUp"/>
     </section>
 
 </template>

@@ -16,7 +16,7 @@
                         <!-- modal body -->
                         <div class="modal-body">
                             <p>Le code barre vous permettra de retrouver plus rapidement votre vin.</p>
-                            <BarcodeScan />
+                            <BarcodeScan :wineStory="wineStory" v-on:addWine="$emit('addWine', $event)"/>
 
                         </div>
                         <!-- end of modal body -->
@@ -57,7 +57,7 @@
         name: "modalScan",
         components:{BarcodeScan},
         props:{
-
+            wineStory:{type:Boolean, default:false}
         },
         data() {
             return {
@@ -70,7 +70,7 @@
 
         },
         computed:{
-        
+
         }
     };
 </script>
