@@ -7,9 +7,9 @@
 TâteVin is a university (UPMC) project built with NodeJS and VueJS.
 
 *Team*
-- Nicolas BOULLET(https://github.com/Nashunn)
-- Timothé PARDIEU(https://github.com/TimPrd)
-- Laura PERINET-MARQUET(https://github.com/LauraPerinet)
+- Nicolas BOULLET [GitHub](https://github.com/Nashunn)
+- Timothé PARDIEU [GitHub](https://github.com/TimPrd)
+- Laura PERINET-MARQUET [GitHub](https://github.com/LauraPerinet)
 
 ## Objectives
 The main idea of this project is to develop a website where the user can talk about wine easily, and in simple terms.
