@@ -20,7 +20,7 @@
                 />
             </p>
             <h3>Vins associés</h3>
-            <WineBloc v-for="(wine, index) in story.wines" :key="index" :wine="wine.id" value="-" :wineStory="true" v-on:addWine="removeWine(index)"/>
+            <WineBloc v-for="(wine, index) in story.wines" :key="index" :wineObP="wine" value="-" :wineStory="true" v-on:addWine="removeWine(index)"/>
             <h3>Associer un nouveau vin</h3>
             <Search :wineStory="true" v-on:addWine="addWine($event)"/>
 
@@ -82,9 +82,7 @@ export default {
         }
     },
     created(){
-        if(typeof(store.state.story)!=='undefined'){
-            this.story=store.state.story;
-        }
+
             HTTP.post("/tags/", {type:"DIVERS"},{}).then(response=>{
                 for(var i=0; i<response.data.length;i++){
                     this.tagList.push(response.data[i].label);
@@ -101,17 +99,12 @@ export default {
         },
 
         submit() {
-            store.state.story={};
             HTTP.post("/wineStory", this.story).then(()=>{
                 this.$router.push('/wineStories')
             });
 
         },
-        updateStore(){
-                store.state.story=this.story;
-        },
         emptyForm(){
-            store.state.story={};
             this.story={};
         },
         addTag(){
@@ -123,22 +116,22 @@ export default {
             }else{
                 this.tagExists=true;
             }
-            this.updateStore();
+
         },
         deleteTag( index ){
             this.story.tags.splice(index,1);
-            this.updateStore();
+
         },
         initTag(){
             this.tagExists=false;
         },
         addWine( wine ){
             this.story.wines.push(wine);
-            this.updateStore();
+
         },
         removeWine( index ){
             this.story.wines.splice(index,1);
-            this.updateStore();
+
         }
     },
 }

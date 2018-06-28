@@ -6,13 +6,10 @@
                 <WineColor :color="wine.type" class="icon wine-color-bloc mr-3"/>
                 <h2 class="d-inline mob-not-inline text-wrap">{{ this.wine.name }}, {{ this.wine.millesime }}</h2>
             </div>
-
-
-
             <WineScoreMedal :score="wineGlobalScore.score" :vote="wineGlobalScore.nbVote"/>
         </b-row>
 
-        <b-row class="mt-3 width-98"><button>Participer à la fiche</button></b-row>
+        <b-row class="mt-3 width-98"><button @click="goModify()">Editer la fiche</button></b-row>
         <b-row class="mt-3 width-98" v-if="isProd()"><button @click="iAmProd()">Je suis le producteur</button></b-row>
 
         <b-row class="wine-bar width-98">
@@ -30,14 +27,12 @@
 
         <b-row class="width-98 mt-3">
             <b-col cols="6">
-                <span class="hover-underline ml-1"  @click="addBarcode()">Ajouter un code barre</span>
+                <a class="hover-underline ml-1"  @click="addBarCode()"><span v-if="typeof(wine.id)==='undefined'">Ajouter un code barre</span></a>
             </b-col>
             <b-col cols="6" class="text-right">
                 <span class="mr-1">Prix moyen : {{ "13" }} €</span>
             </b-col>
         </b-row>
-
-        <p>{{this.wine.terroir}}</p>
 
         <b-row class="wine-properties width-98 mt-3">
             <WineBlockProperty title="Terroir" :desc="String(this.wine.terroir)" />
@@ -47,37 +42,39 @@
             <WineBlockProperty title="Cépages" :desc="String(this.wine.grape)" />
             <WineBlockProperty title="Conservation" :desc="String(this.wine.keep_in_cave)" />
             <WineBlockProperty title="Vin gazeux" :desc="String(this.wine.gaz)" />
-            <WineBlockProperty title="Décantation" :desc="String(this.wine.decantation)" />
+            <WineBlockProperty title="Carrafage" :desc="String(this.wine.decantation)" />
         </b-row>
 
-        <b-row>
-
-                <b-col cols="4" class="">
-                    <h4>Au regard</h4>
-                    <a @click="addTagChart('visual')">Donnez votre avis</a>
-                    <chart :iData="opinion.visual" idChart="visual" ></chart>
-                </b-col>
-                    <b-col cols="4" class="">
+        <b-row class="stats-graph text-center">
+            <b-col md="4" sm="10" class="graph-wrapper">
+                <div class="line-deco"></div>
+                <h4 >Au regard</h4>
+                <a @click="addTagChart('visual')">Donnez votre avis</a>
+                <chart :iData="opinion.visual" idChart="visual"></chart>
+            </b-col>
+            <b-col md="4" sm="10" class="graph-wrapper">
+                <div class="line-deco"></div>
                 <h4>Au nez</h4>
                 <a @click="addTagChart('smell')">Donnez votre avis</a>
-                <chart :iData="opinion.smell" idChart="smell" ></chart>
+                <chart :iData="opinion.smell" idChart="smell"></chart>
             </b-col>
 
-            <b-col cols="4" class="">
+            <b-col md="4" sm="10" class="graph-wrapper">
+                <div class="line-deco"></div>
                 <h4>En bouche</h4>
                 <a @click="addTagChart('taste')">Donnez votre avis</a>
-                <chart :iData="opinion.taste" idChart="taste" ></chart>
+                <chart :iData="opinion.taste" idChart="taste"></chart>
             </b-col>
-
         </b-row>
-        <div class="allComments">
-            <button type="button" class="btn-purple"  @click="comment">Ajouter un commentaire</button>
+        <div class="allComments mt-5">
+            <div class="line-deco mb-3"></div>
+            <button type="button" class="btn-purple" @click="comment">Ajouter un commentaire</button>
             <div v-if="commentsHere">
                 <Comment v-for="(comment, index) in wine.comments" :key="comment._id"  :comment="comment" />
             </div>
         </div>
         <AddTag v-show="showTagPopUp" :type="tagType"/>
-        <AddBarCode v-show="showScanPopUp" :type="tagType"/>
+        <AddBarCode v-show="showScanPopUp"/>
     </section>
 
 </template>
@@ -149,6 +146,10 @@ export default {
         EventBusModal.$on('updateComments', comment=>{
             this.wine.comments.push(comment);
         });
+        EventBusModal.$on('addBarCode', showPopup=>{
+            this.showScanPopUp=false;
+        });
+
     },
     methods: {
         addCave() {
@@ -231,8 +232,8 @@ export default {
                     }
                 })
             }
-
-
+        },
+        getPrice() {
 
         },
         getUserScore() {
@@ -263,7 +264,8 @@ export default {
             }else{
                 EventBusModal.$emit("neadConnect",true)
             }
-        },addBarCode( ){
+        },
+        addBarCode(){
             if(store.state.usr.username){
                 this.showScanPopUp=true;
             }else{
@@ -299,7 +301,13 @@ export default {
             this.showTagPopUp=showTagPopUp;
         })
         EventBusModal.$on("tagAdded", type=>{
-            this.getOpinion(type);
+            this.$router.push("/wine/"+this.$route.params.id);
+        })
+        EventBusModal.$on("newBarCode", newBarCode=>{
+            HTTP.put('/wineBarCode/'+this.$route.params.id, {barcode:newBarCode}).then(()=>{
+                this.wine.id=newBarCode;
+                this.showScanPopUp=false;
+            })
         })
     }
 }

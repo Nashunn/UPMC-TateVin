@@ -48,11 +48,13 @@
             }
         },
         created(){
-            this.isLoading = false;
+            //this.isLoading = true;
+
         },
         mounted() {
             EventBusModal.$on('loading-loader', loading => {
                 this.isLoading = loading;
+
             });
             EventBusModal.$on("winePopup", showModal => {
                 this.showWinePopup = showModal;
@@ -70,6 +72,7 @@
             EventBusModal.$on("neadConnect", showModal => {
                 this.showConnectPopup = showModal;
             });
+            this.isLoading = false;
         }
     }
 </script>

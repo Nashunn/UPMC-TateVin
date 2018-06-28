@@ -7,7 +7,7 @@
         <router-link :to="{ name: 'Wine', params: {id: wineOb._id } }">
             <span class="wineName">{{ wineOb.name }} ({{ wineOb.millesime }})</span>
         </router-link>
-        <button v-if="wineStory" v-on:click="$emit('addWine', wine)" type="button">{{ value }}</button>
+        <button v-if="wineStory" v-on:click="$emit('addWine', wineOb)" type="button">{{ value }}</button>
     </div>
     </template>
 <script>

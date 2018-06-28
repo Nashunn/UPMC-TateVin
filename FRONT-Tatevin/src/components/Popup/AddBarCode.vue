@@ -7,7 +7,7 @@
                     <div class="modal-content">
                         <!-- modal header -->
                         <div class="modal-header">
-                            <h4 class="modal-title">Senstations <span>{{ getSensation }}</span></h4>
+                            <h4 class="modal-title">Enregistrer le code bar</span></h4>
                             <button type="button" class="close" @click="close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -15,10 +15,9 @@
                         <!-- end of modal header -->
                         <!-- modal body -->
                         <div class="modal-body">
-                            <BarcodeScan />
-                            <div class="btn-wrapper">
-                                 <b-button v-on:click="validateTags">Valider les tags</b-button>
-                            </div>
+                            <p>Le code barre vous permettra de retrouver plus rapidement votre vin.</p>
+                            <BarcodeScan :wineStory="wineStory" v-on:addWine="$emit('addWine', $event)"/>
+
                         </div>
                         <!-- end of modal body -->
                     </div>
@@ -55,51 +54,23 @@
     import BarcodeScan from "../Scanner/BarcodeScan"
 
     export default {
-        name: "modalWine",
+        name: "modalScan",
         components:{BarcodeScan},
         props:{
-            type:String
+            wineStory:{type:Boolean, default:false}
         },
         data() {
             return {
-                tagToAdd:"test",
-                tagExists:false,
-                indexTag:-1,
-                tagList:[],
-                tags:[],
             };
         },
         methods: {
             close() {
-                EventBusModal.$emit("addTag", false);
+                EventBusModal.$emit("addBarCode", false);
             },
-            addTag(){
-                 if(typeof(this.tags.find(tag=>tag===this.$refs.newTag.search))==="undefined"){
-                    this.tags.push(this.$refs.newTag.search);
-                }else{
-                    this.tagExists=true;
-                }
-            },
-            deleteTag( index ){
-                this.tags.splice(index,1);
-            },
-            validateTags(){
-                var query={};
-                if (this.type==="visual") query.visual = this.tags;
 
-                HTTP.put('/opinions/'+this.$route.params.id+'/'+store.state.usr._id, query).then(response=>{
-                    console.log("RES",response)
-                    EventBusModal.$emit("tagAdded", this.type);
-                });
-                this.close();
-            },
         },
         computed:{
-            getSensation(){
-                if(this.type==="visual") return "visuelles";
-                if(this.type==="smell") return "olfactives";
-                if(this.type==="taste") return "gustatives";
-            }
+
         }
     };
 </script>

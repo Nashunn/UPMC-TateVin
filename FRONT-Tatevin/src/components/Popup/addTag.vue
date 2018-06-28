@@ -7,7 +7,7 @@
                     <div class="modal-content">
                         <!-- modal header -->
                         <div class="modal-header">
-                            <h4 class="modal-title">Senstations <span>{{ getSensation }}</span></h4>
+                            <h4 class="modal-title">Sensations <span>{{ getSensation }}</span></h4>
                             <button type="button" class="close" @click="close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -76,6 +76,11 @@
         methods: {
             close() {
                 EventBusModal.$emit("addTag", false);
+                this.tagToAdd="test";
+                this.tagExists=false;
+                this.indexTag=-1;
+                this.tagList=[];
+                this.tags=[];
             },
             addTag(){
                  if(typeof(this.tags.find(tag=>tag===this.$refs.newTag.search))==="undefined"){
@@ -95,7 +100,7 @@
 
                 HTTP.put('/opinions/'+this.$route.params.id+'/'+store.state.usr._id, query).then(response=>{
                     console.log("RES",response)
-                    //EventBusModal.$emit("tagAdded", this.type);
+                    EventBusModal.$emit("tagAdded", this.type);
                 });
                 this.close();
             },

@@ -93,7 +93,10 @@ router
  * Instance  *
  *===========*/
 router
-    .get("/wine/:wine_id", wineController.findOneWine);
+    .get("/wine/:wine_id", wineController.findOneWine)
+    .get("/wineBarCode", wineController.findOneWineByBarCode)
+    .put("/wineBarCode/:id_wine", wineController.addCB)
+    .put("/wine/:wine_id", wineController.modifyWine)
 
 /**~~~~~~~~~~~~~~~END Wine~~~~~~~~~~~~~~~~~**/
 
@@ -113,6 +116,7 @@ router
     .get("/wineStory", wineStoryController.findAll)
     .post("/wineStory", wineStoryController.createWS)
     .put("/wineStoryAddComment", wineStoryController.addComment)
+
 /*===========*
  * Instance  *
  *===========*/

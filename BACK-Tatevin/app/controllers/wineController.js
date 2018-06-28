@@ -38,8 +38,10 @@ exports.findOneWine = function (req, res) {
         let jsonOpinion = { wine_id: result._id };
         let opinions = await OpinionController.getScoreByWine(jsonOpinion);
         let score = await this.getAvgScore(opinions);
+        let price = await this.getAvgPrice(opinions);
 
         ret.push(await score);
+        ret.push(await price);
 
         // if all ok
         res.status(200).send(ret);
@@ -51,7 +53,6 @@ exports.createWine = function (req, res) {
     //TagController.createTagIfNotCreated(grapes, TagController.TAGS_TYPE.CEPAGE)
     Wine.create(
         {
-            id: shortid.generate(),
             name: req.body.name,
             millesime: req.body.millesime, //Millesime
             terroir: null,
@@ -73,12 +74,24 @@ exports.createWine = function (req, res) {
         }
     );
 }
-
+exports.addCB=function(req, res){
+    Wine.findByIdAndUpdate(
+        req.params.id_wine,
+        {id:req.body.barcode},
+        {new: true},
+        (err, newWine) => {
+            if (err) return res.status(500).send(err);
+            return res.send(newWine);
+        }
+    )
+}
 
 exports.modifyWine = function (req, res) {
+    console.log("COUCOU MODIFY")
+    console.log(req.body.params)
     Wine.findByIdAndUpdate(
-        req.idWine,
-        req.body,
+        req.params.wine_id,
+        req.body.params,
         {new: true},
         (err, newWine) => {
             if (err) return res.status(500).send(err);
@@ -91,6 +104,7 @@ exports.modifyWine = function (req, res) {
 /************************SEARCH**********************************/
 
 exports.searchWine = async function (query) {
+    console.log(query)
     return await Wine.find(query, async function (err, ws) {
         console.log(ws);
         return await ws;
@@ -107,6 +121,14 @@ exports.addComment=function (req, res){
 
 }
 
+exports.findOneWineByBarCode=function(req,res){
+    console.log(req.query)
+    Wine.findOne({id:req.query.barCode}, function(err, wine){
+        if (err) return res.status(500).send(err);
+        console.log(wine)
+        res.json(wine)
+    })
+}
 /********************GET WINE INFORMATION ***********************/
 getAvgScore = async function (scoreArray) {
     let nbVote = 0;
@@ -121,6 +143,23 @@ getAvgScore = async function (scoreArray) {
     }
 
     ret = await {score: Number((sumScore/nbVote).toFixed(2)), nbVote: nbVote};
+
+    return await ret;
+}
+
+getAvgPrice = async function (priceArray) {
+    let nb = 0;
+    let sumPrice = 0;
+    let ret;
+
+    for(let i=0; i<priceArray.length; i++) {
+        if(priceArray[i].price) {
+            nb++;
+            sumPrice += priceArray[i].price;
+        }
+    }
+
+    ret = await {price: Number((sumScore/nbVote).toFixed(2)), nb: nb};
 
     return await ret;
 }

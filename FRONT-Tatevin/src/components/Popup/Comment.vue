@@ -78,6 +78,12 @@
         methods: {
             close() {
                 EventBusModal.$emit("Comment", {showModal:false, from:""});
+                this.comment={
+                    message:"",
+                    author:store.state.usr._id
+                };
+
+                this.error= "";
             },
             checkBeforeSubmit() {
                 this.error = "";

@@ -21,7 +21,14 @@ h2{
 }
 section {
     width: 98%;
-    padding-bottom: 100px;
+    padding-bottom: 50px;
+}
+
+.line-deco {
+    border-top: 5px groove rgb(105,0,41);
+    height: 5px;
+    width: 92%;
+    margin: 0 4%;
 }
 
 .serif{
@@ -101,7 +108,7 @@ section {
 *                                 Buttons                                   *
 *****************************************************************************/
 .wine-btn, button {
-    height: 25px;
+    min-height: 25px;
     padding: 0 20px;
     margin: 1px;
 }
@@ -218,7 +225,7 @@ section {
 }
 
 .wine-bar {
-    margin-top: 100px;
+    margin-top: 50px;
     height: 50px;
     width: 100%;
     line-height: 50px;
@@ -266,6 +273,11 @@ section {
     font-size: 18px;
     line-height: 18px;
     margin: 0 5px;
+}
+
+.stats-graph>.graph-wrapper {
+
+    margin-top: 50px;
 }
 
 /* Media queries */

@@ -59,7 +59,7 @@ exports.updateOpinion=function(req, res){
     {
         isTaggable = true;
         TagController.createTagIfNotCreated(req.body.taste, TagController.TAGS_TYPE.TASTE);
-        query = { $addToSet: { smell:  req.body.taste}};
+        query = { $addToSet: { taste:  req.body.taste}};
     }
     console.log(query)
     Opinion.update(
