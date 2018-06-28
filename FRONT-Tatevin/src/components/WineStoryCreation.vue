@@ -5,11 +5,11 @@
         <form @submit.prevent="validateBeforeSubmit()" class="">
             <p class="">
                 <label for="username">Titre : </label>
-                <input v-model="story.title" type="text" @input="updateStore" required/>
+                <input v-model="story.title" type="text"  required/>
             </p>
             <p class="">
                 <label for="text">Votre histoire</label>
-                <wysiwyg v-model="story.text" @input="updateStore"/>
+                <wysiwyg v-model="story.text"/>
             </p>
             <p>
                 <vue-dropzone
@@ -20,7 +20,7 @@
                 />
             </p>
             <h3>Vins associés</h3>
-            <WineBloc v-for="(wine, index) in story.wines" :key="index" :wineObP="wine" value="-" :wineStory="true" v-on:addWine="removeWine(index)"/>
+            <WineBloc v-for="(wine, index) in story.wines" :key="index" :wineObP="wine" value="-" :wineStory="true" v-on:addWine="removeWine(index)" />
             <h3>Associer un nouveau vin</h3>
             <Search :wineStory="true" v-on:addWine="addWine($event)"/>
 
@@ -29,7 +29,7 @@
             <p v-show="tagExists">Le tag {{tagToAdd }} est déjà enregistré.</p>
             <p>Ajouter un tag :  <Autocomplete :items="tagList" ref="newTag"/> <b-button v-on:click="addTag">+</b-button></p>
             <div class="btn-wrapper">
-                <button type="submit" ref="btnSubmit">Signup</button>
+                <button type="submit" ref="btnSubmit"><span v-if="creation">Créer</span> <span v-else>Modifier</span> l'histoire de vin</button>
             </div>
             <p>{{error}}</p>
         </form>
@@ -79,10 +79,21 @@ export default {
             indexTag:-1,
             tagList:[],
             error:'',
+            creation:true
         }
     },
     created(){
+            if(typeof(this.$route.params.id)!=="undefined"){
+                HTTP.get('/wineStory/'+ this.$route.params.id).then(response=>{
+                    this.story=response.data[0];
+                    this.creation=false;
+                }).then(()=>{
+                 HTTP.get('/winesByStory/'+this.$route.params.id, {params:{wines:this.story.wines}}).then(response=>{
+                        this.story.wines=response.data;
 
+                    })
+                });
+            };
             HTTP.post("/tags/", {type:"DIVERS"},{}).then(response=>{
                 for(var i=0; i<response.data.length;i++){
                     this.tagList.push(response.data[i].label);
@@ -99,9 +110,17 @@ export default {
         },
 
         submit() {
-            HTTP.post("/wineStory", this.story).then(()=>{
-                this.$router.push('/wineStories')
-            });
+
+            if(this.creation){
+                HTTP.post("/wineStory", this.story).then(()=>{
+                    this.$router.push('/wineStories')
+                });
+            }else{
+                HTTP.put("/wineStory/"+this.story._id, { params: this.story}).then(()=>{
+                    this.$router.push('/story/'+this.$route.params.id);
+                });
+            }
+
 
         },
         emptyForm(){
@@ -126,7 +145,10 @@ export default {
             this.tagExists=false;
         },
         addWine( wine ){
-            this.story.wines.push(wine);
+            if(this.story.wines.indexOf(wine)==-1){
+                this.story.wines.push(wine);
+            }
+
 
         },
         removeWine( index ){

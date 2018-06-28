@@ -83,6 +83,7 @@ router
 /* fetch all the users */
 router
     .get("/wines/pagination/:page", wineController.findAll)
+    .get("/winesByStory/:id_story", wineController.findByStory)
 
 router
     .post("/wine", wineController.createWine)
@@ -116,6 +117,7 @@ router
     .get("/wineStory", wineStoryController.findAll)
     .post("/wineStory", wineStoryController.createWS)
     .put("/wineStoryAddComment", wineStoryController.addComment)
+    .put("/wineStory/:id_wineStory", wineStoryController.updateStory)
 
 /*===========*
  * Instance  *
@@ -140,9 +142,11 @@ router
 router
 .post("/registerProductor", producerController.register)
 .get("/producers/:username", producerController.findByName)
+.get("/producer/:idProd", producerController.findById)
 .get("/producer/account", producerController.account)
 .post("/producer/login", producerController.login)
-
+.put("/producer/:id_wine/:id_prod", wineController.addProd)
+.put("/producer/:id_wine/:id_prod/comment", wineController.addProdComment)
 /**~~~~~~~~~~~~~~~END Opinion~~~~~~~~~~~~~~**/
 
 /*********************************************************

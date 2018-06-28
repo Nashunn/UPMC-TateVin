@@ -81,6 +81,11 @@ export default new Router({
             component: WineStoryCreation
         },
         {
+            path: '/wineStories/modification/:id',
+            name: 'WineStoryModification',
+            component: WineStoryCreation
+        },
+        {
             path: '/story/:id',
             name: 'Story',
             component: Story
