@@ -105,7 +105,7 @@
                     console.log("RES",response)
                     EventBusModal.$emit("tagAdded", this.type);
                     this.close();
-                    this.$route.push('/wine/'+this.$route.params.id);
+                    
                 });
 
             },
