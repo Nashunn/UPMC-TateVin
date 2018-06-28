@@ -48,20 +48,20 @@
             <b-col md="4" sm="10" class="graph-wrapper">
                 <div class="line-deco"></div>
                 <h4 >Au regard</h4>
-                <a @click="addTagChart('visual')">Donnez votre avis</a>
+                <button @click="addTagChart('visual')">Donnez votre avis</button>
                 <chart :iData="opinion.visual" idChart="visual"></chart>
             </b-col>
             <b-col md="4" sm="10" class="graph-wrapper">
                 <div class="line-deco"></div>
                 <h4>Au nez</h4>
-                <a @click="addTagChart('smell')">Donnez votre avis</a>
+                <button @click="addTagChart('smell')">Donnez votre avis</button>
                 <chart :iData="opinion.smell" idChart="smell"></chart>
             </b-col>
 
             <b-col md="4" sm="10" class="graph-wrapper">
                 <div class="line-deco"></div>
                 <h4>En bouche</h4>
-                <a @click="addTagChart('taste')">Donnez votre avis</a>
+                <button @click="addTagChart('taste')">Donnez votre avis</button>
                 <chart :iData="opinion.taste" idChart="taste"></chart>
             </b-col>
         </b-row>

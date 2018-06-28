@@ -191,7 +191,7 @@
                 wine: [],
                 optionYesNo: [
                     { value: null, text: 'Indiquez "Oui" ou "Non"', disabled: true },
-                    { value: true, text: 'Oui' },
+                    { value: true", text: 'Oui' },
                     { value: false, text: 'Non' },
                 ],  
             }

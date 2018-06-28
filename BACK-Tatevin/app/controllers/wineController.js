@@ -148,7 +148,7 @@ getAvgPrice = async function (priceArray) {
         }
     }
 
-    ret = await {price: Number((sumScore/nbVote).toFixed(2)), nb: nb};
+    ret = await {price: Number((sumPrice/nb).toFixed(2)), nb: nb};
 
     return await ret;
 }
