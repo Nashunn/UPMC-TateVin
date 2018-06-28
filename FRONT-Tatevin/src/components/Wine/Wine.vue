@@ -50,20 +50,20 @@
                 <div class="line-deco"></div>
                 <h4 >Au regard</h4>
                 <button @click="addTagChart('visual')">Donnez votre avis</button>
-                <chart :iData="opinion.visual" idChart="visual"></chart>
+                <chart :iData="opinion.visual" idChart="visual"  v-model="tagKey"></chart>
             </b-col>
             <b-col md="4" sm="10" class="graph-wrapper">
                 <div class="line-deco"></div>
                 <h4>Au nez</h4>
                 <button @click="addTagChart('smell')">Donnez votre avis</button>
-                <chart :iData="opinion.smell" idChart="smell"></chart>
+                <chart :iData="opinion.smell" idChart="smell"  v-model="tagKey"></chart>
             </b-col>
 
             <b-col md="4" sm="10" class="graph-wrapper">
                 <div class="line-deco"></div>
                 <h4>En bouche</h4>
                 <button @click="addTagChart('taste')">Donnez votre avis</button>
-                <chart :iData="opinion.taste" idChart="taste"></chart>
+                <chart :iData="opinion.taste" idChart="taste"  v-model="tagKey"></chart>
             </b-col>
         </b-row>
         <div class="allComments mt-5">
@@ -132,7 +132,8 @@ export default {
             showTagPopUp:false,
             showScanPopUp:false,
             tagType:"",
-            firstPageLoad:true
+            firstPageLoad:true,
+            tagKey:0
         }
     },
     mounted() {
@@ -149,6 +150,9 @@ export default {
         EventBusModal.$on('addBarCode', showPopup=>{
             this.showScanPopUp=false;
         });
+        EventBusModal.$on("tagAdded", type=>{
+            this.getOpinion(type);
+        })
 
     },
     methods: {
@@ -301,9 +305,7 @@ export default {
         EventBusModal.$on("addTag", showTagPopUp=>{
             this.showTagPopUp=showTagPopUp;
         })
-        EventBusModal.$on("tagAdded", type=>{
-            this.$router.push("/wine/"+this.$route.params.id);
-        })
+
         EventBusModal.$on("newBarCode", newBarCode=>{
             HTTP.put('/wineBarCode/'+this.$route.params.id, {barcode:newBarCode}).then(()=>{
                 this.wine.id=newBarCode;
