@@ -10,6 +10,7 @@
         </b-row>
 
         <b-row class="mt-3 width-98"><button @click="goModify()">Editer la fiche</button></b-row>
+        <b-row class="mt-3 width-98" v-if="isProd()"><button @click="iAmProd()">Je suis le producteur</button></b-row>
 
         <b-row class="wine-bar width-98">
             <b-col class="score" md="6" sm="12">
@@ -156,6 +157,15 @@ export default {
         },
         addWishes() {
             console.log("todo");
+        },
+        addBarcode() {
+            console.log("todo");
+        },
+        isProd(){
+            return store.state.usr.isProd === true
+        },
+        iAmProd(){
+
         },
         getWineById() {
             HTTP.get('/wine/'+this.$route.params.id).then(response=>{

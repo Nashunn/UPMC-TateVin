@@ -4,16 +4,22 @@
         <li class="content redGradient">
             <b-img v-if="usr.avatar" rounded="circle" class="profileIcon mr-2" :src="usr.avatar" alt="Image du profil"/>
             <b-img v-if="!usr.avatar" class="profileIcon" :src="require('../../assets/img/profile/unknown.png')" alt="Image du profil"></b-img>
-
+            
             <span class="serif">{{ usr.username?(usr.username):"Anonyme" }}</span>
 
-            <ul v-if="usr.username">
+            <ul v-if="usr.isProd">
+                <li ><router-link :to="{ name: 'ProdAccount', params:{username: usr.username} }">Mon profil</router-link></li>
+                <li  v-on:click="disconnect">Deconnexion</li>
+            </ul>
+        
+            <ul v-if="usr.isProd === false">
                 <li ><router-link :to="{ name: 'UserAccount', params:{username: usr.username} }">Mon profil</router-link></li>
                 <li ><router-link :to="{ name: 'Cave' }">Ma cave</router-link></li>
                 <li ><router-link :to="{ name: 'Wishes' }">Ma liste de souhait</router-link></li>
                 <li  v-on:click="disconnect">Deconnexion</li>
             </ul>
-            <ul v-else>
+        
+            <ul v-if="!usr.username">
                 <li ><router-link :to="{ name: 'Login' }">Se connecter</router-link></li>
                 <li ><router-link :to="{ name: 'Signup' }">S'inscrire</router-link></li>
 

@@ -5,12 +5,23 @@ const OpinionController = require("./opinionController");
 let shortid = require("shortid");
 
 exports.findAll = function (req, res) {
-    Wine.find(function (err, users) {
-        if (err) {
-            res.send(err);
-        }
-        res.json(users);
-    });
+    var perPage = 4
+    var page = req.params.page || 1
+  
+    Wine
+      .find({})
+      .skip((perPage * page) - perPage)
+      .limit(perPage)
+      .exec(function(err, wines) {
+          Wine.count().exec( function(err, count) {
+              if (err) return next(err)
+              res.status(200).send({
+                  wines: wines,
+                  current: page,
+                  pages: Math.ceil(count / perPage)
+              })
+          })
+      })
 };
 
 
