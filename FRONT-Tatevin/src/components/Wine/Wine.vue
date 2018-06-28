@@ -15,7 +15,7 @@
             </div>
             <WineScoreMedal :score="wineGlobalScore.score" :vote="wineGlobalScore.nbVote"/>
         </b-row>
-        <b-row class="mt-3 width-98"><button @click="goModify()">Editer la fiche</button></b-row>
+        <b-row class="mt-3 width-98 endHeaderWine"><button @click="goModify()">Editer la fiche</button></b-row>
         <b-row class="mr-3 mt-3 width-98 d-inline" v-if="isProd()"><button @click="iAmProd()">Je suis le producteur</button></b-row>
         <b-row  class="mt-3 width-98 d-inline" v-if="isProd()"><button @click="showComment=true">Définir le vin</button></b-row>
         <b-row  class="mt-3 width-98 " v-show="showComment">
@@ -24,16 +24,32 @@
             <button @click="checkBeforeSubmitProdComment()">Valider</button>
         </b-row>
 
-        <b-row  v-if="producer._id">
-            <b-img :src="producer.avatar" rounded="circle"  width="34" height="34" alt="img"/>
-            <p>{{producer.username}}</p>
-             <b-button  class="wine-btn btn-purple">Contacter</b-button>
-            <span>{{producer.email}}</span>
-            <b-button  class="wine-btn btn-purple">Appeler</b-button>
-            <span>{{producer.phone}}</span>
-            <b-button  class="wine-btn btn-purple">Website</b-button>
-            <span>{{producer.website}}</span>
-            <p> Comment : {{wine.producer.comment}}</p>
+        <b-row  v-if="producer._id" class="prodBlocWine  width-98 ">
+            <b-col>
+                <b-row>
+                    <p class="title">Le mot du producteur</p>
+                </b-row>
+                <b-row>
+                    <p> {{wine.producer.comment}}</p>
+                </b-row>
+            </b-col>
+            <b-col md="3" class="text-center">
+                <b-row>
+                    <b-img :src="producer.avatar" rounded="circle"  width="34" height="34" alt="img"/>
+                    <p><router-link :to="{ name: 'ProdAccount', params: {username:producer.username} }">{{producer.username}}</router-link></p>
+                </b-row>
+                <b-row>
+                    <span><a :href="'mailto:'+producer.email">{{producer.email}}</a></span>
+                </b-row>
+                <b-row>
+
+                    <span><a :href="'tel:'+producer.phone">{{producer.phone}}</a></span>
+                </b-row>
+                <b-row>
+                    <span><a :href="producer.website">{{producer.website}}</a></span>
+                </b-row>
+            </b-col>
+
         </b-row>
 
         <b-row class="wine-bar width-98">

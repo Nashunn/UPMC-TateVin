@@ -159,6 +159,18 @@
     padding-left:0;
     text-align:center;
 }
+#menuLeft .searchMenu{
+    background-image: url('../assets/learn.png');
+    background-size: cover;
+}
+#menuLeft .wineMenu{
+    background-image: url('../assets/search.png');
+    background-size: cover;
+}
+#menuLeft .learningMenu{
+    background-image: url('../assets/wine.png');
+    background-size: cover;
+}
 @media (max-width: 768px){
 
     #menuLeft li {
