@@ -396,7 +396,6 @@ section {
     margin-bottom:20px;
 }
 .allComments .comment{
-    background-color:#cdcccc;
     padding:5px;
     margin:10px 0;
 }
@@ -409,9 +408,12 @@ section {
     text-align:left;
 }
 .comment .message{
-    background-color: #fff;
+    border:2px solid #cdcccc;
     padding:5px;
     text-align:left;
+}
+.comment{
+    border-top:2px solid rgb(128,0,43);
 }
 /*****************************************************************************
 *                     GLASS COLOR

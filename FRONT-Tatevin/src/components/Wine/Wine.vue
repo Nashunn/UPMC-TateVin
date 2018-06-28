@@ -73,7 +73,7 @@
                 <Comment v-for="(comment, index) in wine.comments" :key="comment._id"  :comment="comment" />
             </div>
         </div>
-        <AddTag v-show="showTagPopUp" :type="tagType"/>
+        <AddTag v-show="showTagPopUp" :type="tagType" :visual="opinion.visual.labels" :taste="opinion.taste.labels" :smell="opinion.smell.labels"/>
         <AddBarCode v-show="showScanPopUp"/>
     </section>
 
@@ -278,6 +278,7 @@ export default {
             }
     },
     computed: {
+
         /*wineColor: function() {
             switch (this.wine.type) {
                 case "rouge":
