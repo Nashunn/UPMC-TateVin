@@ -18,6 +18,12 @@ He is allowed to give more information about any wine, comment, make stories abo
 
 The goal behind all of this is to create a social platform around wine, and share their passion. 
 
+## Version
+
+- Node 8.11
+- Npm 6.1
+- Vue.js 2
+
 ## Tools
 
 - Webpack
