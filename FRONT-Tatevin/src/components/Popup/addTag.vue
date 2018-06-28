@@ -62,7 +62,10 @@
         name: "modalWine",
         components:{Autocomplete, Tag},
         props:{
-            type:String
+            type:String,
+            visual:Array,
+            smell:Array,
+            taste:Array
         },
         data() {
             return {
@@ -107,9 +110,17 @@
         },
         computed:{
             getSensation(){
-                if(this.type==="visual") return "visuelles";
-                if(this.type==="smell") return "olfactives";
-                if(this.type==="taste") return "gustatives";
+                if(this.type==="visual"){
+                    this.tagList=this.visual;
+                    return "visuelles";
+                }
+                if(this.type==="smell"){
+                    this.tagList=this.smell;;
+                    return "olfactives";}
+                if(this.type==="taste"){
+                    this.tagList=this.taste;
+                     return "gustatives";
+                }
             }
         }
     };
