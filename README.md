@@ -6,7 +6,7 @@
 ## Presentation
 TâteVin is a university (UPMC) project built with NodeJS and VueJS.
 
-*Team*
+**Team**
 - Nicolas BOULLET [(GitHub)](https://github.com/Nashunn)
 - Timothé PARDIEU [(GitHub)](https://github.com/TimPrd)
 - Laura PERINET-MARQUET [(GitHub)](https://github.com/LauraPerinet)
