@@ -1,6 +1,10 @@
 <template>
     <div class="hello" v-show="activity.length !== 0">
-        <h1>{{ msg }}</h1>
+        <h1>Bienvenue sur Tâtevin !</h1>
+        
+        <p>La meilleure expérience de partage autour du vin.</p>
+
+        <h2>Actualités</h2>
         <b-list-group v-for="ac in activity">
             <b-list-group-item >
                 <b-row> 
@@ -34,7 +38,6 @@ import ScoreImage  from './../assets/img/like.svg'
         components:{WinesPage},
         data() {
             return {
-                msg: 'Hello Laura, Nico et Tim !!!',
                 subs:[],
                 mainUser:{},
                 activity:[],
