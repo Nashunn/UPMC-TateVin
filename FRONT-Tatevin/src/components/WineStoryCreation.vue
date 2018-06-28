@@ -126,7 +126,10 @@ export default {
             this.tagExists=false;
         },
         addWine( wine ){
-            this.story.wines.push(wine);
+            if(this.story.wines.indexOf(wine)==-1){
+                this.story.wines.push(wine);
+            }
+
 
         },
         removeWine( index ){

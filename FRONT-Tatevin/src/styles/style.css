@@ -80,6 +80,32 @@ section {
     font-size:1em;
 
 }
+.storyBloc{
+    vertical-align:middle;
+    margin-top:20px;
+    padding-top:20px;
+    border-top:2px solid rgb(105,0,41);
+}
+.storyBloc div{
+    display:inline-block;
+    width:70%;
+    margin:0 20px;
+    height:100%;
+}
+.storyBloc .vignette{
+
+    width:60px;
+    height:60px;
+    overflow:hidden;
+    border-radius: 100%;
+}
+.storyBloc .storyPres{
+    vertical-align: middle;
+}
+.storyBloc img{
+    width:auto;
+    height:60px;
+}
 /****************************************************************************
 *                                   User                                    *
 *****************************************************************************/
