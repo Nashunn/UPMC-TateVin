@@ -21,10 +21,13 @@ The goal behind all of this is to create a social platform around wine, and shar
 ## Tools
 
 - Webpack
+- Node JS
 - Vue JS
 - VueRouter
 - VueLoader
 - Axios
+- Vuex
+- Bootstrap
 
 ## Build Setup
 
