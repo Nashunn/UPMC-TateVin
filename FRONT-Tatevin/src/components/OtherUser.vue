@@ -60,7 +60,8 @@
             </div>
 
             <div v-else>
-                <b-img center :src="oUser.avatar" class="profile-img text-center" alt="profile image"></b-img>
+                <b-img v-if="oUser.avatar" center :src="oUser.avatar" class="profile-img text-center" alt="profile image"></b-img>
+                <b-img v-else center :src="require('./../assets/img/profile/default.svg')" class="profile-img text-center" alt="profile image"></b-img>
 
                 <div class="text-center mt-4 mb-4">
                     <button v-if="isCurrentUser()" @click="isEdit=true" class="wine-btn btn-purple">Modifier</button>
@@ -299,8 +300,5 @@
                 });
             }
         },
-        d(){
-            console.log(this.LLLL);
-        }
     }
 </script>
