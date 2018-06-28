@@ -88,7 +88,7 @@
 
                     <div v-model="userHasSetPrice">
                         <button v-if="!userHasSetPrice" @click="addPrice()">Ajouter un prix</button>
-                        <span v-else>✔️Vous avez déjà donné un prix pour ce vin</span>
+                        <span v-else>✔️Vous avez déjà donné un prix à ce vin</span>
                     </div>
                 </span>
             </b-col>

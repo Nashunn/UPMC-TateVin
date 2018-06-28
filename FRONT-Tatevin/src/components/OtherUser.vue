@@ -19,14 +19,14 @@
                     </b-col>
                 </b-row>
                 <b-row class="margin-bottom-25">
-                    <b-col sm="3"><label> Username </label></b-col>
+                    <b-col sm="3"><label> Nom d'utilisateur </label></b-col>
                     <b-col sm="9">
                         <b-form-input v-model="uUser.username" type="text"></b-form-input>
                     </b-col>
                 </b-row>
 
                 <b-row class="margin-bottom-25">
-                    <b-col sm="3"><label> Email </label></b-col>
+                    <b-col sm="3"><label> E-mail </label></b-col>
                     <b-col sm="9">
                         <b-form-input v-model="uUser.email" type="email"></b-form-input>
                     </b-col>
@@ -85,7 +85,7 @@
                 <b-card no-body class="mt-3">
                     <b-tabs card>
                         <b-tab  :title="'Dernières Activités (' + (this.activity.length || '0') + ')'">
-                            <h1 class="text-center" v-if="activity.length === 0">No activity 😭</h1>
+                            <h1 class="text-center" v-if="activity.length === 0">Aucune activité.. 🍷</h1>
                             <b-list-group v-else v-for="ac in activity">
                                 <b-list-group-item >
                                     <b-row>
@@ -101,7 +101,7 @@
                             </b-list-group>
                         </b-tab>
                         <b-tab  :title="'Abonnement (' + (this.subsDetails.length || '0') + ')'">
-                            <h1 class="text-center" v-if=" subsDetails.length === 0">No subs 😭</h1>
+                            <h1 class="text-center" v-if=" subsDetails.length === 0">Aucun abonné.. 🍇</h1>
                             <b-list-group v-else v-for="us in subsDetails">
                                 <b-list-group-item>
                                     <b-row>
@@ -129,7 +129,7 @@
 
         </b-container>
         <p v-else>
-            No user found 🤔
+            Aucun utilisateur trouvé 🤔
         </p>
 
     </section>
