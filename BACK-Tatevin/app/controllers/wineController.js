@@ -5,7 +5,7 @@ const OpinionController = require("./opinionController");
 let shortid = require("shortid");
 
 exports.findAll = function (req, res) {
-    var perPage = 4
+    var perPage = 6
     var page = req.params.page || 1
 
     Wine

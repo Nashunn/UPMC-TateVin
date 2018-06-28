@@ -127,7 +127,6 @@ exports.account = function (req, res) {
 
 }
 
-
 exports.updateUser = function (req, res) {
     var token = req.headers["x-access-token"];
     console.log(req.headers)
@@ -240,7 +239,7 @@ exports.activity = function (req, res) {
         console.log(ret);
         res.json(ret);
     });
-    
+
 }
 
 /************************SEARCH**********************************/

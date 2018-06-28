@@ -63,7 +63,7 @@
                 <glass-score  class="d-inline top-5-child" :score="wineUserScore" :readonly="false" :color="true" v-on:newVote="setUserScore($event)"/>
             </b-col>
             <b-col class="cave text-center" md="3" sm="12">
-                <span class="hover-underline" @click="addCave()">+ Ajouter à ma cave</span>
+                <span class="hover-underline" @click="testIfCaveExists()">+ Ajouter à ma cave</span>
             </b-col>
             <b-col class="wishes text-center" md="3" sm="12">
                 <span class="hover-underline"  @click="addWishes()">+ Ajouter à ma liste de souhait</span>
@@ -225,8 +225,25 @@ export default {
 
     },
     methods: {
-        addCave() {
-            console.log("todo");
+        testIfCaveExists() {
+            if(typeof(store.state.usr.cave)==="undefined"){
+                HTTP.post("/wineList",{}).then(response=>{
+                    var id_cave=response.data._id;
+                    store.commit("addCave",id_cave);
+                    HTTP.put('/userCreateCave/'+store.state.usr.username, store.state.usr).then(()=>{
+
+                        this.addWine(id_cave);
+                    })
+
+                });
+            }else{
+                this.addWine(store.state.usr.cave);
+            }
+        },
+        addWine( id_cave){
+            HTTP.put(`wineList/` + id_cave, {id_wine:this.wine._id}).then(()=>{
+                this.$router.push('/cave');
+            });
         },
         addWishes() {
             console.log("todo");

@@ -10,6 +10,7 @@ const searchController = require("./../controllers/searchController");
 const commentController = require("./../controllers/commentController");
 const opinionController = require("./../controllers/opinionController");
 const producerController = require("./../controllers/producerController")
+const wineListController = require("./../controllers/wineListController")
 //HOME
 router.route("/").all(function (req, res) {
     res.sendFile(path.join(__dirname + '/../../dist/index.html'));
@@ -101,7 +102,11 @@ router
 
 /**~~~~~~~~~~~~~~~END Wine~~~~~~~~~~~~~~~~~**/
 
-
+router
+    .post("/wineList", wineListController.createList)
+    .put("/wineList/:id_cave", wineListController.addWine)
+    .put("/userCreateCave/:user_id", userController.updateUser)
+    .get("/wineList/:id_cave", wineListController.findAll)
 /********************************************
  *           ROADS : Wine Story             *
  ********************************************/
