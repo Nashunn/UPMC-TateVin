@@ -84,7 +84,18 @@ exports.getWineByUser = function (username){
       return 'error occured';
     });
 }
+exports.updateStory=function(req, res){
 
+    WineStory.findByIdAndUpdate(
+        req.params.id_wineStory,
+        req.body.params,
+        {new: true},
+        (err, newWine) => {
+            if (err) return res.status(500).send(err);
+            return res.send(newWine);
+        }
+    )
+}
 /************************SEARCH**********************************/
 
 exports.findWSByTags = async function (tags) {
