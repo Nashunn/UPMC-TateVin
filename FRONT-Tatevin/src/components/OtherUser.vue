@@ -65,8 +65,10 @@
                 <div class="text-center mt-4 mb-4">
                     <button v-if="isCurrentUser()" @click="isEdit=true" class="wine-btn btn-purple">Modifier</button>
                     <b-col v-else>
+                        <div v-if="!isProd()">
                         <b-button disabled v-if="isInSubs(oUser._id)" class="wine-btn btn-purple">Déjà ajouté</b-button>
                         <b-button v-else @click="add(oUser._id)"  class="wine-btn btn-purple">Ajouter</b-button>
+                        </div>
                     </b-col>
                     
                 </div>
@@ -110,8 +112,10 @@
                                             <b-button @click="remove(us._id)" class="right">-</b-button>
                                         </b-col>
                                         <b-col v-else>
+                                            <div v-if="!isProd()">
                                             <b-button disabled v-if="isInSubs(us._id)" class="right">Déjà ajouté</b-button>
                                             <b-button v-else @click="add(us._id)"  class="right">Ajouté</b-button>
+                                            </div>
                                         </b-col>
                                     </b-row>
 
@@ -228,8 +232,12 @@
                     EventBusModal.$emit("loading-loader", false);
                 });
             },
+            isProd(){
+                return store.state.usr.isProd === true
+            },
             isInSubs(username) {
-                return typeof (store.state.usr.subscription.find(usr => usr === username)) !== 'undefined';
+                if(!this.isProd())
+                    return typeof (store.state.usr.subscription.find(usr => usr === username)) !== 'undefined';
             },
             afterComplete(file) {
                 this.uUser.avatar = file.dataURL;

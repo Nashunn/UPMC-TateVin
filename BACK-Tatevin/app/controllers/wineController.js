@@ -86,6 +86,30 @@ exports.addCB=function(req, res){
     )
 }
 
+exports.addProdComment = function (req,res){
+    Wine.findByIdAndUpdate(
+        req.params.id_wine,
+        { "producer.comment" : req.body.commentProd},
+        {new: true},
+        (err, newWine) => {
+            if (err) return res.status(500).send(err);
+            return res.send(newWine);
+        }
+    )
+}
+
+exports.addProd = function (req,res){
+    Wine.findByIdAndUpdate(
+        req.params.id_wine,
+        { "producer.id_Prod" :req.params.id_prod},
+        {new: true},
+        (err, newWine) => {
+            if (err) return res.status(500).send(err);
+            return res.send(newWine);
+        }
+    )
+}
+
 exports.modifyWine = function (req, res) {
     console.log("COUCOU MODIFY")
     console.log(req.body.params)

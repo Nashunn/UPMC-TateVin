@@ -1,5 +1,12 @@
 <template>
     <section class="wine">
+        <b-alert :show="dismissCountDown"
+            fade
+             dismissible
+             variant="success"
+             @dismissed="dismissCountDown=0"
+             @dismiss-count-down="countDownChanged">{{successMsg}}</b-alert>
+
         <b-row class="mt-3 width-98">
             <div class="wine-title">
                 <!--<div class="wine-color-bloc mr-3" v-bind:style="{ backgroundColor: wineColor }"></div>-->
@@ -8,9 +15,26 @@
             </div>
             <WineScoreMedal :score="wineGlobalScore.score" :vote="wineGlobalScore.nbVote"/>
         </b-row>
-
         <b-row class="mt-3 width-98"><button @click="goModify()">Editer la fiche</button></b-row>
-        <b-row class="mt-3 width-98" v-if="isProd()"><button @click="iAmProd()">Je suis le producteur</button></b-row>
+        <b-row class="mr-3 mt-3 width-98 d-inline" v-if="isProd()"><button @click="iAmProd()">Je suis le producteur</button></b-row>
+        <b-row  class="mt-3 width-98 d-inline" v-if="isProd()"><button @click="showComment=true">Définir le vin</button></b-row>
+        <b-row  class="mt-3 width-98 " v-show="showComment">
+            <label class="w-25" for="name">Votre message</label>
+            <wysiwyg v-model="commentProd" />
+            <button @click="checkBeforeSubmitProdComment()">Valider</button>
+        </b-row>
+
+        <b-row  v-if="producer._id">
+            <b-img :src="producer.avatar" rounded="circle"  width="34" height="34" alt="img"/>
+            <p>{{producer.username}}</p>
+             <b-button  class="wine-btn btn-purple">Contacter</b-button>
+            <span>{{producer.email}}</span>
+            <b-button  class="wine-btn btn-purple">Appeler</b-button>
+            <span>{{producer.phone}}</span>
+            <b-button  class="wine-btn btn-purple">Website</b-button>
+            <span>{{producer.website}}</span>
+            <p> Comment : {{wine.producer.comment}}</p>
+        </b-row>
 
         <b-row class="wine-bar width-98">
             <b-col class="score" md="6" sm="12">
@@ -132,7 +156,13 @@ export default {
             showTagPopUp:false,
             showScanPopUp:false,
             tagType:"",
-            firstPageLoad:true
+            firstPageLoad:true,
+            commentProd:'',
+            showComment:false,
+            producer:{},
+            dismissSecs: 5,
+            dismissCountDown: 0,
+            successMsg: ''
         }
     },
     mounted() {
@@ -158,28 +188,50 @@ export default {
         addWishes() {
             console.log("todo");
         },
-        addBarcode() {
-            console.log("todo");
-        },
         isProd(){
             return store.state.usr.isProd === true
         },
         iAmProd(){
-
+            HTTP.put('producer/'+this.$route.params.id+'/'+ store.state.usr._id).then(response=>{
+                this.successMsg = "Vous êtes le producteur de ce vin ! "
+                this.showAlert()
+            })
+        },
+        countDownChanged (dismissCountDown) {
+            this.dismissCountDown = dismissCountDown
+        },
+        showAlert () {
+            this.dismissCountDown = this.dismissSecs
+        },
+        checkBeforeSubmitProdComment () {
+            this.error = "";
+            if(this.commentProd === "")
+                this.error = "Ne rien dire, c'est dire beaucoup trop.";
+            else
+                this.submitCommentProd();
+        },
+        submitCommentProd(){
+            HTTP.put('producer/'+this.$route.params.id+'/'+ store.state.usr._id+'/comment', {commentProd:this.commentProd}).then(response=>{
+                this.successMsg = "Vous avez commenté ce vin ! "
+                this.showAlert()
+            })
         },
         getWineById() {
             HTTP.get('/wine/'+this.$route.params.id).then(response=>{
                 if(this.firstPageLoad)
                     this.wine=response.data[0];
-
                 this.wineGlobalScore=response.data[1];
             }).then(response=>{
                 if(this.firstPageLoad) {
                     HTTP.get("/wineGetComments", {params: {comments: this.wine.comments}}).then(response2 => {
-
                         this.wine.comments = response2.data;
                         this.commentsHere = true;
                     });
+                    if(this.wine.producer)
+                        HTTP.get("/producer/"+ this.wine.producer.id_Prod).then(resp => {
+                            this.producer = resp.data[0];
+                            console.log(this.producer)
+                        });
                     this.firstPageLoad = false;
                 }
                 EventBusModal.$emit("loading-loader", false)
@@ -278,6 +330,7 @@ export default {
             }
     },
     computed: {
+        
         /*wineColor: function() {
             switch (this.wine.type) {
                 case "rouge":

@@ -35,13 +35,18 @@ exports.register = function (req, res) {
 }
 
 exports.findByName = function (req, res) {
-    console.log("heheheh",req.params.username)
     Producer.find({username: req.params.username}, function (err, user) {
         if (err) res.send(err);
         res.json(user);
     });
 }
 
+exports.findById = function (req,res){
+    Producer.find({_id: req.params.idProd}, function (err, user) {
+        if (err) res.send(err);
+        res.json(user);
+    });
+}
 
 exports.login = function (req, res) {
     //Retrieve user by its mail

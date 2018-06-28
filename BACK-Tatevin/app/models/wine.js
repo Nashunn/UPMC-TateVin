@@ -21,6 +21,7 @@ var WineSchema = mongoose.Schema({
     tasting_date: String,
     decantation: Number, //Carrafage
     millesime: Number, //Millesime
+    producer: { id_Prod: {type:Schema.Types.ObjectId, ref: "Producer"}, comment:String } ,
     comments: [{type: Schema.Types.ObjectId, ref: "Comment"}]
 });
 
