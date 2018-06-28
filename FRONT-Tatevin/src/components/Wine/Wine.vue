@@ -1,5 +1,10 @@
 <template>
     <section class="wine">
+        <!-- Popups -->
+        <AddPrice v-show="showPricePopUp"/>
+        <AddTag v-show="showTagPopUp" :type="tagType"/>
+        <AddBarCode v-show="showScanPopUp"/>
+        <!-- End Popups -->
         <b-row class="mt-3 width-98">
             <div class="wine-title">
                 <!--<div class="wine-color-bloc mr-3" v-bind:style="{ backgroundColor: wineColor }"></div>-->
@@ -27,10 +32,25 @@
 
         <b-row class="width-98 mt-3">
             <b-col cols="6">
-                <a class="hover-underline ml-1"  @click="addBarCode()"><span v-if="typeof(wine.id)==='undefined'">Ajouter un code barre</span></a>
+                <span class="ml-1" >
+                    <button v-if="typeof(wine.id)==='undefined'" @click="addBarCode()">Ajouter un code barre</button>
+                    <span v-else>✔️Code barre enregistré</span>
+                </span>
             </b-col>
             <b-col cols="6" class="text-right">
-                <span class="mr-1">Prix moyen : {{ "13" }} €</span>
+                <span class="ml-1" >
+                    <span>Prix moyen :
+                        {{ wineGlobalPrice.nb===0?
+                            "Non-renseigné" :
+                            (Number(wineGlobalPrice.price/wineGlobalPrice.nb)+' €')
+                        }}
+                    </span>
+
+                    <div v-model="userHasSetPrice">
+                        <button v-if="!userHasSetPrice" @click="addPrice()">Ajouter un prix</button>
+                        <span v-else>✔️Vous avez déjà donné un prix pour ce vin</span>
+                    </div>
+                </span>
             </b-col>
         </b-row>
 
@@ -42,7 +62,7 @@
             <WineBlockProperty title="Cépages" :desc="String(this.wine.grape)" />
             <WineBlockProperty title="Conservation" :desc="String(this.wine.keep_in_cave?'Oui':'Non')" />
             <WineBlockProperty title="Vin gazeux" :desc="String(this.wine.gaz?'Oui':'Non')" />
-            <WineBlockProperty title="Carrafage" :desc="String(this.wine.decantation+' min')" />
+            <WineBlockProperty title="Carrafage" :desc="String(this.wine.decantation===null?this.wine.decantation:this.wine.decantation+' min')" />
         </b-row>
 
         <b-row class="stats-graph text-center">
@@ -73,10 +93,7 @@
                 <Comment v-for="(comment, index) in wine.comments" :key="comment._id"  :comment="comment" />
             </div>
         </div>
-        <AddTag v-show="showTagPopUp" :type="tagType"/>
-        <AddBarCode v-show="showScanPopUp"/>
     </section>
-
 </template>
 
 <script>
@@ -91,6 +108,7 @@ import Chart from "./../Chart";
 import Tag from './../Tag';
 import AddTag from './../Popup/AddTag';
 import AddBarCode from './../Popup/AddBarCode';
+import AddPrice from './../Popup/AddPrice';
 import Autocomplete from './../Autocomplete';
 import _ from 'lodash';
  import { EventBusModal } from "./../../events/";
@@ -107,12 +125,14 @@ export default {
         WineColor,
         Comment,
         AddTag,
+        AddPrice,
         AddBarCode
     },
     data() {
         return {
             wine: [],
             wineGlobalScore: 0,
+            wineGlobalPrice: 0,
             wineUserScore: 0,
             opinion:{
                 smell:{
@@ -128,9 +148,11 @@ export default {
                     labels:[]
                 },
             },
+            userHasSetPrice: false,
             commentsHere:false,
             showTagPopUp:false,
             showScanPopUp:false,
+            showPricePopUp:false,
             tagType:"",
             firstPageLoad:true
         }
@@ -140,6 +162,7 @@ export default {
         this.getWineById();
         //Get other informations
         this.getUserScore();
+        this.getIfUserSetPrice();
         this.getOpinion("all");
 
         //Get comments
@@ -158,9 +181,6 @@ export default {
         addWishes() {
             console.log("todo");
         },
-        addBarcode() {
-            console.log("todo");
-        },
         isProd(){
             return store.state.usr.isProd === true
         },
@@ -173,6 +193,8 @@ export default {
                     this.wine=response.data[0];
 
                 this.wineGlobalScore=response.data[1];
+                this.wineGlobalPrice=response.data[2];
+
             }).then(response=>{
                 if(this.firstPageLoad) {
                     HTTP.get("/wineGetComments", {params: {comments: this.wine.comments}}).then(response2 => {
@@ -233,8 +255,18 @@ export default {
                 })
             }
         },
-        getPrice() {
+        getIfUserSetPrice() {
+            let json = {
+                wine_id: this.$route.params.id,
+                user_id: store.state.usr._id,
+            };
 
+            HTTP.get("/opinions", {params: json}).then(response=> {
+                if(typeof response.data[0].price === "undefined")
+                    this.userHasSetPrice= false;
+                else
+                    this.userHasSetPrice= true;
+            });
         },
         getUserScore() {
             let json = {
@@ -257,7 +289,8 @@ export default {
         },
         comment(){
             EventBusModal.$emit("Comment", {showModal:true, from:"wine"});
-        },addTagChart( type ){
+        },
+        addTagChart( type ){
             if(store.state.usr.username){
                 this.showTagPopUp=true;
                 this.tagType=type;
@@ -271,11 +304,17 @@ export default {
             }else{
                 EventBusModal.$emit("neadConnect",true)
             }
-
         },
-            goModify() {
-                this.$router.push('/wine/m/'+this.$route.params.id);
+        addPrice() {
+            if(store.state.usr.username){
+                this.showPricePopUp=true;
+            }else{
+                EventBusModal.$emit("neadConnect",true)
             }
+        },
+        goModify() {
+            this.$router.push('/wine/m/'+this.$route.params.id);
+        }
     },
     computed: {
         /*wineColor: function() {
@@ -297,18 +336,29 @@ export default {
     },
     created(){
         EventBusModal.$emit("loading-loader", true);
+
         EventBusModal.$on("addTag", showTagPopUp=>{
             this.showTagPopUp=showTagPopUp;
-        })
+        });
+
         EventBusModal.$on("tagAdded", type=>{
             this.$router.push("/wine/"+this.$route.params.id);
-        })
+        });
+
         EventBusModal.$on("newBarCode", newBarCode=>{
             HTTP.put('/wineBarCode/'+this.$route.params.id, {barcode:newBarCode}).then(()=>{
                 this.wine.id=newBarCode;
                 this.showScanPopUp=false;
             })
-        })
+        });
+
+        EventBusModal.$on("addPricePopup", showPricePopup=>{
+            this.showPricePopUp = showPricePopup;
+        });
+
+        EventBusModal.$on("priceWasAddByUser", () =>{
+            this.getWineById();
+        });
     }
 }
 </script>
