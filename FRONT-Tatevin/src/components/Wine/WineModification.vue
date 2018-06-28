@@ -169,7 +169,7 @@
                     <b-form-input
                             type="number"
                             id="decantation"
-                            placeholder="Entrez la période de carrafage"
+                            placeholder="Entrez la période de carrafage (min)"
                             v-model="wine.decantation"
                     />
                 </b-col>
@@ -191,7 +191,7 @@
                 wine: [],
                 optionYesNo: [
                     { value: null, text: 'Indiquez "Oui" ou "Non"', disabled: true },
-                    { value: true", text: 'Oui' },
+                    { value: true, text: 'Oui' },
                     { value: false, text: 'Non' },
                 ],  
             }

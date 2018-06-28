@@ -39,9 +39,9 @@
             <WineBlockProperty title="Millésime" :desc="String(this.wine.millesime)"/>
             <WineBlockProperty title="Classification" :desc="String(this.wine.classification)" />
             <WineBlockProperty title="Cépages" :desc="String(this.wine.grape)" />
-            <WineBlockProperty title="Conservation" :desc="String(this.wine.keep_in_cave)" />
-            <WineBlockProperty title="Vin gazeux" :desc="String(this.wine.gaz)" />
-            <WineBlockProperty title="Carrafage" :desc="String(this.wine.decantation)" />
+            <WineBlockProperty title="Conservation" :desc="String(this.wine.keep_in_cave?'Oui':'Non')" />
+            <WineBlockProperty title="Vin gazeux" :desc="String(this.wine.gaz?'Oui':'Non')" />
+            <WineBlockProperty title="Carrafage" :desc="String(this.wine.decantation+' min')" />
         </b-row>
 
         <b-row class="stats-graph text-center">
