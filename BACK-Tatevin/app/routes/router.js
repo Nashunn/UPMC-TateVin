@@ -84,6 +84,7 @@ router
 /* fetch all the users */
 router
     .get("/wines/pagination/:page", wineController.findAll)
+    .get("/winesByStory/:id_story", wineController.findByStory)
 
 router
     .post("/wine", wineController.createWine)
@@ -117,6 +118,7 @@ router
     .get("/wineStory", wineStoryController.findAll)
     .post("/wineStory", wineStoryController.createWS)
     .put("/wineStoryAddComment", wineStoryController.addComment)
+    .put("/wineStory/:id_wineStory", wineStoryController.updateStory)
 
 /*===========*
  * Instance  *

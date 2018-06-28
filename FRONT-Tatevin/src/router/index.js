@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Hello from '@/components/Hello'
 import Sandbox from '@/components/Sandbox'
-import UserAccount from '@/components/UserAccount'
 import ProdUser from '@/components/ProdUser'
 import Login from '@/components/Login'
 import Signup from '@/components/Signup'
@@ -79,6 +78,11 @@ export default new Router({
         {
             path: '/wineStories/creation',
             name: 'WineStoryCreation',
+            component: WineStoryCreation
+        },
+        {
+            path: '/wineStories/modification/:id',
+            name: 'WineStoryModification',
             component: WineStoryCreation
         },
         {

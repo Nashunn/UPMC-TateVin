@@ -1,5 +1,5 @@
 <template>
-    <!-- Connection Popup -->
+    <!-- Popup -->
     <transition name="modal">
         <div class="modal-mask">
             <div class="modal-wrapper">
@@ -7,7 +7,7 @@
                     <div class="modal-content">
                         <!-- modal header -->
                         <div class="modal-header">
-                            <h4 class="modal-title">Enregistrer le code barre</h4>
+                            <h4 class="modal-title">Enregistrer le prix</h4>
                             <button type="button" class="close" @click="close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -15,9 +15,15 @@
                         <!-- end of modal header -->
                         <!-- modal body -->
                         <div class="modal-body">
-                            <p>Le code barre vous permettra de retrouver plus rapidement votre vin.</p>
-                            <BarcodeScan :wineStory="wineStory" v-on:addWine="$emit('addWine', $event)"/>
+                            <p>Le prix qui sera indiqué sur la fiche est une moyenne de l'ensemble des prix à titre indicatif.</p>
 
+                            <div class="">
+                                <b-form-input type="number" min="0" v-model="data"/>
+
+                                <div class="btn-wrapper mt-3">
+                                    <button v-on:click="sendPrice">Enregistrer le prix</button>
+                                </div>
+                            </div>
                         </div>
                         <!-- end of modal body -->
                     </div>
@@ -25,7 +31,7 @@
             </div>
         </div>
     </transition>
-    <!-- End Connection Popup -->
+    <!-- End Popup -->
 </template>
 
 <style>
@@ -51,26 +57,26 @@
     import {EventBusModal} from "../../events/";
     import {HTTP} from "../../HTTP/http";
     import store from "../../store";
-    import BarcodeScan from "../Scanner/BarcodeScan"
 
     export default {
-        name: "modalScan",
-        components:{BarcodeScan},
+        name: "PriceModal",
         props:{
-            wineStory:{type:Boolean, default:false}
         },
         data() {
             return {
+                data: 0,
             };
         },
         methods: {
             close() {
-                EventBusModal.$emit("addBarCode", false);
+                this.data = 0;
+                EventBusModal.$emit("addPricePopup", false);
             },
-
+            sendPrice() {
+                HTTP.put('/opinions/'+this.$route.params.id+'/'+store.state.usr._id, {price:this.data});
+                EventBusModal.$emit("priceWasAddByUser");
+                EventBusModal.$emit("addPricePopup", false);
+            }
         },
-        computed:{
-
-        }
     };
 </script>
