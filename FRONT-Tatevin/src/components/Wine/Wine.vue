@@ -66,7 +66,7 @@
                     <span>Prix moyen :
                         {{ wineGlobalPrice.nb===0?
                             "Non-renseigné" :
-                            (Number(wineGlobalPrice.price/wineGlobalPrice.nb)+' €')
+                            (Number(wineGlobalPrice.price)+' €')
                         }}
                     </span>
 
