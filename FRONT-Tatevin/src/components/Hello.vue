@@ -28,7 +28,6 @@ import HDVImage  from './../assets/img/hdv.svg'
 import ScoreImage  from './../assets/img/like.svg'
     import Utils from "./../utils/";
     import _ from 'lodash';
-
     export default {
         name: 'hello',
         components:{WinesPage},
@@ -39,12 +38,10 @@ import ScoreImage  from './../assets/img/like.svg'
                 mainUser:{},
                 activity:[],
                 allUser:[]
-
             }
         },
         created(){
             EventBusModal.$emit('loading-loader', false)
-
             var that = this;
             if(store.state.usr.username && !store.state.usr.isProd)
             {
@@ -54,43 +51,43 @@ import ScoreImage  from './../assets/img/like.svg'
                         HTTP.get(`usersByIds/`, { params: {subs: this.mainUser.subscription} } ).then(response => {
                             this.subs = response.data
                             this.subs.forEach(element => {
-                                HTTP.get('users/'+element.username+'/activity').then(r => {
-                                    this.activity = r.data;
-                                    this.activity.forEach(el => {
-                                        that.activityType(el, element.username )
-                                    });
-                                });
-                            });
+                                this.getActivity(element.username)
+                                
                         })
+                    })
                 })
             }
             else{
-                HTTP.get(`users/sample/7`).then(response => {
+                HTTP.get(`users/sample/15`).then(response => {
                     this.allUser = response.data;
                     this.allUser.forEach(userSample => {
                         HTTP.get('users/'+ userSample.username +'/activity').then(async r => {
-                            if(r.data.length){
-                            var tmp = r.data
-                                new Promise( (resolve, reject) => {
-                                        tmp.forEach(el => {
-                                        resolve(                                
-                                            that.activityType(el, userSample.username ))
-                                        }
-                                    )
-                                }).then(() => {
-                                    this.activity.push(...tmp);
-                                });
-                            }
-                                
+                            this.getActivity(userSample.username);      
                         });
                     });
         
                 })
             }
         },mounted(){
-
         },
         methods: {
+            getActivity: function (username) {
+                var that = this;
+              HTTP.get('users/'+username+'/activity').then(r => {
+                                    if(r.data.length){
+                                    var tmp = r.data
+                                    new Promise( (resolve, reject) => {
+                                        tmp.forEach(el => {
+                                        resolve(                                
+                                            that.activityType(el, username ))
+                                        }
+                                        )
+                                    }).then(() => {
+                                        this.activity.push(...tmp);
+                                    });
+                                    }
+                                });  
+            },
               activityType: async function (ac, username) {
                 if(ac.hasOwnProperty('food'))
                 {
@@ -102,7 +99,6 @@ import ScoreImage  from './../assets/img/like.svg'
                     ac.date = Utils.dateLocaleHours(ac.date)
                     ac.username = username  
                 }
-
                 if(ac.hasOwnProperty('title'))
                 {
                     ac.type = HDVImage;
