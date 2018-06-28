@@ -27,6 +27,11 @@ export default {
         value:{type:String, default:""},
         wineObP:{type:Object, default:{}}
     },
+     watch: { 
+      	wineObP: function(newVal, oldVal) { // watch it
+          this.wineOb = newVal
+        }
+      },
     data(){
         return {
             wineOb:{},

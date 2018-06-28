@@ -9,7 +9,7 @@ const tagController = require("./../controllers/tagController");
 const searchController = require("./../controllers/searchController");
 const commentController = require("./../controllers/commentController");
 const opinionController = require("./../controllers/opinionController");
-
+const producerController = require("./../controllers/producerController")
 //HOME
 router.route("/").all(function (req, res) {
     res.sendFile(path.join(__dirname + '/../../dist/index.html'));
@@ -82,7 +82,7 @@ router
 
 /* fetch all the users */
 router
-    .get("/wines", wineController.findAll)
+    .get("/wines/pagination/:page", wineController.findAll)
 
 router
     .post("/wine", wineController.createWine)
@@ -129,6 +129,17 @@ router
     .get("/comments", commentController.findAll)
     .put("/comment/:id_comment", commentController.addVote);
 /**~~~~~~~~~~~~~~~END Comments~~~~~~~~~~~~~~**/
+
+/*********************************************************
+ *                    ROADS : Producer                   *
+ **********************************************************/
+router
+.post("/registerProductor", producerController.register)
+.get("/producers/:username", producerController.findByName)
+.get("/producer/account", producerController.account)
+.post("/producer/login", producerController.login)
+
+/**~~~~~~~~~~~~~~~END Opinion~~~~~~~~~~~~~~**/
 
 /*********************************************************
  *                    ROADS : Opinion                    *

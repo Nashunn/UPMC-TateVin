@@ -5,18 +5,19 @@ import store from './../store'
 export default {
     user: {},
 
-    login(context, creds, redirect) {
-
-        HTTP.post("/login", {email: creds.email, password: creds.password}, {})
+    login(context, creds, redirect, isProd) {
+        HTTP.post((isProd ? "/producer" : '' )+ "/login", {email: creds.email, password: creds.password}, {})
             .then(async response => {
                 await localStorage.setItem("id_token", response.data.token);
-                await this.getAccount();
+                await this.getAccount(isProd);
             })
             .catch(function (error) {
                 console.log(error);
                 return error
             });
     },
+
+
 
     signup(context, creds, redirect) {
         HTTP.post("/register",
@@ -30,7 +31,7 @@ export default {
         )
             .then(async response => {
                 await localStorage.setItem("id_token", response.data.token);
-                await this.getAccount();
+                await this.getAccount(false);
             })
             .catch(function (error) {
                 console.log(error);
@@ -38,8 +39,31 @@ export default {
             });
     },
 
-    getAccount(){
-        HTTP.get('account', {
+    signupProductor(context, creds, redirect) {
+        HTTP.post("/registerProductor",
+            {
+                email: creds.email,
+                username: creds.username,
+                password: creds.password,
+                avatar: creds.avatar,
+                siret: creds.siret,
+                phone : creds.phone,
+                adresse: creds.adresse,
+                website: creds.website
+            }, {}
+        )
+            .then(async response => {
+                await localStorage.setItem("id_token", response.data.token);
+                await this.getAccount(true);
+            })
+            .catch(function (error) {
+                console.log(error);
+                return error
+            });
+    },
+
+    getAccount(isProd){
+        HTTP.get( (isProd ? "/producer" : '') +'/account', {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem('id_token'),
                 authorization: localStorage.getItem('id_token'),
@@ -48,6 +72,7 @@ export default {
             }
         }).then(response => {
             console.log("account", response.data)
+            response.data.isProd = isProd ? true : false;
             store.commit("instanceUser", response.data);
         });
     },

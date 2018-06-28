@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Hello from '@/components/Hello'
 import Sandbox from '@/components/Sandbox'
 import UserAccount from '@/components/UserAccount'
+import ProdUser from '@/components/ProdUser'
 import Login from '@/components/Login'
 import Signup from '@/components/Signup'
 import WinesPage from '@/components/WinesPage'
@@ -39,6 +40,11 @@ export default new Router({
             path: '/user/:username',
             name: 'UserAccount',
             component: OtherUser
+        },
+        {
+            path: '/producer/:username',
+            name: 'ProdAccount',
+            component: ProdUser
         },
         {
             path: '/login',
