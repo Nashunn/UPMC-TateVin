@@ -240,8 +240,18 @@ exports.activity = function (req, res) {
         console.log(ret);
         res.json(ret);
     });
-    
 }
+
+exports.findSomeUsers = function (req,res){
+    User.aggregate(
+        [ { $sample: { size: Number(req.params.count) } } ]
+    ).exec((err, users) => {
+        if (err) throw err;
+        res.status(200).send(users);
+        console.log(users);
+    })
+}
+
 
 /************************SEARCH**********************************/
 
