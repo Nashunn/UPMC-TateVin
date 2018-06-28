@@ -5,12 +5,23 @@ const OpinionController = require("./opinionController");
 let shortid = require("shortid");
 
 exports.findAll = function (req, res) {
-    Wine.find(function (err, users) {
-        if (err) {
-            res.send(err);
-        }
-        res.json(users);
-    });
+    var perPage = 4
+    var page = req.params.page || 1
+
+    Wine
+      .find({})
+      .skip((perPage * page) - perPage)
+      .limit(perPage)
+      .exec(function(err, wines) {
+          Wine.count().exec( function(err, count) {
+              if (err) return next(err)
+              res.status(200).send({
+                  wines: wines,
+                  current: page,
+                  pages: Math.ceil(count / perPage)
+              })
+          })
+      })
 };
 
 
@@ -75,6 +86,30 @@ exports.addCB=function(req, res){
     )
 }
 
+exports.addProdComment = function (req,res){
+    Wine.findByIdAndUpdate(
+        req.params.id_wine,
+        { "producer.comment" : req.body.commentProd},
+        {new: true},
+        (err, newWine) => {
+            if (err) return res.status(500).send(err);
+            return res.send(newWine);
+        }
+    )
+}
+
+exports.addProd = function (req,res){
+    Wine.findByIdAndUpdate(
+        req.params.id_wine,
+        { "producer.id_Prod" :req.params.id_prod},
+        {new: true},
+        (err, newWine) => {
+            if (err) return res.status(500).send(err);
+            return res.send(newWine);
+        }
+    )
+}
+
 exports.modifyWine = function (req, res) {
     console.log("COUCOU MODIFY")
     console.log(req.body.params)
@@ -118,6 +153,17 @@ exports.findOneWineByBarCode=function(req,res){
         res.json(wine)
     })
 }
+exports.findByStory=function(req,res){
+    console.log("WINE");
+    console.log(req.query.wines);
+    Wine.find({ '_id' : { $in: req.query.wines } }, function(err, comments){
+        if (err) {
+          res.send(err);
+        }
+
+        res.json(comments);
+    });
+}
 /********************GET WINE INFORMATION ***********************/
 getAvgScore = async function (scoreArray) {
     let nbVote = 0;
@@ -130,6 +176,7 @@ getAvgScore = async function (scoreArray) {
             sumScore += scoreArray[i].score;
         }
     }
+
 
     ret = await {score: Number((sumScore/nbVote).toFixed(2)), nbVote: nbVote};
 
@@ -148,7 +195,7 @@ getAvgPrice = async function (priceArray) {
         }
     }
 
-    ret = await {price: Number((sumScore/nbVote).toFixed(2)), nb: nb};
+    ret = await {price: Number((sumPrice/nb).toFixed(2)), nb: nb};
 
     return await ret;
 }

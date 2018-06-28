@@ -16,7 +16,7 @@
                 <!--<GlassVote :maxScore="comment.like.maxScore" v-on:newVote="addVote($event)" :id_comment="comment._id"/>-->
         </div>
         <div class="message">
-                    <p v-html="comment.message"></p>
+            <p v-html="comment.message"></p>
         </div>
         <GlassScore v-if="isVisible" class="fright" :maxScore="comment.like.maxScore"  :color="true" :readonly="false" v-on:newVote="addVote($event)" :id_comment="comment._id" :wine="false"/>
         <p v-else>Vous avez déjà noté ce commentaire</p>

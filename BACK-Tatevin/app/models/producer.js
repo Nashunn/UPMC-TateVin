@@ -9,8 +9,8 @@ let Schema = mongoose.Schema;
 
 //Describe the schema (model)
 var ProducerSchema = mongoose.Schema({
-  id: {type: String, require: true, default: shortid.generate()},
-  num_siret: { type: String, unique: true },
+  id: {type: String, require: true},
+  num_siret: { type: String, unique: true, required: true },
   website: String,
   email: {
     type: String,
@@ -19,7 +19,7 @@ var ProducerSchema = mongoose.Schema({
     unique: true,
     match: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
   },
-  name: {
+  username: {
     type: String,
     trim: true,
     required: true,

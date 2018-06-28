@@ -10,6 +10,8 @@
                 <label for="password">Password : </label>
                 <input v-model="credentials.password" type="password" id="password" required/>
             </p>
+            <label for="checkbox">Je suis producteur </label> 
+            <input type="checkbox" id="signProd" v-model="isProductor">
             <div class="btn-wrapper">
                 <button @keyup.enter="submit()" @click="submit()" class="wine-btn btn-purple">Login</button>
             </div>
@@ -27,6 +29,7 @@
                     email: '',
                     password: ''
                 },
+                isProductor: false,
                 error: '',
             }
         },
@@ -36,10 +39,11 @@
             },
             submit() {
                 new Promise( (resolve, reject) => {
-                    resolve(Auth.login(this, this.credentials, "secretquote"));
+                    resolve(Auth.login(this, this.credentials, "secretquote", this.isProductor));
                 }).then(() => {
                     this.$router.push('/');
                 });
+                
             }
         }
     }

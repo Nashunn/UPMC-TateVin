@@ -169,7 +169,7 @@
                     <b-form-input
                             type="number"
                             id="decantation"
-                            placeholder="Entrez la période de carrafage"
+                            placeholder="Entrez la période de carrafage (min)"
                             v-model="wine.decantation"
                     />
                 </b-col>

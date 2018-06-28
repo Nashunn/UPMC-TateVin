@@ -8,7 +8,7 @@
                 <OngletMenu className="learningMenu" link="Learning" textOnglet="Apprendre le vin" :numCol="numCol" />
                 <OngletMenu className="dictionnaryMenu" link="Dictionnary" textOnglet="Lexique" :numCol="numCol"/>
                 <OngletMenu className="searchMenu" link="Search" textOnglet="Rechercher" :numCol="numCol"/>
-                <OngletMenu className="userPageMenu" link="UserAccount" textOnglet="Mon profil" :numCol="numCol"/>
+                <OngletMenu className="userPageMenu" link="OtherAccount" textOnglet="Mon profil" :numCol="numCol"/>
                 <OngletMenu className="caveMenu" link="Cave" textOnglet="Ma cave" :numCol="numCol"/>
                 <OngletMenu className="wishesMenu" link="Wishes" textOnglet="Ma liste de souhait" :numCol="numCol" />
             </ul>

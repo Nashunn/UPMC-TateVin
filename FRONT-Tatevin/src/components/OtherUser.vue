@@ -60,11 +60,18 @@
             </div>
 
             <div v-else>
-                <b-img center :src="oUser.avatar" class="profile-img text-center" alt="profile image"></b-img>
+                <b-img v-if="oUser.avatar" center :src="oUser.avatar" class="profile-img text-center" alt="profile image"></b-img>
+                <b-img v-else center :src="require('./../assets/img/profile/default.svg')" class="profile-img text-center" alt="profile image"></b-img>
 
                 <div class="text-center mt-4 mb-4">
                     <button v-if="isCurrentUser()" @click="isEdit=true" class="wine-btn btn-purple">Modifier</button>
-                    <button v-else @click="add(oUser._id)" class="wine-btn btn-purple">Ajouter</button>
+                    <b-col v-else>
+                        <div v-if="!isProd()">
+                        <b-button disabled v-if="isInSubs(oUser._id)" class="wine-btn btn-purple">Déjà ajouté</b-button>
+                        <b-button v-else @click="add(oUser._id)"  class="wine-btn btn-purple">Ajouter</b-button>
+                        </div>
+                    </b-col>
+                    
                 </div>
 
                 <b-row class="text-center">
@@ -77,9 +84,7 @@
 
                 <b-card no-body class="mt-3">
                     <b-tabs card>
-                        <b-tab title="Dernières activités" active>
-
-                            <p>{{activity.length}}</p>
+                        <b-tab  :title="'Dernières Activités (' + (this.activity.length || '0') + ')'">
                             <h1 class="text-center" v-if="activity.length === 0">No activity 😭</h1>
                             <b-list-group v-else v-for="ac in activity">
                                 <b-list-group-item >
@@ -87,8 +92,9 @@
                                         <b-col cols="2">
                                             <b-img :src="ac.type" rounded="circle"  width="34" height="34" alt="img"/>
                                         </b-col>
-                                        <b-col cols="5">  <router-link :to="ac.road">{{ac.roadName}}</router-link> </b-col>
-                                        <b-col cols="5"> {{ac.date}} </b-col>
+                                        <b-col cols="3" class="text-center">  {{ac.score ? ac.score + '/5' : ''}} </b-col>
+                                        <b-col cols="4" class="text-center">  <router-link :to="ac.road" >{{ac.roadName}}</router-link> </b-col>
+                                        <b-col cols="3" class="text-center"> {{ ac.date }} </b-col>
                                     
                                     </b-row>
                                 </b-list-group-item>
@@ -107,8 +113,10 @@
                                             <b-button @click="remove(us._id)" class="right">-</b-button>
                                         </b-col>
                                         <b-col v-else>
+                                            <div v-if="!isProd()">
                                             <b-button disabled v-if="isInSubs(us._id)" class="right">Déjà ajouté</b-button>
-                                            <b-button v-else @click="add(us._id)"  class="right">+ {{us._id}}</b-button>
+                                            <b-button v-else @click="add(us._id)"  class="right">Ajouté</b-button>
+                                            </div>
                                         </b-col>
                                     </b-row>
 
@@ -149,9 +157,12 @@
     import "vue2-dropzone/dist/vue2Dropzone.css";
     import store from './../store';
     import Vue from 'vue';
-    import LLLL from './../assets/img/hdv.svg'
+    import HDVImage  from './../assets/img/hdv.svg'
+    import ScoreImage  from './../assets/img/like.svg'
     import moment from 'moment-timezone'
-    
+    import Utils from "./../utils/";
+    import _ from 'lodash';
+
     Vue.use(require('vue-moment'));
     export default {
         data() {
@@ -222,8 +233,12 @@
                     EventBusModal.$emit("loading-loader", false);
                 });
             },
+            isProd(){
+                return store.state.usr.isProd === true
+            },
             isInSubs(username) {
-                return typeof (store.state.usr.subscription.find(usr => usr === username)) !== 'undefined';
+                if(!this.isProd())
+                    return typeof (store.state.usr.subscription.find(usr => usr === username)) !== 'undefined';
             },
             afterComplete(file) {
                 this.uUser.avatar = file.dataURL;
@@ -234,14 +249,30 @@
             activityType: async function (ac) {
                 if(ac.hasOwnProperty('food'))
                 {
-                    ac.type = "./../assets/img/pen.svg";
+                    await HTTP.get("/wine/"+ac.id_wine).then( async response =>{
+                        ac.roadName = await  response.data[0].name
+                    })
+                    ac.type = ScoreImage;
                     ac.road = "/wine/"+ac.id_wine
+                    ac.date = Utils.dateLocaleHours(ac.date)
+                   
+                }
+                /*if(ac.hasOwnProperty('like'))
+                {
+                    ac.type = "./../assets/img/like.svg";
+                    ac.road = "/wine/"+ac.id_wine
+                    ac.date = Utils.dateLocaleHours(ac.date)
                     await HTTP.get("/wine/"+ac.id_wine).then(async  response =>{
                         console.log("fffff",response)
-                        ac.roadName = await response
+                        ac.roadName = await response.data[0].name
                     })
-                    
-                    
+                }*/
+                if(ac.hasOwnProperty('title'))
+                {
+                    ac.type = HDVImage;
+                    ac.road = "/story/"+ac.id
+                    ac.date = Utils.dateLocaleHours(ac.date)
+                    ac.roadName = _.truncate(ac.title, {'length': 25})
                 }
               
             },
@@ -269,8 +300,5 @@
                 });
             }
         },
-        d(){
-            console.log(this.LLLL);
-        }
     }
 </script>

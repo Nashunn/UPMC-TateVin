@@ -1,5 +1,17 @@
 <template>
     <section class="wine">
+        <!-- Popups -->
+        <AddPrice v-show="showPricePopUp"/>
+        <AddTag v-show="showTagPopUp" :type="tagType"/>
+        <AddBarCode v-show="showScanPopUp"/>
+        <!-- End Popups -->
+        <b-alert :show="dismissCountDown"
+             fade
+             dismissible
+             variant="success"
+             @dismissed="dismissCountDown=0"
+             @dismiss-count-down="countDownChanged">{{successMsg}}
+        </b-alert>
         <b-row class="mt-3 width-98">
             <div class="wine-title">
                 <!--<div class="wine-color-bloc mr-3" v-bind:style="{ backgroundColor: wineColor }"></div>-->
@@ -8,8 +20,26 @@
             </div>
             <WineScoreMedal :score="wineGlobalScore.score" :vote="wineGlobalScore.nbVote"/>
         </b-row>
-
         <b-row class="mt-3 width-98"><button @click="goModify()">Editer la fiche</button></b-row>
+        <b-row class="mr-3 mt-3 width-98 d-inline" v-if="isProd()"><button @click="iAmProd()">Je suis le producteur</button></b-row>
+        <b-row  class="mt-3 width-98 d-inline" v-if="isProd()"><button @click="showComment=true">Définir le vin</button></b-row>
+        <b-row  class="mt-3 width-98 " v-show="showComment">
+            <label class="w-25" for="name">Votre message</label>
+            <wysiwyg v-model="commentProd" />
+            <button @click="checkBeforeSubmitProdComment()">Valider</button>
+        </b-row>
+
+        <b-row  v-if="producer._id">
+            <b-img :src="producer.avatar" rounded="circle"  width="34" height="34" alt="img"/>
+            <p>{{producer.username}}</p>
+             <b-button  class="wine-btn btn-purple">Contacter</b-button>
+            <span>{{producer.email}}</span>
+            <b-button  class="wine-btn btn-purple">Appeler</b-button>
+            <span>{{producer.phone}}</span>
+            <b-button  class="wine-btn btn-purple">Website</b-button>
+            <span>{{producer.website}}</span>
+            <p> Comment : {{wine.producer.comment}}</p>
+        </b-row>
 
         <b-row class="wine-bar width-98">
             <b-col class="score" md="6" sm="12">
@@ -26,10 +56,25 @@
 
         <b-row class="width-98 mt-3">
             <b-col cols="6">
-                <a class="hover-underline ml-1"  @click="addBarCode()"><span v-if="typeof(wine.id)==='undefined'">Ajouter un code barre</span></a>
+                <span class="ml-1" >
+                    <button v-if="typeof(wine.id)==='undefined'" @click="addBarCode()">Ajouter un code barre</button>
+                    <span v-else>✔️Code barre enregistré</span>
+                </span>
             </b-col>
             <b-col cols="6" class="text-right">
-                <span class="mr-1">Prix moyen : {{ "13" }} €</span>
+                <span class="ml-1" >
+                    <span>Prix moyen :
+                        {{ wineGlobalPrice.nb===0?
+                            "Non-renseigné" :
+                            (Number(wineGlobalPrice.price)+' €')
+                        }}
+                    </span>
+
+                    <div v-model="userHasSetPrice">
+                        <button v-if="!userHasSetPrice" @click="addPrice()">Ajouter un prix</button>
+                        <span v-else>✔️Vous avez déjà donné un prix pour ce vin</span>
+                    </div>
+                </span>
             </b-col>
         </b-row>
 
@@ -39,30 +84,30 @@
             <WineBlockProperty title="Millésime" :desc="String(this.wine.millesime)"/>
             <WineBlockProperty title="Classification" :desc="String(this.wine.classification)" />
             <WineBlockProperty title="Cépages" :desc="String(this.wine.grape)" />
-            <WineBlockProperty title="Conservation" :desc="String(this.wine.keep_in_cave)" />
-            <WineBlockProperty title="Vin gazeux" :desc="String(this.wine.gaz)" />
-            <WineBlockProperty title="Carrafage" :desc="String(this.wine.decantation)" />
+            <WineBlockProperty title="Conservation" :desc="String(this.wine.keep_in_cave?'Oui':'Non')" />
+            <WineBlockProperty title="Vin gazeux" :desc="String(this.wine.gaz?'Oui':'Non')" />
+            <WineBlockProperty title="Carrafage" :desc="String(this.wine.decantation===null?this.wine.decantation:this.wine.decantation+' min')" />
         </b-row>
 
         <b-row class="stats-graph text-center">
             <b-col md="4" sm="10" class="graph-wrapper">
                 <div class="line-deco"></div>
                 <h4 >Au regard</h4>
-                <a @click="addTagChart('visual')">Donnez votre avis</a>
-                <chart :iData="opinion.visual" idChart="visual"></chart>
+                <button @click="addTagChart('visual')">Donnez votre avis</button>
+                <chart :iData="opinion.visual" idChart="visual"  v-model="tagKey"></chart>
             </b-col>
             <b-col md="4" sm="10" class="graph-wrapper">
                 <div class="line-deco"></div>
                 <h4>Au nez</h4>
-                <a @click="addTagChart('smell')">Donnez votre avis</a>
-                <chart :iData="opinion.smell" idChart="smell"></chart>
+                <button @click="addTagChart('smell')">Donnez votre avis</button>
+                <chart :iData="opinion.smell" idChart="smell"  v-model="tagKey"></chart>
             </b-col>
 
             <b-col md="4" sm="10" class="graph-wrapper">
                 <div class="line-deco"></div>
                 <h4>En bouche</h4>
-                <a @click="addTagChart('taste')">Donnez votre avis</a>
-                <chart :iData="opinion.taste" idChart="taste"></chart>
+                <button @click="addTagChart('taste')">Donnez votre avis</button>
+                <chart :iData="opinion.taste" idChart="taste"  v-model="tagKey"></chart>
             </b-col>
         </b-row>
         <div class="allComments mt-5">
@@ -72,10 +117,7 @@
                 <Comment v-for="(comment, index) in wine.comments" :key="comment._id"  :comment="comment" />
             </div>
         </div>
-        <AddTag v-show="showTagPopUp" :type="tagType"/>
-        <AddBarCode v-show="showScanPopUp"/>
     </section>
-
 </template>
 
 <script>
@@ -90,6 +132,7 @@ import Chart from "./../Chart";
 import Tag from './../Tag';
 import AddTag from './../Popup/AddTag';
 import AddBarCode from './../Popup/AddBarCode';
+import AddPrice from './../Popup/AddPrice';
 import Autocomplete from './../Autocomplete';
 import _ from 'lodash';
  import { EventBusModal } from "./../../events/";
@@ -106,12 +149,14 @@ export default {
         WineColor,
         Comment,
         AddTag,
+        AddPrice,
         AddBarCode
     },
     data() {
         return {
             wine: [],
             wineGlobalScore: 0,
+            wineGlobalPrice: 0,
             wineUserScore: 0,
             opinion:{
                 smell:{
@@ -127,11 +172,20 @@ export default {
                     labels:[]
                 },
             },
+            userHasSetPrice: false,
             commentsHere:false,
             showTagPopUp:false,
             showScanPopUp:false,
+            showPricePopUp:false,
             tagType:"",
-            firstPageLoad:true
+            firstPageLoad:true,
+            commentProd:'',
+            showComment:false,
+            producer:{},
+            dismissSecs: 5,
+            dismissCountDown: 0,
+            successMsg: '',
+            tagKey:0
         }
     },
     mounted() {
@@ -139,6 +193,7 @@ export default {
         this.getWineById();
         //Get other informations
         this.getUserScore();
+        this.getIfUserSetPrice();
         this.getOpinion("all");
 
         //Get comments
@@ -148,6 +203,9 @@ export default {
         EventBusModal.$on('addBarCode', showPopup=>{
             this.showScanPopUp=false;
         });
+        EventBusModal.$on("tagAdded", type=>{
+            this.getOpinion(type);
+        })
 
     },
     methods: {
@@ -157,19 +215,52 @@ export default {
         addWishes() {
             console.log("todo");
         },
+        isProd(){
+            return store.state.usr.isProd === true
+        },
+        iAmProd(){
+            HTTP.put('producer/'+this.$route.params.id+'/'+ store.state.usr._id).then(response=>{
+                this.successMsg = "Vous êtes le producteur de ce vin ! "
+                this.showAlert()
+            })
+        },
+        countDownChanged (dismissCountDown) {
+            this.dismissCountDown = dismissCountDown
+        },
+        showAlert () {
+            this.dismissCountDown = this.dismissSecs
+        },
+        checkBeforeSubmitProdComment () {
+            this.error = "";
+            if(this.commentProd === "")
+                this.error = "Ne rien dire, c'est dire beaucoup trop.";
+            else
+                this.submitCommentProd();
+        },
+        submitCommentProd(){
+            HTTP.put('producer/'+this.$route.params.id+'/'+ store.state.usr._id+'/comment', {commentProd:this.commentProd}).then(response=>{
+                this.successMsg = "Vous avez commenté ce vin ! "
+                this.showAlert()
+            })
+        },
         getWineById() {
             HTTP.get('/wine/'+this.$route.params.id).then(response=>{
                 if(this.firstPageLoad)
                     this.wine=response.data[0];
-
                 this.wineGlobalScore=response.data[1];
+                this.wineGlobalPrice=response.data[2];
+
             }).then(response=>{
                 if(this.firstPageLoad) {
                     HTTP.get("/wineGetComments", {params: {comments: this.wine.comments}}).then(response2 => {
-
                         this.wine.comments = response2.data;
                         this.commentsHere = true;
                     });
+                    if(this.wine.producer)
+                        HTTP.get("/producer/"+ this.wine.producer.id_Prod).then(resp => {
+                            this.producer = resp.data[0];
+                            console.log(this.producer)
+                        });
                     this.firstPageLoad = false;
                 }
                 EventBusModal.$emit("loading-loader", false)
@@ -223,8 +314,18 @@ export default {
                 })
             }
         },
-        getPrice() {
+        getIfUserSetPrice() {
+            let json = {
+                wine_id: this.$route.params.id,
+                user_id: store.state.usr._id,
+            };
 
+            HTTP.get("/opinions", {params: json}).then(response=> {
+                if(typeof response.data[0].price === "undefined")
+                    this.userHasSetPrice= false;
+                else
+                    this.userHasSetPrice= true;
+            });
         },
         getUserScore() {
             let json = {
@@ -247,7 +348,8 @@ export default {
         },
         comment(){
             EventBusModal.$emit("Comment", {showModal:true, from:"wine"});
-        },addTagChart( type ){
+        },
+        addTagChart( type ){
             if(store.state.usr.username){
                 this.showTagPopUp=true;
                 this.tagType=type;
@@ -261,11 +363,17 @@ export default {
             }else{
                 EventBusModal.$emit("neadConnect",true)
             }
-
         },
-            goModify() {
-                this.$router.push('/wine/m/'+this.$route.params.id);
+        addPrice() {
+            if(store.state.usr.username){
+                this.showPricePopUp=true;
+            }else{
+                EventBusModal.$emit("neadConnect",true)
             }
+        },
+        goModify() {
+            this.$router.push('/wine/m/'+this.$route.params.id);
+        }
     },
     computed: {
         /*wineColor: function() {
@@ -287,18 +395,29 @@ export default {
     },
     created(){
         EventBusModal.$emit("loading-loader", true);
+
         EventBusModal.$on("addTag", showTagPopUp=>{
             this.showTagPopUp=showTagPopUp;
-        })
+        });
+
         EventBusModal.$on("tagAdded", type=>{
             this.$router.push("/wine/"+this.$route.params.id);
-        })
+        });
+
         EventBusModal.$on("newBarCode", newBarCode=>{
             HTTP.put('/wineBarCode/'+this.$route.params.id, {barcode:newBarCode}).then(()=>{
                 this.wine.id=newBarCode;
                 this.showScanPopUp=false;
             })
-        })
+        });
+
+        EventBusModal.$on("addPricePopup", showPricePopup=>{
+            this.showPricePopUp = showPricePopup;
+        });
+
+        EventBusModal.$on("priceWasAddByUser", () =>{
+            this.getWineById();
+        });
     }
 }
 </script>

@@ -28,6 +28,8 @@ exports.createWS = function (req, res) {
         }
 
     }
+    console.log("CREATION DE STORY");
+    console.log(req.body);
   WineStory.create(
     {
       id:shortid.generate(),
@@ -43,7 +45,6 @@ exports.createWS = function (req, res) {
       // Check if corrects
       console.log(err)
       if (err) return res.status(500).send("There was a problem registering the WineStory.");
-      console.log(user)
       // create a token
       res.status(200).send({msg: "WineStory created"})
     }
@@ -83,7 +84,18 @@ exports.getWineByUser = function (username){
       return 'error occured';
     });
 }
+exports.updateStory=function(req, res){
 
+    WineStory.findByIdAndUpdate(
+        req.params.id_wineStory,
+        req.body.params,
+        {new: true},
+        (err, newWine) => {
+            if (err) return res.status(500).send(err);
+            return res.send(newWine);
+        }
+    )
+}
 /************************SEARCH**********************************/
 
 exports.findWSByTags = async function (tags) {

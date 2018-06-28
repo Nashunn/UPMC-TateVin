@@ -236,12 +236,22 @@ exports.activity = function (req, res) {
         let ret = []
         ret.push.apply(ret, await OpinionController.getOpinionForUser(user._id));
         ret.push.apply(ret, await WineStoryController.getWineByUser(user.username));
-        ret.push.apply(ret, await await CommentController.getCommentFromUser(user._id));
+        //ret.push.apply(ret, await await CommentController.getCommentFromUser(user._id));
         console.log(ret);
         res.json(ret);
     });
-    
 }
+
+exports.findSomeUsers = function (req,res){
+    User.aggregate(
+        [ { $sample: { size: Number(req.params.count) } } ]
+    ).exec((err, users) => {
+        if (err) throw err;
+        res.status(200).send(users);
+        console.log(users);
+    })
+}
+
 
 /************************SEARCH**********************************/
 
