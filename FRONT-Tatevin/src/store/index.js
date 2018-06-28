@@ -25,6 +25,9 @@ const store = new Vuex.Store({
         },
         aVote:(state, id_comment)=>{
             state.usr.aVote.push(id_comment);
+        },
+        addCave:(state, id_cave)=>{
+            state.usr.cave=id_cave;
         }
 
     }
