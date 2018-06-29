@@ -148,7 +148,7 @@ router
 router
 .post("/registerProductor", producerController.register)
 .get("/producers/:username", producerController.findByName)
-.get("/producer/:idProd", producerController.findById)
+.get("/findproducer/:idProd", producerController.findById)
 .get("/producer/account", producerController.account)
 .post("/producer/login", producerController.login)
 .put("/producer/:id_wine/:id_prod", wineController.addProd)

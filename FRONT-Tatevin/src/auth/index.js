@@ -7,6 +7,7 @@ export default {
     user: {},
 
     login(context, creds, redirect, isProd) {
+        alert(isProd)
         HTTP.post((isProd ? "/producer" : '' )+ "/login", {email: creds.email, password: creds.password}, {})
             .then(async response => {
                 await localStorage.setItem("id_token", response.data.token);

@@ -261,6 +261,7 @@ export default {
                 this.showAlert()
             })
         },
+        
         countDownChanged (dismissCountDown) {
             this.dismissCountDown = dismissCountDown
         },
@@ -294,7 +295,7 @@ export default {
                         this.commentsHere = true;
                     });
                     if(this.wine.producer)
-                        HTTP.get("/producer/"+ this.wine.producer.id_Prod).then(resp => {
+                        HTTP.get("/findproducer/"+ this.wine.producer.id_Prod).then(resp => {
                             this.producer = resp.data[0];
 
                         });

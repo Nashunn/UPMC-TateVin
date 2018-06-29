@@ -88,6 +88,7 @@
                 <b-card no-body class="mt-3">
                     <b-tabs card>
                         <b-tab  :title="'Dernières Activités (' + (this.activity.length || '0') + ')'">
+                            <b-button @click="getActi()" class="wine-btn btn-purple text-center center">Voir les activités</b-button>
                             <h1 class="text-center" v-if="activity.length === 0">Aucune activité.. 🍷</h1>
                             <b-list-group v-else v-for="ac in activity">
                                 <b-list-group-item >
@@ -231,6 +232,14 @@
                     EventBusModal.$emit("loading-loader", false);
                 });
             },
+            async getActi(){
+                var that=this;
+                await HTTP.get('users/'+this.$route.params.username+'/activity').then(r => {
+                     this.activity = r.data;
+                     this.activity.forEach(element => { that.activityType(element) });
+                      console.log(this.activity);
+                  })
+               },
             deleteUser(){
                 HTTP.delete(`users/` + this.oUser._id).then(response => {
                     new Promise( (resolve, reject) => {
@@ -270,7 +279,7 @@
                     ac.road = "/wine/"+ac.id_wine
                     ac.date = Utils.dateLocaleHours(ac.date)
                     await HTTP.get("/wine/"+ac.id_wine).then(async  response =>{
-        
+
                         ac.roadName = await response.data[0].name
                     })
                 }*/

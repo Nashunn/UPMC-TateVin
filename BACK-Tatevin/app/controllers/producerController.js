@@ -87,11 +87,15 @@ exports.account = function (req, res) {
             return res
                 .status(500)
                 .send({auth: false, message: "Failed to authenticate token.", error: err});
-        //retrieve user
+        //retrieve user$
+        console.log("DECODED ID");
+        console.log(decoded.id);
         Producer.findById(
             decoded.id,
             {password: 0, passwordConf: 0}, //Avoid sending the password
             function (err, user) {
+                console.log("USER RESULT");
+                console.log(user);
                 if (err)
                     return res
                         .status(500)
