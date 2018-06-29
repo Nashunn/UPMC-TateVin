@@ -73,7 +73,7 @@
         <b-row class="width-98 mt-3">
             <b-col cols="6">
                 <span class="ml-1" >
-                    <button v-if="typeof(wine.id)==='undefined'" @click="addBarCode()">Ajouter un code barre</button>
+                    <button v-if="typeof(wine.barcode)==='undefined'" @click="addBarCode()">Ajouter un code barre</button>
                     <span v-else>✔️Code barre enregistré</span>
                 </span>
             </b-col>
@@ -315,7 +315,7 @@ export default {
                     for (const [key, val] of Object.entries(x)) {
                         lab.push(x[key][0])
                         dat.push(x[key].length)
-        
+
                     }
                     this.opinion[type].labels = lab
                     this.opinion[type].datas  = dat

@@ -78,7 +78,7 @@ exports.createWine = function (req, res) {
 exports.addCB=function(req, res){
     Wine.findByIdAndUpdate(
         req.params.id_wine,
-        {id:req.body.barcode},
+        {barcode:req.body.barcode},
         {new: true},
         (err, newWine) => {
             if (err) return res.status(500).send(err);
@@ -149,7 +149,7 @@ exports.addComment=function (req, res){
 
 exports.findOneWineByBarCode=function(req,res){
 
-    Wine.findOne({id:req.query.barCode}, function(err, wine){
+    Wine.findOne({barcode:req.query.barCode}, function(err, wine){
         if (err) return res.status(500).send(err);
 
         res.json(wine)

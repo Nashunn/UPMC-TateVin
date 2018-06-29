@@ -10,6 +10,7 @@ let Schema = mongoose.Schema;
 var WineSchema = mongoose.Schema({
     id: {type: String, unique:true},
     date: {type: Date, default: Date.now},
+    barcode:{type:String},
     name: String,
     terroir: String,
     domain: String,
