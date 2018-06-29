@@ -1,5 +1,7 @@
 <template>
   <div class="hello">
+      <h2>Liste de souhait</h2>
+      <p>To do</p>
   </div>
 </template>
 
@@ -14,7 +16,7 @@
     },
     mounted(){
       EventBusModal.$on('loading', loading => {
-         
+
       })
     },
     methods:{

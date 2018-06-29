@@ -9,14 +9,14 @@
 
             <ul v-if="usr.isProd">
                 <li ><router-link :to="{ name: 'ProdAccount', params:{username: usr.username} }">Mon profil</router-link></li>
-                <li  v-on:click="disconnect">Deconnexion</li>
+                <li  v-on:click="disconnect">Déconnexion</li>
             </ul>
         
             <ul v-if="usr.isProd === false">
                 <li ><router-link :to="{ name: 'UserAccount', params:{username: usr.username} }">Mon profil</router-link></li>
                 <li ><router-link :to="{ name: 'Cave' }">Ma cave</router-link></li>
                 <li ><router-link :to="{ name: 'Wishes' }">Ma liste de souhait</router-link></li>
-                <li  v-on:click="disconnect">Deconnexion</li>
+                <li  v-on:click="disconnect">Déconnexion</li>
             </ul>
         
             <ul v-if="!usr.username">

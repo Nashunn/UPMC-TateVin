@@ -11,7 +11,7 @@
                         <b-button  class="wine-btn btn-purple">Appeler</b-button>
                         <span>{{oUser.phone}}</span>
                     </b-col>
-                    
+
                 </div>
 
                 <b-row class="text-center">
@@ -90,7 +90,7 @@
                 //clone.mdp = ''
                 return clone;
             },
-        
+
         },
         mounted() {
             this.loadUser(this.$route.params.username);
@@ -105,6 +105,7 @@
                 EventBusModal.$emit("loading-loader", true);
                 HTTP.get(`producers/` + path).then(response => {
                     this.oUser = response.data[0];
+                    EventBusModal.$emit("loading-loader", false);
                 });
             },
             isInSubs(username) {
@@ -125,7 +126,7 @@
                     ac.type = ScoreImage;
                     ac.road = "/wine/"+ac.id_wine
                     ac.date = Utils.dateLocaleHours(ac.date)
-                   
+
                 }
                 /*if(ac.hasOwnProperty('like'))
                 {
@@ -144,7 +145,7 @@
                     ac.date = Utils.dateLocaleHours(ac.date)
                     ac.roadName = _.truncate(ac.title, {'length': 25})
                 }
-              
+
             },
             update() {
                 EventBusModal.$emit("loading-loader", true);
