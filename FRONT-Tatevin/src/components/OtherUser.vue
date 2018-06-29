@@ -119,7 +119,7 @@
                                         <b-col v-else>
                                             <div v-if="!isProd()">
                                             <b-button disabled v-if="isInSubs(us._id)" class="right">Déjà ajouté</b-button>
-                                            <b-button v-else @click="add(us._id)"  class="right">Ajouté</b-button>
+                                            <b-button v-else @click="add(us._id)"  class="right">Ajouter</b-button>
                                             </div>
                                         </b-col>
                                     </b-row>
