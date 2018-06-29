@@ -1,7 +1,6 @@
 <template>
     <section class="signup">
-        <h2>Signup</h2>
-
+        <h2>S'inscrire</h2>
         <form @submit.prevent="validateBeforeSubmit()" class="">
             <p class="">
                 <label for="username">{{ this.isProductor ? "Nom" : "Nom d'utilisateur" }} : </label>

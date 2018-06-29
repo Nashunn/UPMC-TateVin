@@ -64,7 +64,10 @@
                 <b-img v-else center :src="require('./../assets/img/profile/default.svg')" class="profile-img text-center" alt="profile image"></b-img>
 
                 <div class="text-center mt-4 mb-4">
-                    <button v-if="isCurrentUser()" @click="isEdit=true" class="wine-btn btn-purple">Modifier</button>
+                    <b-col v-if="isCurrentUser()">
+                        <button  @click="isEdit=true" class="wine-btn btn-purple">Modifier</button>
+                        <button  @click="deleteUser()" class="wine-btn  btn-danger">Supprimer</button>
+                    </b-col>
                     <b-col v-else>
                         <div v-if="!isProd()">
                         <b-button disabled v-if="isInSubs(oUser._id)" class="wine-btn btn-purple">Déjà ajouté</b-button>
@@ -162,6 +165,7 @@
     import moment from 'moment-timezone'
     import Utils from "./../utils/";
     import _ from 'lodash';
+    import Auth from '../auth/'
 
     Vue.use(require('vue-moment'));
     export default {
@@ -233,6 +237,15 @@
                     EventBusModal.$emit("loading-loader", false);
                 });
             },
+            deleteUser(){
+                HTTP.delete(`users/` + this.oUser._id).then(response => {
+                    new Promise( (resolve, reject) => {
+                        resolve(Auth.logout(this));
+                    }).then(() => {
+                        this.$router.push('/');
+                    });
+                })
+            },
             isProd(){
                 return store.state.usr.isProd === true
             },
@@ -279,9 +292,10 @@
             update() {
                 EventBusModal.$emit("loading-loader", true);
                 HTTP.put(`users/` + this.oUser.username, this.uUser).then(response => {
+                    response.data.isProd = this.isProd() ? true : false;
                     store.commit("instanceUser", response.data);
                     EventBusModal.$emit("loading-loader", false);
-                    this.$router.push('/user')
+                    this.$router.push('/user/'+this.oUser.username)
                 });
             },
             add(idUserToAdd) {

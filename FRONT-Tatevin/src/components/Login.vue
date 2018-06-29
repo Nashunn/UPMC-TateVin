@@ -1,6 +1,6 @@
 <template>
     <section class="login">
-        <h2>Login</h2>
+        <h2>Se connecter</h2>
         <form class="">
             <p class="">
                 <label for="username">E-mail : </label>
