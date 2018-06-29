@@ -1,7 +1,7 @@
 <template>
     <div class="hello" v-show="activity.length !== 0">
         <h1>Bienvenue sur Tâtevin !</h1>
-        
+
         <p>La meilleure expérience de partage autour du vin.</p>
 
         <h2>Actualités</h2>
