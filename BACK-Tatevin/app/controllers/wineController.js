@@ -53,6 +53,7 @@ exports.createWine = function (req, res) {
     //TagController.createTagIfNotCreated(grapes, TagController.TAGS_TYPE.CEPAGE)
     Wine.create(
         {
+            id:shortid.generate(),
             name: req.body.name,
             millesime: req.body.millesime, //Millesime
             terroir: null,
@@ -66,9 +67,9 @@ exports.createWine = function (req, res) {
         },
         function (err, user) {
             // Check if corrects
-            console.log(err)
+
             if (err) return res.status(500).send("There was a problem registering the Wine.");
-            console.log(user)
+
             // create a token
             res.status(200).send({msg: "Wine created", wine: user})
         }
@@ -111,8 +112,7 @@ exports.addProd = function (req,res){
 }
 
 exports.modifyWine = function (req, res) {
-    console.log("COUCOU MODIFY")
-    console.log(req.body.params)
+
     Wine.findByIdAndUpdate(
         req.params.wine_id,
         req.body.params,
@@ -128,34 +128,34 @@ exports.modifyWine = function (req, res) {
 /************************SEARCH**********************************/
 
 exports.searchWine = async function (query) {
-    console.log(query)
+
     return await Wine.find(query, async function (err, ws) {
-        console.log(ws);
+
         return await ws;
     });
 }
 
 exports.addComment=function (req, res){
-    Wine.findOneAndUpdate({id:req.body.id_ws},
+    console.log("ajoutComment")
+    Wine.findOneAndUpdate({_id:req.body.id_ws},
         { $addToSet: { comments: req.body.id_comment } }
         ,function(err, ws){
         if (err) return res.status(500).send(err);
+        console.log(req.body.id_comment)
         return res.status(200).send({msg: "WS commented! "});
     });
 
 }
 
 exports.findOneWineByBarCode=function(req,res){
-    console.log(req.query)
+
     Wine.findOne({id:req.query.barCode}, function(err, wine){
         if (err) return res.status(500).send(err);
-        console.log(wine)
+
         res.json(wine)
     })
 }
 exports.findByStory=function(req,res){
-    console.log("WINE");
-    console.log(req.query.wines);
     Wine.find({ '_id' : { $in: req.query.wines } }, function(err, comments){
         if (err) {
           res.send(err);

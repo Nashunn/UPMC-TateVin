@@ -102,10 +102,10 @@
                 if (this.type==="taste") query.taste = this.tags;
 
                 HTTP.put('/opinions/'+this.$route.params.id+'/'+store.state.usr._id, query).then(response=>{
-                    console.log("RES",response)
+
                     EventBusModal.$emit("tagAdded", this.type);
                     this.close();
-                    
+
                 });
 
             },

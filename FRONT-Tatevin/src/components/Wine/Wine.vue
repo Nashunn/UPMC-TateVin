@@ -297,7 +297,7 @@ export default {
                     if(this.wine.producer)
                         HTTP.get("/producer/"+ this.wine.producer.id_Prod).then(resp => {
                             this.producer = resp.data[0];
-                            console.log(this.producer)
+
                         });
                     this.firstPageLoad = false;
                 }
@@ -315,14 +315,14 @@ export default {
                     for (const [key, val] of Object.entries(x)) {
                         lab.push(x[key][0])
                         dat.push(x[key].length)
-                        console.log(x[key][0] + " -> "+ x[key].length);
+        
                     }
                     this.opinion[type].labels = lab
                     this.opinion[type].datas  = dat
                 })
         },
         async getOpinion( type ) {
-            if(type==="all" || type==="visual"){ 
+            if(type==="all" || type==="visual"){
                 this.fetchOpinion('visual')
             }
             if(type==="all" || type==="smell"){

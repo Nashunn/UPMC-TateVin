@@ -1,7 +1,7 @@
 <template>
     <section class="winesPage" >
         <div class="mb-3">
-            
+
             <button @click="displayCreateWine()" class="wine-btn btn-purple">Nouveau vin</button>
         </div>
 
@@ -40,7 +40,7 @@
                 i:0
             }
         },
-             watch: { 
+             watch: {
       	wines: function(newVal, oldVal) { // watch it
           this.wines = newVal
         }
@@ -75,10 +75,10 @@
                 this.pages = response.data.pages;
                 this.wines = response.data.wines
                 this.i++;
-                console.log(this.wines)
+
                 EventBusModal.$emit("loading-loader", false);
             });
-            
+
     },
         }
     }

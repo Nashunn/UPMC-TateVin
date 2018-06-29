@@ -1,7 +1,13 @@
 <template>
     <section class="signup">
+        <b-alert :show="pbm"
+             fade
+             dismissible
+             variant="danger">{{ msg }}
+        </b-alert>
+
         <h2>S'inscrire</h2>
-        <form @submit.prevent="validateBeforeSubmit()" class="">
+        <b-form @submit.prevent="validateBeforeSubmit()" class="">
             <p class="">
                 <label for="username">{{ this.isProductor ? "Nom" : "Nom d'utilisateur" }} : </label>
                 <input v-model="credentials.username" type="text" id="username" required/>
@@ -19,10 +25,11 @@
                 <input v-model="credentials.passwordConf" type="password" id="passwordconf" required/>
             </p>
             <p class="" v-show="!isProductor">
-                <label for="birthday">Date de naissance : </label>
-                <input v-model="credentials.birthday" type="date" id="birthday" />
+                <label for="birthday">Date de naissance (réservé au plus de 18 ans) : </label>
+                <input v-model="credentials.birthday" type="date" id="birthday" :max="getDateMax" />
+
             </p>
-            <label for="checkbox">Etes-vous producteur ? : </label> 
+            <label for="checkbox">Etes-vous producteur ? : </label>
             <input type="checkbox" id="checkbox" v-model="isProductor">
             <div v-show="isProductor" >
                 <p class="">
@@ -59,7 +66,7 @@
                     <li v-for="error in errors">{{ error }}</li>
                 </ul>
             </p>
-          </form>
+        </b-form>
     </section>
 </template>
 
@@ -100,6 +107,13 @@ export default {
             productor:{},
             isProductor: false,
             errors:[],
+            pbm:false,
+            msg:""
+        }
+    },computed:{
+        getDateMax(){
+            var year=new Date();
+            return year.getFullYear()-18+"-12-"+year.getDate();
         }
     },
     methods: {
@@ -108,13 +122,26 @@ export default {
             this.errors = [];
             if(this.isProductor)
             {
-                if(!this.validAttribute(this.productor.siret, /^[0-9]{14}/ )) 
+                if(!this.validAttribute(this.productor.siret, /^[0-9]{14}/ ))
                     this.errors.push("Numero de SIRET a 14 chiffres requis.");
-                if(!this.validAttribute(this.productor.website, /(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/ )) 
+                if(!this.validAttribute(this.productor.website, /(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/ ))
                     this.errors.push("URL du site valide requise.");
 
             }
-            if(!this.errors.length) this.submit();;
+            if(this.credentials.password!==this.credentials.passwordConf){
+
+                this.msg=" Le mot de passe de confirmation est different du mot de passe";
+                this.pbm=true;
+            }
+            if(!this.errors.length && !this.pbm){
+                this.submit();
+            }else{
+                console.log(this.errors.length);
+                console.log(this.pbm);
+                //this.msg="Un problème s'est passé avec votre inscription...";
+                this.pbm=true;
+            }
+
         },
         validAttribute:function(attribute, regex) {
             var re = regex
@@ -125,6 +152,19 @@ export default {
         },
         created(){
             EventBusModal.$emit("loading-loader", false);
+
+            EventBusModal.$on("signUp", result=>{
+                if(result){
+                    this.pbm=false;
+                    this.$router.push('/');
+                }else{
+                    alert('youhou')
+                    this.pbm=true;
+                    this.msg="Cet utilisateur existe déjà. Avez-vous déjà un compte avec cet email ? Essayez un autre nom d'utilisateur."
+                }
+
+            })
+
         },
         submit() {
             if(!this.isProductor)

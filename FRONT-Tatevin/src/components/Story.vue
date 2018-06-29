@@ -64,7 +64,6 @@
         }).then(res=>{
             HTTP.get("/wineStoryGetComments",{params:{comments:this.story.comments}} ).then( response=>{
                 this.story.comments= response.data;
-                console.log("Comments from Story",this.story.comments);
                 this.commentsHere=true;
                 EventBusModal.$emit("loading-loader", false);
             })

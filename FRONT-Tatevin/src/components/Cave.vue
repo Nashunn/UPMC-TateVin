@@ -21,10 +21,10 @@
     },
     created(){
         if(store.state.usr.username){
-            console.log("CAVE",store.state.usr.cave);
+
             HTTP.get('wineList/'+store.state.usr.cave).then(response=>{
                 this.wines=response.data.wines;
-                console.log(this.wines);
+
                 EventBusModal.$emit("loading", false);
             })
         }else{

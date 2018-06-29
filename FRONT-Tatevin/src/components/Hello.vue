@@ -54,7 +54,6 @@ import ScoreImage  from './../assets/img/like.svg'
                     if (this.mainUser.subscription.length !== 0)
                         HTTP.get(`usersByIds/`, { params: {subs: this.mainUser.subscription} } ).then(response => {
                             this.subs = response.data
-                            console.log("subs",this.subs);
                             this.subs.forEach(element => {
                                 this.getActivity(element.username)
 
@@ -77,7 +76,7 @@ import ScoreImage  from './../assets/img/like.svg'
         },
         methods: {
             createJSON(){
-                
+
                 var o = {} // empty Object
                 var key = 'Orientation Sensor';
                 o[key] = []; // empty Array, which you can push() values into

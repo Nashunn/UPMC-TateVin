@@ -134,7 +134,7 @@
                     ac.road = "/wine/"+ac.id_wine
                     ac.date = Utils.dateLocaleHours(ac.date)
                     await HTTP.get("/wine/"+ac.id_wine).then(async  response =>{
-                        console.log("fffff",response)
+
                         ac.roadName = await response.data[0].name
                     })
                 }*/
@@ -172,7 +172,6 @@
             }
         },
         d(){
-            console.log(this.LLLL);
         }
     }
 </script>

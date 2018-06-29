@@ -28,8 +28,7 @@ exports.createWS = function (req, res) {
         }
 
     }
-    console.log("CREATION DE STORY");
-    console.log(req.body);
+
   WineStory.create(
     {
       id:shortid.generate(),
@@ -43,7 +42,6 @@ exports.createWS = function (req, res) {
     },
     function (err, user) {
       // Check if corrects
-      console.log(err)
       if (err) return res.status(500).send("There was a problem registering the WineStory.");
       // create a token
       res.status(200).send({msg: "WineStory created"})
@@ -52,10 +50,9 @@ exports.createWS = function (req, res) {
 }
 
 exports.deleteWS = function (req, res) {
-  console.log("EFFACE");
-  console.log(req.params.ws_id);
+
   WineStory.findOneAndRemove({id: req.params.ws_id}, function (err, wine) {
-          console.log(err);
+
           if (err) return res.status(500).send(err);
           return res.status(200).send({msg: "Wine story deleted ! "});
     });
@@ -102,8 +99,6 @@ exports.findWSByTags = async function (tags) {
     var tagsTab=tags.split(',');
 
     return await WineStory.find({ tags: { $all: tagsTab}}, async function (err, ws) {
-        console.log("RESULT");
-        console.log(ws);
         return await ws;
     });
 }

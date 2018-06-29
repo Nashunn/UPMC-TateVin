@@ -44,7 +44,7 @@ exports.register = function (req, res) {
     //todo : mieux gérer l'erreur
 
     //Create user with args in the post request
-    console.log(req.body);
+
     User.create(
         {
             email: req.body.email,
@@ -56,7 +56,7 @@ exports.register = function (req, res) {
         },
         function (err, user) {
             // Check if correct
-            console.log(user);
+
 
             if (err) return res.status(500).send("There was a problem registering the user.");
             // create a token
@@ -70,7 +70,7 @@ exports.register = function (req, res) {
 
 exports.login = function (req, res) {
     //Retrieve user by its mail
-    console.log(req.body);
+
     User.findOne({email: req.body.email}, function (err, user) {
         //Error dealing
         if (err) return res.status(500).send("Error on the server.");
@@ -96,7 +96,7 @@ exports.login = function (req, res) {
 exports.account = function (req, res) {
     // Get the token in the header
     var token = req.headers["x-access-token"];
-    console.log(req.headers)
+
 
     //Deal if not found
     if (!token)
@@ -119,7 +119,7 @@ exports.account = function (req, res) {
                         .send("There was a problem finding the user.");
                 if (!user) return res.status(404).send("No user found.");
                 //Send its data
-                console.log(user);
+
                 res.status(200).send(user);
             }
         );
@@ -129,8 +129,7 @@ exports.account = function (req, res) {
 
 exports.updateUser = function (req, res) {
     var token = req.headers["x-access-token"];
-    console.log(req.headers)
-    console.log(req.body)
+
     //Deal if not found
     if (!token)
         return res.status(499).send({auth: false, message: "No token."});
@@ -148,7 +147,7 @@ exports.updateUser = function (req, res) {
 
             // the callback function
             (err, user) => {
-                console.log(user)
+
                 // Handle any possible database errors
                 if (err) return res.status(500).send(err);
                 return res.send(user);
@@ -159,8 +158,7 @@ exports.updateUser = function (req, res) {
 
 exports.addSub = function (req, res) {
     var token = req.headers["x-access-token"];
-    console.log(req.headers)
-    console.log(req.body)
+
     //Deal if not found
     if (!token)
         return res.status(499).send({auth: false, message: "No token."});
@@ -172,11 +170,11 @@ exports.addSub = function (req, res) {
                 .send({auth: false, message: "Failed to authenticate token.", error: err});
         //retrieve user
         var user_add;
-        console.log("params  :" ,req.params.idMongo);
+
         User.findOneAndUpdate({username: req.params.user_id},
             {$addToSet: {subscription: req.params.idMongo}}, {new: true},
             (err, user) => {
-                console.log(user.subscription);
+
                 if (err) return res.status(500).send(err);
                 return res.send(user);
             }
@@ -187,8 +185,7 @@ exports.addSub = function (req, res) {
 
 exports.removeSub = function (req, res) {
     var token = req.headers["x-access-token"];
-    console.log(req.headers)
-    console.log(req.body)
+
     //Deal if not found
     if (!token)
         return res.status(499).send({auth: false, message: "No token."});
@@ -200,11 +197,11 @@ exports.removeSub = function (req, res) {
                 .send({auth: false, message: "Failed to authenticate token.", error: err});
         //retrieve user
         var user_add;
-        console.log("params  :" ,req.params.idMongo);
+
         User.findOneAndUpdate({username: req.params.user_id},
             {$pull: {subscription: req.params.idMongo}}, {new: true},
             (err, user) => {
-                console.log(user.subscription);
+
                 if (err) return res.status(500).send(err);
                 return res.send(user);
             }
@@ -238,7 +235,6 @@ exports.activity = function (req, res) {
         ret.push.apply(ret, await OpinionController.getOpinionForUser(user._id));
         ret.push.apply(ret, await WineStoryController.getWineByUser(user.username));
         //ret.push.apply(ret, await await CommentController.getCommentFromUser(user._id));
-        console.log(ret);
         res.json(ret);
     });
 
@@ -250,7 +246,6 @@ exports.findSomeUsers = function (req,res){
     ).exec((err, users) => {
         if (err) throw err;
         res.status(200).send(users);
-        console.log(users);
     })
 }
 
@@ -260,7 +255,7 @@ exports.findSomeUsers = function (req,res){
 
 exports.findUserByUsername = async function (username) {
     return await User.find({username:username}, async function (err, user) {
-        console.log("user:",user);
+
         return await user;
     });
 }

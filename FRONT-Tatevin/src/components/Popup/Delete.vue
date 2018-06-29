@@ -59,7 +59,7 @@
                 //Create wine back
                 HTTP.delete(
                     '/wineStory/'+ this.$route.params.id).then(response => {
-                    console.log(response);
+
                     this.$router.push('/wineStories');
                     EventBusModal.$emit("Delete", false);
                 });

@@ -7,7 +7,7 @@ let shortid= require("shortid");
 
 exports.register = function (req, res) {
     let hashedPassword = bcrypt.hashSync(req.body.password, 8);
-    console.log(req.body);
+
     Producer.create(
         {
             id:shortid.generate(),
@@ -22,8 +22,7 @@ exports.register = function (req, res) {
         },
         function (err, user) {
             // Check if correct
-            console.log("user:",user);
-            console.log("err", err)
+
             if (err) return res.status(500).send("There was a problem registering the user.");
             // create a token
             var token = jwt.sign({id: user._id}, config.secret, {
@@ -50,7 +49,7 @@ exports.findById = function (req,res){
 
 exports.login = function (req, res) {
     //Retrieve user by its mail
-    console.log(req.body);
+
     Producer.findOne({email: req.body.email}, function (err, user) {
         //Error dealing
         if (err) return res.status(500).send("Error on the server.");
@@ -76,7 +75,7 @@ exports.login = function (req, res) {
 exports.account = function (req, res) {
     // Get the token in the header
     var token = req.headers["x-access-token"];
-    console.log(req.headers)
+
 
     //Deal if not found
     if (!token)
@@ -99,7 +98,7 @@ exports.account = function (req, res) {
                         .send("There was a problem finding the user.");
                 if (!user) return res.status(404).send("No user found.");
                 //Send its data
-                console.log(user);
+
                 res.status(200).send(user);
             }
         );
