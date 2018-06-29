@@ -13,9 +13,7 @@ exports.createList = function (req, res) {
     );
 }
 exports.addWine = function(req,res){
-    console.log("ADD WINE");
-    console.log(req.body.id_wine)
-    console.log(req.params.id_cave)
+
     WineList.findOneAndUpdate({_id:req.params.id_cave},
         { $addToSet: { wines: req.body.id_wine } }
         ,function(err, ws){
@@ -24,12 +22,7 @@ exports.addWine = function(req,res){
     });
 }
 exports.findAll = function (req, res) {
-    console.log("REQ")
-    console.log(req.params.id_cave);
     WineList.findOne ({_id: req.params.id_cave}, function(err,user){
-        console.log("RESULT")
-        console.log(user)
-        console.log(err)
         if (err) res.send(err);
         res.json(user);
     })

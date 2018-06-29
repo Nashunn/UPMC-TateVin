@@ -7,10 +7,10 @@ exports.search = async function (req, res) {
     if(req.query.categories){
         cat=req.query.categories;
     }
-    console.log("recherece");
+
     let ret = [];
     for (let i = 0; i <cat.length; i++) {
-        console.log(cat);
+
         switch (cat[i]) {
             case 'vin':
                 let query = {}

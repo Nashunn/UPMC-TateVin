@@ -17,16 +17,16 @@ export default {
   },
    watch: {
      'iData': function (neW, olD){
-       console.log("ChangeS : ",neW)
+
      },
   	'iData.datas': function(newVal, oldVal) {
-      console.log("Change : ",newVal)
+
       this.planetChartData.data.datasets[0].data = newVal
-      console.log(this.planetChartData.data.datasets[0].data)
+
       this.myChart.update()
     },
     'iData.labels': function(newVal, oldVal) {
-      console.log("Change : ",newVal)
+
       this.planetChartData.data.labels = newVal
       this.myChart.update()
     }
@@ -80,7 +80,7 @@ export default {
     };
   },
   mounted() {
-      console.log(this.idChart)
+
       this.createChart(this.idChart,this.planetChartData)
   },
   methods: {

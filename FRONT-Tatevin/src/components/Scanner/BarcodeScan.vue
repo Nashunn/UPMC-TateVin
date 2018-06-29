@@ -87,10 +87,10 @@ methods: {
           }
         }, (result) => {
           if (result.codeResult) {
-            console.log("result", result.codeResult.code);
+
             this.msg = result.codeResult.code
             HTTP.get("/wineBarCode",{params:{barCode:result.codeResult.code}} ).then(response=>{
-                console.log(response.data)
+
                 this.wine=response.data;
                 if(response.data!==null) this.wineFound=true;
             })

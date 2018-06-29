@@ -1,6 +1,7 @@
 import {HTTP} from "./../HTTP/http";
 //import {EventBusModal} from "../events/event-modals";
 import store from './../store'
+import {EventBusModal} from "../events/";
 
 export default {
     user: {},
@@ -10,10 +11,13 @@ export default {
             .then(async response => {
                 await localStorage.setItem("id_token", response.data.token);
                 await this.getAccount(isProd);
+                EventBusModal.$emit("connexion", true);
+                return true;
             })
             .catch(function (error) {
                 console.log(error);
-                return error
+                EventBusModal.$emit("connexion", false);
+                return false;
             });
     },
 
@@ -32,9 +36,11 @@ export default {
             .then(async response => {
                 await localStorage.setItem("id_token", response.data.token);
                 await this.getAccount(false);
+                EventBusModal.$emit("signUp", true);
             })
             .catch(function (error) {
                 console.log(error);
+                EventBusModal.$emit("signUp", false);
                 return error
             });
     },
@@ -74,6 +80,8 @@ export default {
             console.log("account", response.data)
             response.data.isProd = isProd ? true : false;
             store.commit("instanceUser", response.data);
+        }).catch(()=>{
+
         });
     },
 

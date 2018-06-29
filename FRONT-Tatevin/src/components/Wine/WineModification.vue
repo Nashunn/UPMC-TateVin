@@ -193,7 +193,7 @@
                     { value: null, text: 'Indiquez "Oui" ou "Non"', disabled: true },
                     { value: true, text: 'Oui' },
                     { value: false, text: 'Non' },
-                ],  
+                ],
             }
         },
         mounted() {
@@ -208,7 +208,7 @@
             },
             SaveandGoToWine() {
                 HTTP.put('/wine/'+this.$route.params.id, {params: this.wine} ).then(response=>{
-                    console.log(response.data);
+    
                 });
 
                 this.$router.push('/wine/'+this.$route.params.id);

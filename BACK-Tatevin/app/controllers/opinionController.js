@@ -34,9 +34,7 @@ exports.createOpinion = function (req, res) {
     );
 }
 exports.updateOpinion=function(req, res){
-    console.log("ETAPE 1");
 
-    console.log(req.body.smell);
     let query = {}
     query.date = Date.now();
     let Tags = {};
@@ -61,7 +59,7 @@ exports.updateOpinion=function(req, res){
         TagController.createTagIfNotCreated(req.body.taste, TagController.TAGS_TYPE.TASTE);
         query = { $addToSet: { taste:  req.body.taste}};
     }
-    console.log(query)
+
     Opinion.update(
         {id_wine:req.params.id_wine, id_user:req.params.id_user},
         query,
