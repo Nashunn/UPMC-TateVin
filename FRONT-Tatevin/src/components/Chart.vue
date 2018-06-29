@@ -16,11 +16,19 @@ export default {
     iData: Object
   },
    watch: {
+     'iData': function (neW, olD){
+       console.log("ChangeS : ",neW)
+     },
   	'iData.datas': function(newVal, oldVal) {
-          this.myChart.update()
+      console.log("Change : ",newVal)
+      this.planetChartData.data.datasets[0].data = newVal
+      console.log(this.planetChartData.data.datasets[0].data)
+      this.myChart.update()
     },
     'iData.labels': function(newVal, oldVal) {
-          this.myChart.update()
+      console.log("Change : ",newVal)
+      this.planetChartData.data.labels = newVal
+      this.myChart.update()
     }
     },
   data() {

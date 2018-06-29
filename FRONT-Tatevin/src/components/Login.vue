@@ -12,13 +12,13 @@
                 <input v-model="credentials.email" type="text" id="username" required/>
             </p>
             <p class="">
-                <label for="password">Password : </label>
+                <label for="password">Mot de passe : </label>
                 <input v-model="credentials.password" type="password" id="password" required/>
             </p>
             <label for="checkbox">Je suis producteur </label>
             <input type="checkbox" id="signProd" v-model="isProductor">
             <div class="btn-wrapper">
-                <button @keyup.enter="submit()" @click="submit()" class="wine-btn btn-purple" type="button">Login</button>
+                <button @keyup.enter="submit()" @click="submit()" class="wine-btn btn-purple" type="button">Se connecter</button>
             </div>
         </form>
     </section>
@@ -48,11 +48,8 @@
                 new Promise( (resolve, reject) => {
                     resolve(Auth.login(this, this.credentials, "secretquote", this.isProductor));
                 }).then(() => {
-                    if(store.state.usr.username){
                         this.$router.push('/');
-                    }else{
-                        this.pbm=true;
-                    }
+
 
                 },()=>{this.pbm=true; alert("pbm")});
 

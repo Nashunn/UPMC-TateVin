@@ -148,6 +148,7 @@ exports.updateUser = function (req, res) {
 
             // the callback function
             (err, user) => {
+                console.log(user)
                 // Handle any possible database errors
                 if (err) return res.status(500).send(err);
                 return res.send(user);
@@ -223,6 +224,7 @@ exports.deleteUser = function (req, res) {
                 .send({auth: false, message: "Failed to authenticate token.", error: err});
         User.findByIdAndRemove(decoded.id, (err, todo) => {
             if (err) return res.status(500).send(err);
+            //Comment
             return res.status(200).send({msg: "User deleted ! "});
         })
     });

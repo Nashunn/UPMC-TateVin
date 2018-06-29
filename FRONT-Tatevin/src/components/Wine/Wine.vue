@@ -88,7 +88,7 @@
 
                     <div v-model="userHasSetPrice">
                         <button v-if="!userHasSetPrice" @click="addPrice()">Ajouter un prix</button>
-                        <span v-else>✔️Vous avez déjà donné un prix pour ce vin</span>
+                        <span v-else>✔️Vous avez déjà donné un prix à ce vin</span>
                     </div>
                 </span>
             </b-col>
@@ -224,6 +224,11 @@ export default {
         })
 
     },
+    watch:{
+	"opinion.visual.datas": function(newVal, oldVal) { // watch it
+        this.opinion.visual.datas = newVal
+      },
+    },
     methods: {
         testIfCaveExists() {
             if(typeof(store.state.usr.cave)==="undefined"){
@@ -299,52 +304,32 @@ export default {
                 EventBusModal.$emit("loading-loader", false)
             });
         },
-        getOpinion( type ) {
-            if(type==="all" || type==="visual"){
-                HTTP.get('/opinions/'+this.$route.params.id).then( response => {
-                    var s = _.map(response.data, 'visual');
-                    var z = _.reduceRight( s , function(flattened, other) {
+        fetchOpinion(type){
+            HTTP.get('/opinions/'+this.$route.params.id).then( response => {
+                    var x = _.groupBy(_.reduceRight(_.map(response.data, type) ,
+                        function(flattened, other) {
                           return flattened.concat(other);
-                    }, [])
-                    var x = _.groupBy(z)
-                    console.log(x)
+                        }, []))
+                    var dat = []
+                    var lab = []
                     for (const [key, val] of Object.entries(x)) {
-                        this.opinion.visual.labels.push(x[key][0])
-                        this.opinion.visual.datas.push(x[key].length)
+                        lab.push(x[key][0])
+                        dat.push(x[key].length)
                         console.log(x[key][0] + " -> "+ x[key].length);
                     }
+                    this.opinion[type].labels = lab
+                    this.opinion[type].datas  = dat
                 })
+        },
+        async getOpinion( type ) {
+            if(type==="all" || type==="visual"){ 
+                this.fetchOpinion('visual')
             }
             if(type==="all" || type==="smell"){
-                HTTP.get('/opinions/'+this.$route.params.id).then( response => {
-                    var s = _.map(response.data, 'smell');
-                    var z = _.reduceRight( s , function(flattened, other) {
-                          return flattened.concat(other);
-                    }, [])
-                    var x = _.groupBy(z)
-                    console.log(x)
-                    for (const [key, val] of Object.entries(x)) {
-                        this.opinion.smell.labels.push(x[key][0])
-                        this.opinion.smell.datas.push(x[key].length)
-                        console.log(x[key][0] + " -> "+ x[key].length);
-                    }
-                        console.log("VISUAL FINAL",this.opinion.smell.labels);
-                })
+                this.fetchOpinion('smell')
             }
             if(type==="all" || type==="taste"){
-                HTTP.get('/opinions/'+this.$route.params.id).then( response => {
-                    var s = _.map(response.data, 'taste');
-                    var z = _.reduceRight( s , function(flattened, other) {
-                          return flattened.concat(other);
-                    }, [])
-                    var x = _.groupBy(z)
-                    console.log(x)
-                    for (const [key, val] of Object.entries(x)) {
-                        this.opinion.taste.labels.push(x[key][0])
-                        this.opinion.taste.datas.push(x[key].length)
-                        console.log(x[key][0] + " -> "+ x[key].length);
-                    }
-                })
+                this.fetchOpinion('taste')
             }
         },
         getIfUserSetPrice() {

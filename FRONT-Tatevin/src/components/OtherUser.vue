@@ -19,14 +19,14 @@
                     </b-col>
                 </b-row>
                 <b-row class="margin-bottom-25">
-                    <b-col sm="3"><label> Username </label></b-col>
+                    <b-col sm="3"><label> Nom d'utilisateur </label></b-col>
                     <b-col sm="9">
                         <b-form-input v-model="uUser.username" type="text"></b-form-input>
                     </b-col>
                 </b-row>
 
                 <b-row class="margin-bottom-25">
-                    <b-col sm="3"><label> Email </label></b-col>
+                    <b-col sm="3"><label> E-mail </label></b-col>
                     <b-col sm="9">
                         <b-form-input v-model="uUser.email" type="email"></b-form-input>
                     </b-col>
@@ -64,14 +64,17 @@
                 <b-img v-else center :src="require('./../assets/img/profile/default.svg')" class="profile-img text-center" alt="profile image"></b-img>
 
                 <div class="text-center mt-4 mb-4">
-                    <button v-if="isCurrentUser()" @click="isEdit=true" class="wine-btn btn-purple">Modifier</button>
+                    <b-col v-if="isCurrentUser()">
+                        <button  @click="isEdit=true" class="wine-btn btn-purple">Modifier</button>
+                        <button  @click="deleteUser()" class="wine-btn  btn-danger">Supprimer</button>
+                    </b-col>
                     <b-col v-else>
                         <div v-if="!isProd()">
                         <b-button disabled v-if="isInSubs(oUser._id)" class="wine-btn btn-purple">Déjà ajouté</b-button>
                         <b-button v-else @click="add(oUser._id)"  class="wine-btn btn-purple">Ajouter</b-button>
                         </div>
                     </b-col>
-                    
+
                 </div>
 
                 <b-row class="text-center">
@@ -85,7 +88,7 @@
                 <b-card no-body class="mt-3">
                     <b-tabs card>
                         <b-tab  :title="'Dernières Activités (' + (this.activity.length || '0') + ')'">
-                            <h1 class="text-center" v-if="activity.length === 0">No activity 😭</h1>
+                            <h1 class="text-center" v-if="activity.length === 0">Aucune activité.. 🍷</h1>
                             <b-list-group v-else v-for="ac in activity">
                                 <b-list-group-item >
                                     <b-row>
@@ -95,13 +98,13 @@
                                         <b-col cols="3" class="text-center">  {{ac.score ? ac.score + '/5' : ''}} </b-col>
                                         <b-col cols="4" class="text-center">  <router-link :to="ac.road" >{{ac.roadName}}</router-link> </b-col>
                                         <b-col cols="3" class="text-center"> {{ ac.date }} </b-col>
-                                    
+
                                     </b-row>
                                 </b-list-group-item>
                             </b-list-group>
                         </b-tab>
                         <b-tab  :title="'Abonnement (' + (this.subsDetails.length || '0') + ')'">
-                            <h1 class="text-center" v-if=" subsDetails.length === 0">No subs 😭</h1>
+                            <h1 class="text-center" v-if=" subsDetails.length === 0">Aucun abonné.. 🍇</h1>
                             <b-list-group v-else v-for="us in subsDetails">
                                 <b-list-group-item>
                                     <b-row>
@@ -129,7 +132,7 @@
 
         </b-container>
         <p v-else>
-            No user found 🤔
+            Aucun utilisateur trouvé 🤔
         </p>
 
     </section>
@@ -162,6 +165,7 @@
     import moment from 'moment-timezone'
     import Utils from "./../utils/";
     import _ from 'lodash';
+    import Auth from '../auth/'
 
     Vue.use(require('vue-moment'));
     export default {
@@ -202,7 +206,7 @@
                 //clone.mdp = ''
                 return clone;
             },
-        
+
         },
         mounted() {
             this.loadUser(this.$route.params.username);
@@ -223,15 +227,18 @@
                         HTTP.get(`usersByIds/`, { params: {subs: this.oUser.subscription} } ).then(response => {
                             this.subsDetails = response.data
                         });
-                    HTTP.get('users/'+path+'/activity').then(r => {
-                        this.activity = r.data;
-                        this.activity.forEach(element => {
-                            that.activityType(element)
-                        });
-                        console.log(this.activity);
-                    })
+                
                     EventBusModal.$emit("loading-loader", false);
                 });
+            },
+            deleteUser(){
+                HTTP.delete(`users/` + this.oUser._id).then(response => {
+                    new Promise( (resolve, reject) => {
+                        resolve(Auth.logout(this));
+                    }).then(() => {
+                        this.$router.push('/');
+                    });
+                })
             },
             isProd(){
                 return store.state.usr.isProd === true
@@ -255,7 +262,7 @@
                     ac.type = ScoreImage;
                     ac.road = "/wine/"+ac.id_wine
                     ac.date = Utils.dateLocaleHours(ac.date)
-                   
+
                 }
                 /*if(ac.hasOwnProperty('like'))
                 {
@@ -274,14 +281,15 @@
                     ac.date = Utils.dateLocaleHours(ac.date)
                     ac.roadName = _.truncate(ac.title, {'length': 25})
                 }
-              
+
             },
             update() {
                 EventBusModal.$emit("loading-loader", true);
                 HTTP.put(`users/` + this.oUser.username, this.uUser).then(response => {
+                    response.data.isProd = this.isProd() ? true : false;
                     store.commit("instanceUser", response.data);
                     EventBusModal.$emit("loading-loader", false);
-                    this.$router.push('/user')
+                    this.$router.push('/user/'+this.oUser.username)
                 });
             },
             add(idUserToAdd) {

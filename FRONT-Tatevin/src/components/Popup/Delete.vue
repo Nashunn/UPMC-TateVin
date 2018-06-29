@@ -12,7 +12,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p>Êtes vous certain de vouloir supprimer cette histoire ?</p>
+                            <p>Êtes-vous certain de vouloir supprimer cette histoire ?</p>
                             <div class="btn-wrapper">
                                 <button type="submit" ref="btnSubmit" @click="submit">Oui ! </button>
                                 <button type="button" @click="close">Je vais réfléchir encore un peu </button>
