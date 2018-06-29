@@ -11,13 +11,20 @@
                 <OngletMenu className="userPageMenu" link="OtherAccount" textOnglet="Mon profil" :numCol="numCol"/>
                 <OngletMenu className="caveMenu" link="Cave" textOnglet="Ma cave" :numCol="numCol"/>
                 <OngletMenu className="wishesMenu" link="Wishes" textOnglet="Ma liste de souhait" :numCol="numCol" />
+
             </ul>
+            <div class="links">
+                <p><router-link :to="{ name: 'CGU', params: {} }">Charte utilisateur</router-link></p>
+                <p><router-link :to="{ name: 'mentionsLegales', params: {} }">Mentions légales</router-link></p>
+            </div>
         </nav>
-        <div>
+
+        <div >
             <svg height="60" width="30">
              <path d="M0 0 L30 30 L0 60 Z" fill="rgb(128,0,43)"/>
             </svg>
         </div>
+    </b-row>
     </div>
 </template>
 <script>

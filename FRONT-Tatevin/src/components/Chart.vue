@@ -18,6 +18,9 @@ export default {
    watch: {
   	'iData.datas': function(newVal, oldVal) {
           this.myChart.update()
+    },
+    'iData.labels': function(newVal, oldVal) {
+          this.myChart.update()
     }
     },
   data() {

@@ -32,7 +32,6 @@ import HDVImage  from './../assets/img/hdv.svg'
 import ScoreImage  from './../assets/img/like.svg'
     import Utils from "./../utils/";
     import _ from 'lodash';
-
     export default {
         name: 'hello',
         components:{WinesPage},
@@ -42,16 +41,13 @@ import ScoreImage  from './../assets/img/like.svg'
                 mainUser:{},
                 activity:[],
                 allUser:[]
-
             }
         },
         created(){
             EventBusModal.$emit('loading-loader', false)
-
             var that = this;
             if(store.state.usr.username && !store.state.usr.isProd)
             {
-                alert('user')
                 HTTP.get(`users/` + store.state.usr.username).then(response => {
                     this.mainUser = response.data[0];
                     if (this.mainUser.subscription.length !== 0)
@@ -59,52 +55,43 @@ import ScoreImage  from './../assets/img/like.svg'
                             this.subs = response.data
                             console.log("subs",this.subs);
                             this.subs.forEach(element => {
-                                HTTP.get('users/'+element.username+'/activity').then(r => {
-                                    var tmp = r.data
-                                    console.log(tmp);
-                                        new Promise( (resolve, reject) => {
-                                                tmp.forEach(el => {
-                                                resolve(
-                                                    that.activityType(element   , element.username ))
-                                                }
-                                            )
-                                        }).then(() => {
-                                            this.activity.push(...tmp);
-                                        });
-                                });
-                            });
+                                this.getActivity(element.username)
+
                         })
+                    })
                 })
             }
             else{
-                alert('chelou')
-
-                HTTP.get(`users/sample/7`).then(response => {
+                HTTP.get(`users/sample/15`).then(response => {
                     this.allUser = response.data;
                     this.allUser.forEach(userSample => {
                         HTTP.get('users/'+ userSample.username +'/activity').then(async r => {
-                            if(r.data.length){
-                            var tmp = r.data
-                                new Promise( (resolve, reject) => {
-                                        tmp.forEach(el => {
-                                        resolve(
-                                            that.activityType(el, userSample.username ))
-                                        }
-                                    )
-                                }).then(() => {
-                                    this.activity.push(...tmp);
-                                });
-                            }
-
+                            this.getActivity(userSample.username);
                         });
                     });
 
                 })
             }
         },mounted(){
-
         },
         methods: {
+            getActivity: function (username) {
+                var that = this;
+              HTTP.get('users/'+username+'/activity').then(r => {
+                                    if(r.data.length){
+                                    var tmp = r.data
+                                    new Promise( (resolve, reject) => {
+                                        tmp.forEach(el => {
+                                        resolve(
+                                            that.activityType(el, username ))
+                                        }
+                                        )
+                                    }).then(() => {
+                                        this.activity.push(...tmp);
+                                    });
+                                    }
+                                });
+            },
               activityType: async function (ac, username) {
                 if(ac.hasOwnProperty('food'))
                 {
@@ -116,7 +103,6 @@ import ScoreImage  from './../assets/img/like.svg'
                     ac.date = Utils.dateLocaleHours(ac.date)
                     ac.username = username
                 }
-
                 if(ac.hasOwnProperty('title'))
                 {
                     ac.type = HDVImage;
