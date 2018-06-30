@@ -16,8 +16,19 @@ export default {
     iData: Object
   },
    watch: {
+     'iData': function (neW, olD){
+
+     },
   	'iData.datas': function(newVal, oldVal) {
-          this.myChart.update()
+
+      this.planetChartData.data.datasets[0].data = newVal
+
+      this.myChart.update()
+    },
+    'iData.labels': function(newVal, oldVal) {
+
+      this.planetChartData.data.labels = newVal
+      this.myChart.update()
     }
     },
   data() {
@@ -69,7 +80,7 @@ export default {
     };
   },
   mounted() {
-      console.log(this.idChart)
+
       this.createChart(this.idChart,this.planetChartData)
   },
   methods: {

@@ -20,7 +20,6 @@ exports.findByType = function (req, res) {
 };
 
 exports.createTagIfNotCreated = function (label, type) {
-    console.log("CREATE IF NOT CREATED");
     let tags=[];
     for (let i = 0; i < label.length; i++) {
     Tag.find({label: label[i], type: type}, (err, results) => {
@@ -35,7 +34,6 @@ exports.createTagIfNotCreated = function (label, type) {
 }
 
 exports.createTag = function (name, type) {
-  console.log("creating tag"+type);
   Tag.create(
     {
       type: type.toUpperCase(),
@@ -44,7 +42,7 @@ exports.createTag = function (name, type) {
     function (err, user) {
       // Check if corrects
       if (err) return "There was a problem registering the Tag.";
-      console.log(user)
+    
       // create a token
       return ({msg: "Tag created", tag: user})
     }

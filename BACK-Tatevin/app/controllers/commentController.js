@@ -23,7 +23,7 @@ exports.getArray = function(req, res){
 exports.createComment = function (req, res) {
   Comment.create(
     {
-        id:"test",
+        id:shortid.generate(),
         message: req.body.message,
         author: req.body.author,
     },
@@ -36,7 +36,7 @@ exports.createComment = function (req, res) {
   );
 }
 exports.addVote=function(req,res){
-    console.log(req.params.id_comment);
+
     Comment.findOneAndUpdate({_id:req.params.id_comment},
         { $inc :{"like.score": Number(req.body.score) , "like.vote":1} },{new:true}
         ,function(err, ws){

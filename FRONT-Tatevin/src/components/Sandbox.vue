@@ -23,7 +23,6 @@
 			fetchUsers(){
 				console.log("fetchUser");
 				HTTP.get('users').then(response=>{
-					console.log(response.data);
 					this.users=response.data;
 				}).catch(error=>{
 					console.log("HTTP marche pas");

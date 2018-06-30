@@ -20,7 +20,7 @@
             </div>
             <WineScoreMedal :score="wineGlobalScore.score" :vote="wineGlobalScore.nbVote"/>
         </b-row>
-        <b-row class="mt-3 width-98"><button @click="goModify()">Editer la fiche</button></b-row>
+        <b-row class="mt-3 width-98 endHeaderWine"><button @click="goModify()">Editer la fiche</button></b-row>
         <b-row class="mr-3 mt-3 width-98 d-inline" v-if="isProd()"><button @click="iAmProd()">Je suis le producteur</button></b-row>
         <b-row  class="mt-3 width-98 d-inline" v-if="isProd()"><button @click="showComment=true">Définir le vin</button></b-row>
         <b-row  class="mt-3 width-98 " v-show="showComment">
@@ -29,16 +29,32 @@
             <button @click="checkBeforeSubmitProdComment()">Valider</button>
         </b-row>
 
-        <b-row  v-if="producer._id">
-            <b-img :src="producer.avatar" rounded="circle"  width="34" height="34" alt="img"/>
-            <p>{{producer.username}}</p>
-             <b-button  class="wine-btn btn-purple">Contacter</b-button>
-            <span>{{producer.email}}</span>
-            <b-button  class="wine-btn btn-purple">Appeler</b-button>
-            <span>{{producer.phone}}</span>
-            <b-button  class="wine-btn btn-purple">Website</b-button>
-            <span>{{producer.website}}</span>
-            <p> Comment : {{wine.producer.comment}}</p>
+        <b-row  v-if="producer._id" class="prodBlocWine  width-98 ">
+            <b-col>
+                <b-row>
+                    <p class="title">Le mot du producteur</p>
+                </b-row>
+                <b-row>
+                    <p> {{wine.producer.comment}}</p>
+                </b-row>
+            </b-col>
+            <b-col md="3" class="text-center">
+                <b-row>
+                    <b-img :src="producer.avatar" rounded="circle"  width="34" height="34" alt="img"/>
+                    <p><router-link :to="{ name: 'ProdAccount', params: {username:producer.username} }">{{producer.username}}</router-link></p>
+                </b-row>
+                <b-row>
+                    <span><a :href="'mailto:'+producer.email">{{producer.email}}</a></span>
+                </b-row>
+                <b-row>
+
+                    <span><a :href="'tel:'+producer.phone">{{producer.phone}}</a></span>
+                </b-row>
+                <b-row>
+                    <span><a :href="producer.website">{{producer.website}}</a></span>
+                </b-row>
+            </b-col>
+
         </b-row>
 
         <b-row class="wine-bar width-98">
@@ -47,7 +63,7 @@
                 <glass-score  class="d-inline top-5-child" :score="wineUserScore" :readonly="false" :color="true" v-on:newVote="setUserScore($event)"/>
             </b-col>
             <b-col class="cave text-center" md="3" sm="12">
-                <span class="hover-underline" @click="addCave()">+ Ajouter à ma cave</span>
+                <span class="hover-underline" @click="testIfCaveExists()">+ Ajouter à ma cave</span>
             </b-col>
             <b-col class="wishes text-center" md="3" sm="12">
                 <span class="hover-underline"  @click="addWishes()">+ Ajouter à ma liste de souhait</span>
@@ -57,7 +73,7 @@
         <b-row class="width-98 mt-3">
             <b-col cols="6">
                 <span class="ml-1" >
-                    <button v-if="typeof(wine.id)==='undefined'" @click="addBarCode()">Ajouter un code barre</button>
+                    <button v-if="typeof(wine.barcode)==='undefined'" @click="addBarCode()">Ajouter un code barre</button>
                     <span v-else>✔️Code barre enregistré</span>
                 </span>
             </b-col>
@@ -69,10 +85,9 @@
                             (Number(wineGlobalPrice.price)+' €')
                         }}
                     </span>
-
                     <div v-model="userHasSetPrice">
                         <button v-if="!userHasSetPrice" @click="addPrice()">Ajouter un prix</button>
-                        <span v-else>✔️Vous avez déjà donné un prix pour ce vin</span>
+                        <span v-else>✔️Vous avez déjà donné un prix à ce vin</span>
                     </div>
                 </span>
             </b-col>
@@ -208,9 +223,31 @@ export default {
         })
 
     },
+    watch:{
+	"opinion.visual.datas": function(newVal, oldVal) { // watch it
+        this.opinion.visual.datas = newVal
+      },
+    },
     methods: {
-        addCave() {
-            console.log("todo");
+        testIfCaveExists() {
+            if(typeof(store.state.usr.cave)==="undefined"){
+                HTTP.post("/wineList",{}).then(response=>{
+                    var id_cave=response.data._id;
+                    store.commit("addCave",id_cave);
+                    HTTP.put('/userCreateCave/'+store.state.usr.username, store.state.usr).then(()=>{
+
+                        this.addWine(id_cave);
+                    })
+
+                });
+            }else{
+                this.addWine(store.state.usr.cave);
+            }
+        },
+        addWine( id_cave){
+            HTTP.put(`wineList/` + id_cave, {id_wine:this.wine._id}).then(()=>{
+                this.$router.push('/cave');
+            });
         },
         addWishes() {
             console.log("todo");
@@ -224,6 +261,7 @@ export default {
                 this.showAlert()
             })
         },
+        
         countDownChanged (dismissCountDown) {
             this.dismissCountDown = dismissCountDown
         },
@@ -257,61 +295,41 @@ export default {
                         this.commentsHere = true;
                     });
                     if(this.wine.producer)
-                        HTTP.get("/producer/"+ this.wine.producer.id_Prod).then(resp => {
+                        HTTP.get("/findproducer/"+ this.wine.producer.id_Prod).then(resp => {
                             this.producer = resp.data[0];
-                            console.log(this.producer)
+
                         });
                     this.firstPageLoad = false;
                 }
                 EventBusModal.$emit("loading-loader", false)
             });
         },
-        getOpinion( type ) {
-            if(type==="all" || type==="visual"){
-                HTTP.get('/opinions/'+this.$route.params.id).then( response => {
-                    var s = _.map(response.data, 'visual');
-                    var z = _.reduceRight( s , function(flattened, other) {
+        fetchOpinion(type){
+            HTTP.get('/opinions/'+this.$route.params.id).then( response => {
+                    var x = _.groupBy(_.reduceRight(_.map(response.data, type) ,
+                        function(flattened, other) {
                           return flattened.concat(other);
-                    }, [])
-                    var x = _.groupBy(z)
-                    console.log(x)
+                        }, []))
+                    var dat = []
+                    var lab = []
                     for (const [key, val] of Object.entries(x)) {
-                        this.opinion.visual.labels.push(x[key][0])
-                        this.opinion.visual.datas.push(x[key].length)
-                        console.log(x[key][0] + " -> "+ x[key].length);
+                        lab.push(x[key][0])
+                        dat.push(x[key].length)
+
                     }
+                    this.opinion[type].labels = lab
+                    this.opinion[type].datas  = dat
                 })
+        },
+        async getOpinion( type ) {
+            if(type==="all" || type==="visual"){
+                this.fetchOpinion('visual')
             }
             if(type==="all" || type==="smell"){
-                HTTP.get('/opinions/'+this.$route.params.id).then( response => {
-                    var s = _.map(response.data, 'smell');
-                    var z = _.reduceRight( s , function(flattened, other) {
-                          return flattened.concat(other);
-                    }, [])
-                    var x = _.groupBy(z)
-                    console.log(x)
-                    for (const [key, val] of Object.entries(x)) {
-                        this.opinion.smell.labels.push(x[key][0])
-                        this.opinion.smell.datas.push(x[key].length)
-                        console.log(x[key][0] + " -> "+ x[key].length);
-                    }
-                        console.log("VISUAL FINAL",this.opinion.smell.labels);
-                })
+                this.fetchOpinion('smell')
             }
             if(type==="all" || type==="taste"){
-                HTTP.get('/opinions/'+this.$route.params.id).then( response => {
-                    var s = _.map(response.data, 'taste');
-                    var z = _.reduceRight( s , function(flattened, other) {
-                          return flattened.concat(other);
-                    }, [])
-                    var x = _.groupBy(z)
-                    console.log(x)
-                    for (const [key, val] of Object.entries(x)) {
-                        this.opinion.taste.labels.push(x[key][0])
-                        this.opinion.taste.datas.push(x[key].length)
-                        console.log(x[key][0] + " -> "+ x[key].length);
-                    }
-                })
+                this.fetchOpinion('taste')
             }
         },
         getIfUserSetPrice() {

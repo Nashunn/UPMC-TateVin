@@ -134,6 +134,7 @@
     max-width:150px;
     max-height:150px;
 }
+
 #menuLeft li{
     box-shadow:2px 2px 8px rgba(0,0,0,0.8);
     min-width:100px;
@@ -158,6 +159,46 @@
     margin-top:10px;
     padding-left:0;
     text-align:center;
+}
+#menuLeft .searchMenu{
+    background-image: url('../assets/learn.png');
+    background-size: cover;
+}
+#menuLeft .wineMenu{
+    background-image: url('../assets/search.png');
+    background-size: cover;
+}
+#menuLeft .learningMenu{
+    background-image: url('../assets/wine.png');
+    background-size: cover;
+}
+#menuLeft .wineStoryMenu{
+    background-image: url('../assets/story.png');
+    background-size: cover;
+}
+#menuLeft .dictionnaryMenu{
+    background-image: url('../assets/dictionnary.png');
+    background-size: cover;
+}
+#menuLeft .userPageMenu{
+    background-image: url('../assets/user.png');
+    background-size: cover;
+}
+#menuLeft .caveMenu{
+    background-image: url('../assets/cave.png');
+    background-size: cover;
+}
+#menuLeft .wishesMenu{
+    background-image: url('../assets/wishes.png');
+    background-size: cover;
+}
+#menuLeft .links{
+    clear: left;
+    padding-top:0;
+    line-height:20px;
+}
+.links a{
+    color:#fff;
 }
 @media (max-width: 768px){
 

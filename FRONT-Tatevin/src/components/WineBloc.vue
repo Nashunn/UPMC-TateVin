@@ -27,10 +27,15 @@ export default {
         value:{type:String, default:""},
         wineObP:{type:Object, default:{}}
     },
-     watch: { 
+     watch: {
       	wineObP: function(newVal, oldVal) { // watch it
           this.wineOb = newVal
-        }
+      },
+      wine:function(newVal,oldVal){
+          this.wine=newVal;
+          this.getWine();
+      }
+
       },
     data(){
         return {
@@ -39,15 +44,21 @@ export default {
         }
     },
     created(){
-        if(this.wine!==""){
-            HTTP.get("wine/"+this.wine).then(response=>{
-                this.wineOb=response.data[0];
-                this.wineScore=response.data[1];
-            });
-        }else{
-            this.wineOb=this.wineObP;
-        }
+        this.getWine();
+    },
+    methods:{
+        getWine(){
+            if(this.wine!==""){
+                HTTP.get("wine/"+this.wine).then(response=>{
+                    this.wineOb=response.data[0];
+                    this.wineScore=response.data[1];
+                });
+            }else{
+                this.wineOb=this.wineObP;
+            }
 
+        }
     }
+
 }
 </script>

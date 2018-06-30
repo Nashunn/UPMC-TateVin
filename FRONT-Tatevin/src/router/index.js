@@ -18,6 +18,8 @@ import Wine from '@/components/Wine/Wine'
 import WineModification from '@/components/Wine/WineModification'
 import WineStoryCreation from '@/components/WineStoryCreation'
 import Chart from '@/components/Chart'
+import CGU from '@/components/CGU'
+import mentionsLegales from '@/components/mentionsLegales'
 Vue.use(Router);
 
 export default new Router({
@@ -124,6 +126,16 @@ export default new Router({
         {
             path: "/chart",
             component: Chart
+        },
+        {
+            path: "/cgu",
+            component: CGU,
+            name:"CGU"
+        },
+        {
+            path: "/mentionsLegales",
+            component: mentionsLegales,
+            name:"mentionsLegales"
         },
     ]
 })

@@ -1,7 +1,7 @@
 <template>
     <section class="signup">
         <h2>Créez votre histoire de vin</h2>
-        <button type="button" @click="emptyForm">Reinitialiser le formulaire</button>
+        <button type="button" @click="emptyForm">Réinitialiser le formulaire</button>
         <form @submit.prevent="validateBeforeSubmit()" class="">
             <p class="">
                 <label for="username">Titre : </label>

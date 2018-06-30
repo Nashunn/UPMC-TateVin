@@ -117,7 +117,6 @@
                 if(this.wineStory) this.search.categories=["vin"];
                 HTTP.get('/search',{  params: this.search }).then(response=>{
                     this.results=response.data[0];
-                    console.log(this.results);
                 });
             },
             displayCreateWine() {

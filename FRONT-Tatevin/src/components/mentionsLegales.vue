@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-      <h2>Apprentissage</h2>
+      <h2>Mentions légales</h2>
       <p>To do</p>
   </div>
 </template>
